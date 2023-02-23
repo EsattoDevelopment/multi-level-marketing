@@ -1,0 +1,8 @@
+public
+!.gitignore
+!images_default/
+comprovantes/*
+documentos/*
+rentabilidade/*
+modal/*
+contratos/*

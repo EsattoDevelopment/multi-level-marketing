@@ -1,0 +1,47 @@
+####
+# ATENTION:
+# Replace all occurences of ibpro with your project's name
+####
+
+# v2 syntax
+version: '2'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  multi-level-marketing-mysql-data:
+    driver: local
+
+services:
+
+  # MySQL (5.7)
+  mysql:
+    image: mysql:5.7
+    container_name: multi-level-marketing-mysql
+    volumes:
+      - multi-level-marketing-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=multi-level-marketing
+      - MYSQL_USER=multi-level-marketing
+      - MYSQL_PASSWORD=multi-level-marketing-123*@4
+
+  mailhog:  # MailHog - Fake SMTP server (optional).
+    image: mailhog/mailhog:latest
+    ports:
+      - '1025:1025'  # Port 1025 => SMTP.
+      - '8025:8025'  # Port 8025 => Web dashboard (http://127.0.0.1:8025).
+
+  # PHP (with Apache)
+  # you can change from nginx to apache, just change session 'image'
+  app:
+    image: ambientum/php:7.1-nginx
+    container_name: multi-level-marketing-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - mysql

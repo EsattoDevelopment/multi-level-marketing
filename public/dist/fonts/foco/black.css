@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "FocoW01-Black";
+    src: url("FocoW01Black.eot"); /* IE9 Compat Modes */
+    src: url("FocoW01Black.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("FocoW01Black.otf") format("opentype"), /* Open Type Font */
+    url("FocoW01Black.svg") format("svg"), /* Legacy iOS */
+    url("FocoW01Black.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("FocoW01Black.woff") format("woff"), /* Modern Browsers */
+    url("FocoW01Black.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}

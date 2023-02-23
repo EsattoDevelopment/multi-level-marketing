@@ -1,0 +1,148 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: verdana;
+	font-size: 12px;
+}	
+body{
+	background: #fff;
+}
+
+.box.box-primary{
+	padding: 0 14px;
+}
+
+#imagens{
+	display: none;
+}
+
+.text{
+    font-size: 11px;
+    text-align: center;
+	font-size: 24px;
+	color: #8F8F8F;
+	margin-top: 7%;
+}
+.active{
+	box-shadow: 0 0px 20px #818378 inset !important;
+}
+
+.preview{
+    display: inline-block;
+    position: relative;
+}
+.preview img{
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 0 2px #000000;
+    display: block;
+	object-fit: cover;
+	box-shadow: 0px 0px 10px 1px #484848;
+}
+.overlay{
+    background: rgba(255, 255, 255, 0.5);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
+.overlay span{
+	position: absolute;
+	top: 35%;
+	color: black;
+	font-weight: bold;
+}
+
+.overlay .updone{
+	position: relative;
+    text-align: right;
+    text-shadow: 1px 1px 1px #D7D7D7, 1px 1px 1px rgba(0, 0, 0, 0.7);
+    transition: all 0.5s linear 0s;
+	font-size: 25px;
+}
+
+.overlay img{
+	border: none;
+	box-shadow: none;
+	top: 50%;
+	position: absolute;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -50px;
+	width: 100px;
+	height: 100px;
+}
+.progress{
+	/*height: 4px;*/  /* Can be anything */
+    margin-bottom: 8px;
+	position: relative;
+	background: #555;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	-webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+	-moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
+	box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+.progress span{
+	border: 1px solid #125825;
+	width: 0px;
+	display: block;
+	margin-top: 10px;
+	text-align: right;
+	height: 6px;
+	   -webkit-border-top-right-radius: 20px;
+	-webkit-border-bottom-right-radius: 20px;
+	       -moz-border-radius-topright: 20px;
+	    -moz-border-radius-bottomright: 20px;
+	           border-top-right-radius: 20px;
+	        border-bottom-right-radius: 20px;
+	    -webkit-border-top-left-radius: 20px;
+	 -webkit-border-bottom-left-radius: 20px;
+	        -moz-border-radius-topleft: 20px;
+	     -moz-border-radius-bottomleft: 20px;
+	            border-top-left-radius: 20px;
+	         border-bottom-left-radius: 20px;
+	background-color: rgb(43,194,83);
+	background-image: -webkit-gradient(
+	  linear,
+	  left bottom,
+	  left top,
+	  color-stop(0, rgb(43,194,83)),
+	  color-stop(1, rgb(84,240,84))
+	 );
+	background-image: -webkit-linear-gradient(
+	  center bottom,
+	  rgb(43,194,83) 37%,
+	  rgb(84,240,84) 69%
+	 );
+	background-image: -moz-linear-gradient(
+	  center bottom,
+	  rgb(43,194,83) 37%,
+	  rgb(84,240,84) 69%
+	 );
+	background-image: -ms-linear-gradient(
+	  center bottom,
+	  rgb(43,194,83) 37%,
+	  rgb(84,240,84) 69%
+	 );
+	background-image: -o-linear-gradient(
+	  center bottom,
+	  rgb(43,194,83) 37%,
+	  rgb(84,240,84) 69%
+	 );
+	-webkit-box-shadow: 
+	  inset 0 2px 9px  rgba(255,255,255,0.3),
+	  inset 0 -2px 6px rgba(0,0,0,0.4);
+	-moz-box-shadow: 
+	  inset 0 2px 9px  rgba(255,255,255,0.3),
+	  inset 0 -2px 6px rgba(0,0,0,0.4);
+	position: relative;
+	overflow: hidden;
+}
+
+.progress-bar{
+    line-height: 12px;
+}

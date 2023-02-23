@@ -1,0 +1,226 @@
+body {
+    background: none;
+}
+
+.login-box{
+    width: 328px;
+    margin: 0 auto auto 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    top: 0;
+}
+
+.register-box {
+    width: 328px;
+    margin: 0 auto auto 10%;
+}
+
+.register-box .register-box-body, .login-box .login-box-body{
+    margin-top: 10px; margin-bottom: 10px;
+}
+
+.liberty-logo{
+    background-size: 85%, 85%, contain;
+    width: 451px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 10%;
+}
+
+.login-box-body,
+.register-box-body {
+    border-radius: 12px;
+    background-color: rgba(27, 117, 187, 0.9);
+    padding: 20px 30px;
+}
+
+.register-box-body {
+    background-color: rgba(27, 117, 187, 0.9);
+}
+
+.login-box-body .form-group input,
+.register-box-body .form-group input {
+    font-family: "FocoW01-Light";
+    font-size: 15px;
+    border: 0;
+    border-color: inherit;
+    border-radius: 9px;
+    height: 44px;
+    color: #000000;
+}
+
+.register-box-body .form-group input {
+    font-size: 15px;
+}
+
+#buscar-indicador {
+    padding: 11px 12px;
+}
+
+.form-group.has-error .form-control input {
+    border-top: 1px;
+    border-left: 1px;
+    border-right: 1px;
+    border-bottom: 1px
+}
+
+.register-box-body .checkbox {
+    font-family: "FocoW01-Light";
+    font-size: 15px;
+    color: #FFFFFF;
+}
+.form-control-feedback
+.register-box-body .checkbox a {
+    color: #FFFFFF;
+    text-decoration: underline
+}
+
+input.datepicker {
+    padding-left: 12px;
+}
+
+.login-logo,
+.register-logo {
+    margin: 15px 0 10px 0;
+}
+
+.register-logo {
+    margin: 15px 10px;
+}
+
+.esqueci-mastermdr {
+    color: #fff;
+    font-family: "FocoW01-Light";
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+}
+
+.esqueci-mastermdr.hover,
+.esqueci-mastermdr:active,
+.esqueci-mastermdr:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.esqueci-mastermdr:focus {
+    color: #fff;
+}
+
+.form-control-feedback {
+    height: 44px;
+    line-height: 44px;
+    color: #000000 !important;
+    left: 0;
+}
+
+.has-feedback .form-control{
+    padding-right: 10.5px;
+    padding-left: 36.5px;
+}
+
+.txt-alg-center {
+    text-align: center;
+}
+
+.btn-mastermdr {
+    font-family: "FocoW01-Light";
+    background-color: #00adef;
+    border-color: inherit;
+    border: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 400;
+    border-radius: 9px!important;
+    height: 44px;
+    font-weight: bold;
+}
+
+.btn-mastermdr.hover,
+.btn-mastermdr:active,
+.btn-mastermdr:hover {
+    background-color: #00adef;
+    color: #FFFFFF;
+}
+
+.btn-mastermdr-cadastro {
+    background-color: #ae903e;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.btn-mastermdr-cadastro.hover,
+.btn-mastermdr-cadastro:active,
+.btn-mastermdr-cadastro:hover {
+    background-color: #ae9045;
+    color: #FFFFFF;
+}
+
+#trocar-indicador {
+    font-family: "FocoW01-Light";
+    color: #FFFFFF;
+    font-size: 15px;
+    text-decoration: underline;
+    margin-bottom: 3px;
+}
+
+.icon-mastermdr-conta {
+    background: url(../../images/icon-user.png?v=220719) no-repeat 9px center;
+}
+
+.icon-mastermdr-user {
+    background: url(../../images/icon-user.png?v=220719) no-repeat 10px center;
+}
+
+.icon-mastermdr-pass {
+    background: url(../../images/icon-pass.png?v=220719) no-repeat 12px center;
+}
+
+.icon-mastermdr-username {
+    background: url(../../images/icon-username.png?v=220719) no-repeat 9px center;
+}
+
+.icon-mastermdr-cpf {
+    background: url(../../images/icon-cpf.png?v=220719) no-repeat 9px center;
+}
+
+.icon-mastermdr-rg {
+    background: url(../../images/icon-rg.png?v=220719) no-repeat 12px center;
+}
+
+.icon-mastermdr-email {
+    background: url(../../images/icon-email.png?v=220719) no-repeat 9px center;
+}
+
+.icon-mastermdr-contract {
+    background: url(../../images/icon-contract.png?v=220719) no-repeat 12px center;
+}
+
+.icon-mastermdr-date {
+    background: url(../../images/icon-date.png?v=220719) no-repeat 12px center;
+}
+
+@media (max-width: 1120px){
+    .register-box, .login-box{
+        margin-left: 5%;
+    }
+
+    .liberty-logo{
+        right: 5%;
+    }
+}
+
+@media (max-width: 880px){
+    .register-box, .login-box{
+        margin: 0 auto;
+    }
+
+    .liberty-logo{
+        display: none;
+    }
+}
+
+/*# sourceMappingURL=mastermdr.css.map */

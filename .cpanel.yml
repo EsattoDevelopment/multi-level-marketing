@@ -1,0 +1,21 @@
+---
+deployment:
+  tasks:
+    - export DEPLOY_ROOT=/home/credg8
+    - export DEPLOYPATH="${DEPLOY_ROOT}/multi-level-marketing-deploy"
+    - /bin/mkdir -p "./storage/framework/sessions"
+    - /bin/mkdir -p "./storage/framework/views"
+    - /bin/mkdir -p "./storage/framework/cache/data"
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/mkdir -p "${DEPLOYPATH}/storage/framework/sessions"
+    - /bin/mkdir -p "${DEPLOYPATH}/storage/framework/views"
+    - /bin/mkdir -p "${DEPLOYPATH}/storage/framework/cache/data"
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp .env.production "${DEPLOYPATH}/.env"
+    - /bin/ln -sf "${DEPLOYPATH}/public" "${DEPLOY_ROOT}/public_html"
+    - /bin/ln -sf "${DEPLOYPATH}/storage/app/public" "${DEPLOY_ROOT}/public_html/storage"
+    - /bin/chmod -R 777 "${DEPLOYPATH}/storage"
+    - /bin/cd $DEPLOYPATH
+    - /opt/cpanel/composer/bin/composer install --no-dev
+    - /bin/php "${DEPLOYPATH}/artisan" migrate:status
+    - /bin/php "${DEPLOYPATH}/artisan" migrate

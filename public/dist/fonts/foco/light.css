@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "FocoW01-Light";
+    src: url("FocoW01Light.eot"); /* IE9 Compat Modes */
+    src: url("FocoW01Light.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("FocoW01Light.otf") format("opentype"), /* Open Type Font */
+    url("FocoW01Light.svg") format("svg"), /* Legacy iOS */
+    url("FocoW01Light.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("FocoW01Light.woff") format("woff"), /* Modern Browsers */
+    url("FocoW01Light.woff2") format("woff2"); /* Modern Browsers */
+    font-weight: normal;
+    font-style: normal;
+}

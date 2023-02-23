@@ -1,0 +1,43 @@
+.navbar-imagens{
+    position: absolute;
+    bottom: -80px;
+    left: 50%;
+    margin-left: -77px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar-imagens{
+        border-radius: 5px;
+        padding: 0px 5px;
+    }
+
+    .navbar-imagens{
+        transition-property: all;
+        bottom: 6px;
+        transition-duration: .5s;
+    }
+
+}
+
+.navbar-imagens:hover{
+    bottom: 6px;
+}
+
+.navbar-imagens .btn{
+}
+
+.thumbnail-principal{
+    background-color: #00AA00;
+}
+
+.thumbnail:hover + .navbar-imagens{
+    transition-property: all;
+    bottom: 6px;
+    transition-duration: .5s;
+}
+
+.box-img{
+    position: relative;
+    overflow: hidden;
+}

@@ -1,0 +1,13 @@
+vendor
+.idea
+.env
+.env.production
+.env.development
+.dev.staging
+/vendor
+/node_modules
+.php_cs.cache
+/public/remessas
+/public/cv
+/storage/framework
+/storage/downloads
