@@ -61,10 +61,11 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'maximus_app',
-            'username'  => 'maximus_app',
-            'password'  => 'VGiSh!u4lN8Sw{l#,u5vIgQ!w{a5!tbR8tfOZDnl__b1RHs3}W[UF64XXG*D',
+            'host'      => env('DB_HOST', 'localhost'),
+            'database'  => env('DB_DATABASE', 'multi-level-marketing'),
+            'username'  => env('DB_USERNAME', 'multi-level-marketing'),
+            'password'  => env('DB_PASSWORD', ''),
+            'port'      => env('DB_PORT', '3306'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
