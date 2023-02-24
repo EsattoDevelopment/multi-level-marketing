@@ -114,7 +114,7 @@
                         </div>
                     </div>
                 @endif
-                <div class="row">
+                <div class="row" style="margin-top: 16px">
                     <input type="hidden" name="indicadorID"
                            value="{{ old('indicadorID', isset($indicador)? $indicador->id : '') }}">
                     <input type="hidden" name="_token" value="{!! csrf_token() !!}">

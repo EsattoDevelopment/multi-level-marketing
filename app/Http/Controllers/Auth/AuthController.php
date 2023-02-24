@@ -8,7 +8,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Log;
+use App\Models\Empresa;
+use Illuminate\Support\Facades\Log;
 use Cache;
 use Config;
 use Validator;
@@ -47,14 +48,15 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     //protected $redirectTo;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $username = 'username';
-    /**
-     * @var
-     */
+
+    /** @var Sistema */
     private $sistema;
+
+    /** @var bool */
+    private $verificarTermo;
 
     /**
      * Create a new authentication controller instance.
@@ -64,6 +66,8 @@ class AuthController extends Controller
     public function __construct()
     {
         //$this->middleware('auth', ['except' => 'getLogout']);
+        $termoInicial = Empresa::find(1)->termo_inicial;
+        $this->verificarTermo = (bool) $termoInicial;
         $this->sistema = Sistema::findOrFail(1);
     }
 
@@ -73,7 +77,7 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
         $campos['name'] = 'required|max:255|palavras:2';
         $campos['email'] = 'required|email|max:255|unique:users';
@@ -81,27 +85,25 @@ class AuthController extends Controller
 
         $validarDocumentosNacionais = (! $this->sistema->habilita_estrangeiro || ! ($this->sistema->habilita_estrangeiro && isset($data['estrangeiro'])));
 
-        if ($validarDocumentosNacionais) {
-            if ($this->sistema->campo_cpf) {
-                if (strlen($data['cpf']) == 18) {
-                    $campos['cpf'] = 'required|cnpj|unique:users';
-                } else {
-                    $campos['cpf'] = 'required|cpf|unique:users';
-                    if ($this->sistema->campo_dtnasc) {
-                        $campos['data_nasc'] = 'date_format:"d/m/Y"|required';
-                    }
-                    if ($this->sistema->campo_rg) {
-                        $campos['rg'] = 'required';
-                    }
+        if ($validarDocumentosNacionais && $this->sistema->campo_cpf) {
+            if (strlen($data['cpf']) === 18) {
+                $campos['cpf'] = 'required|cnpj|unique:users';
+            } else {
+                $campos['cpf'] = 'required|cpf|unique:users';
+                if ($this->sistema->campo_dtnasc) {
+                    $campos['data_nasc'] = 'date_format:"d/m/Y"|required';
+                }
+                if ($this->sistema->campo_rg) {
+                    $campos['rg'] = 'required';
                 }
             }
         }
-
         $campos['indicadorID'] = 'required';
-//        $campos['username'] = 'required|alpha_dash|max:20|min:3|unique:users';
+        // $campos['username'] = 'required|alpha_dash|max:20|min:3|unique:users';
         $campos['password'] = 'required|confirmed|min:6';
-        $campos['termo'] = 'required';
-
+        if ($this->verificarTermo) {
+            $campos['termo'] = 'required';
+        }
         return Validator::make($data, $campos);
     }
 
@@ -115,44 +117,37 @@ class AuthController extends Controller
     {
         try {
             $titulo = Titulos::whereTituloInicial(1)->first();
-
             DB::beginTransaction();
-
             $dados['name'] = $data['name'];
             $dados['email'] = $data['email'];
-//            $dados['username'] = $data['username'];
+            // $dados['username'] = $data['username'];
             $dados['username'] = str_slug($dados['email']);
             $dados['indicador_id'] = $data['indicadorID'];
-            $dados['termo'] = $data['termo'];
-
+            if ($this->verificarTermo) {
+                $dados['termo'] = $data['termo'];
+            }
             if ($this->sistema->campo_dtnasc) {
                 $dados['data_nasc'] = $data['data_nasc'];
             }
-
-            if (! isset($data['estrangeiro']) && ! $this->sistema->habilita_estrangeiro) {
+            if (!isset($data['estrangeiro']) && !$this->sistema->habilita_estrangeiro) {
                 if ($this->sistema->campo_rg) {
                     $dados['rg'] = $data['rg'];
                 }
-
                 if ($this->sistema->campo_cpf) {
                     $dados['cpf'] = $data['cpf'];
                     $cpf = preg_replace('/[^0-9]/', '', $dados['cpf']);
                     $dados['cpf'] = $this->mask($cpf, '###.###.###-##');
-
-                    if (strlen($cpf) == 14) {
+                    if (strlen($cpf) === 14) {
                         $dados['cpf'] = $this->mask($cpf, '##.###.###/####-##');
                     }
                 }
             }
-
-            $dados['cpf'] = isset($data['cpf']) ? $data['cpf'] : null;
-
+            $dados['cpf'] = $data['cpf'] ?? null;
             $dados['titulo_id'] = $titulo->id;
             $dados['status'] = Config::get('constants.status.ativacao_pendente');
             $dados['password'] = $data['password'];
             $dados['empresa'] = null;
-            $dados['estrangeiro'] = isset($data['estrangeiro']) ? true : false;
-
+            $dados['estrangeiro'] = isset($data['estrangeiro']);
             $user = User::create($dados);
 
             //crio a conta
@@ -196,21 +191,14 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = $this->validator($request->all());
-
         if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
+            $this->throwValidationException($request, $validator);
         }
-
         if (strlen($request->get('cpf')) > 14) {
             $request->merge(['empresa' => $request->get('name')]);
         }
-
         $user = $this->create($request->all());
-
         Auth::loginUsingId($user->id);
-
         return redirect(route('dados-usuario', $user)); // Change this route to your needs
     }
 
