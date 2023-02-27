@@ -50,6 +50,17 @@
                 </a>
             </li>
 
+            <li class="treeview @if(strpos(Route::currentRouteName(), 'emprestimos.') !== false) active @endif">
+                <a href="javascript:">
+                    <i class="fa fa-money"></i>
+                    <span>Empréstimos</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('emprestimos.calculadora') }}"><i class="fa fa-calculator"></i> Fazer simulação</a></li>
+                </ul>
+            </li>
+
             @if(!Auth::user()->empresa_id)
                 <li class="treeview @if(strpos(Route::currentRouteName(), 'depositos.') !== false || strpos(Route::currentRouteName(), 'deposito.depositar') !== false) active @endif">
                     <a href="#">

@@ -44,6 +44,49 @@
                 </li>
             @endif
 
+            {{-- empréstimos --}}
+            <li
+                class="treeview
+                @if(strpos(Route::currentRouteName(), 'emprestimos.') !== false || Route::currentRouteName() === 'emprestimos') active @endif"
+            >
+                <a href="javascript:">
+                    <i class="fa fa-money"></i>
+                    <span>Empréstimos</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="{{ route('emprestimos') }}">
+                            <i class="fa fa-money"></i> Emprestimos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('emprestimos.calculadora') }}">
+                            <i class="fa fa-calculator"></i> Fazer simulação
+                        </a>
+                    </li>
+                    @if(Auth::user()->can('emprestar') && !$master)
+                        <li>
+                            <a href="{{ route('emprestimos.pagar') }}">
+                                <i class="fa fa-money"></i> Pagar
+                            </a>
+                        </li>
+                    @endif
+                    @if($master)
+                        <li>
+                            <a href="{{ route('emprestimos.pagar') }}">
+                                <i class="fa fa-money"></i> Pagar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('emprestimos.configuracoes') }}">
+                                <i class="fa fa-cog"></i> Configuração
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </li>
+
             <li class="treeview @if(strpos(Route::currentRouteName(), 'pedido') !== false && strpos(Route::currentRouteName(), 'pedidos.normal') === false)) active @endif">
                 <a href="#">
                     <i class="fa fa-th-large"></i> <span>Depósitos</span> <i class="fa fa-angle-left pull-right"></i>

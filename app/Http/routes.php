@@ -243,6 +243,15 @@ Route::group(['namespace' => 'App\Saude\Http\Controllers', 'middleware' => ['aut
             Route::get('portfolio', ['as' => 'portfolio.lista', 'uses' => 'PedidoController@create']);
             Route::post('portfolio/contratar', ['as' => 'portfolio.contratar', 'uses' => 'PedidoController@novoContrato']);
 
+            // Empréstimos
+            Route::get('emprestimos', ['as' => 'emprestimos', 'uses' => 'EmprestimosController@index']);
+            Route::get('emprestimos/simular', ['as' => 'emprestimos.calculadora', 'uses' => 'EmprestimosController@calculadora']);
+            Route::post('emprestimos/simular', ['as' => 'emprestimos.simular', 'uses' => 'EmprestimosController@simular']);
+            Route::get('emprestimos/configuracoes', ['as' => 'emprestimos.configuracoes', 'uses' => 'EmprestimosController@getConfiguracoes']);
+            Route::get('emprestimos/pagar', ['as' => 'emprestimos.pagar', 'uses' => 'EmprestimosController@getPagar']);
+            Route::post('emprestimos/pagar', ['as' => 'emprestimos.pagar', 'uses' => 'EmprestimosController@pagar']);
+            Route::post('emprestimos/atualizar-status', ['as' => 'emprestimos.atualizar-status', 'uses' => 'EmprestimosController@atualizarStatus']);
+
             Route::get('depositar', ['as' => 'deposito.depositar', 'uses' => 'DepositoController@create']);
             Route::post('depositar', ['as' => 'deposito.depositar.store', 'uses' => 'DepositoController@store']);
 
