@@ -8,6 +8,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\View\View;
 use Log;
 use Carbon\Carbon;
 use App\Models\Itens;
@@ -118,7 +121,7 @@ class PedidoController extends Controller
 
     /**
      * @param $pacote
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return Factory|\Illuminate\Http\RedirectResponse|View
      */
     public function interna($pacote)
     {
@@ -136,7 +139,7 @@ class PedidoController extends Controller
 
     /**
      * @param OutrosRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function bonus(OutrosRequest $request)
     {
@@ -165,7 +168,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function pagos()
     {
@@ -242,7 +245,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function aguardandoPagamento()
     {
@@ -289,7 +292,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function aguardandoConfirmacao()
     {
@@ -320,7 +323,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function cancelados()
     {
@@ -347,7 +350,7 @@ class PedidoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|Application|View
      */
     public function create()
     {
@@ -357,15 +360,14 @@ class PedidoController extends Controller
             ->where('ativo', 1)
             ->orderBy('ordem_exibicao')
             ->get();
-
         return view('default.pedidos.create', [
-                'title' => 'Novo pedido',
-                'itens' => $itens,
-            ]);
+            'title' => 'Novo pedido',
+            'itens' => $itens,
+        ]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function consultor()
     {
@@ -383,7 +385,7 @@ class PedidoController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit($id)
     {
@@ -457,7 +459,7 @@ class PedidoController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function usuarioPedidos($id)
     {
@@ -536,7 +538,7 @@ class PedidoController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function bonusVisualizar($id)
     {
@@ -648,7 +650,6 @@ class PedidoController extends Controller
             return self::salvar($request);
         } else {
             flash()->warning('Atenção! O aceite  dos termos é obrigatório!');
-
             return redirect()->back();
         }
     }
@@ -686,10 +687,10 @@ class PedidoController extends Controller
                 'quantidade' => $request->get('qtd_itens'),
 
                 'quitar_com_bonus' => $item->quitar_com_bonus,
-                'potencial_mensal_teto' => $item->potencial_mensal_teto,
-                'resgate_minimo' => $item->resgate_minimo,
-                'total_dias_contrato' => $item->contrato,
-                'total_meses_contrato' => $item->meses,
+                'potencial_mensal_teto' => $item->potencial_mensal_teto ?? -1,
+                'resgate_minimo' => $item->resgate_minimo ?? -1,
+                'total_dias_contrato' => $item->contrato ?? -1,
+                'total_meses_contrato' => $item->meses ?? -1,
                 'resgate_minimo_automatico' => $item->resgate_minimo_automatico,
                 'finaliza_contrato_automatico' => $item->finaliza_contrato_automatico,
                 'dias_carencia_transferencia' => $item->dias_carencia_transferencia,
