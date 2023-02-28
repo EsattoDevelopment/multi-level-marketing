@@ -82,7 +82,7 @@
                         <div class="box-body">
                             <div class="form-group col-xs-12">
                                 <strong class="text-red">É expressamente proibido transferências bancárias por contas de terceiros.<br>
-                                    A transferência deve ser feita exclusivamente de uma conta bancária da mesma titularidade da conta {{ env('COMPANY_NAME', 'Nome empresa') }}.
+                                    A transferência deve ser feita exclusivamente de uma conta bancária de SUA TITULARIDADE.
                                 </strong>
                             </div>
                         </div>
