@@ -578,7 +578,7 @@ use Log;
                         DB::commit();
 
                         Log::info('Comprovante de TED enviado com sucesso pedido '.$pedido->id);
-                        flash()->success('Comprovante enviado com sucesso! <br>Seu pedido será confirmado após realizarmos a conferência do seu depósito');
+                        flash()->success('Comprovante enviado com sucesso! <br>Seu pedido será confirmado após realizarmos a conferência do seu envio.');
 
                         if ($pedido->tipo_pedido === 4) {
                             return redirect()->route('depositos.aguardando.conferencia');
