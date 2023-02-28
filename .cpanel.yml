@@ -3,6 +3,7 @@ deployment:
   tasks:
     - export DEPLOY_ROOT=/home/credg8
     - export DEPLOYPATH="${DEPLOY_ROOT}/multi-level-marketing-deploy"
+     /bin/pwd
     - /bin/mkdir -p "./storage/framework/sessions"
     - /bin/mkdir -p "./storage/framework/views"
     - /bin/mkdir -p "./storage/framework/cache/data"
