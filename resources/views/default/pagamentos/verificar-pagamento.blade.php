@@ -47,7 +47,7 @@
                         <i class="glyphicon glyphicon-list-alt"></i>
                         <h3 class="box-title">
                             @if($dados->metodo_pagamento_id == 9)
-                                Favor efetuar o TED para:
+                                Favor efetuar o {{ $metodoPagamento->name }} para:
                             @else
                                 Favor efetuar o depósito seguindo as instruções a seguir:
                             @endif
