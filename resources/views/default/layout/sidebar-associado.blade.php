@@ -75,11 +75,6 @@
                                 </a>
                             </li>
                         @endif
-                        {{--<li class="treeview @if(strpos(Route::currentRouteName(), 'depositos.') !== false) active @endif">
-                            <a href="#">
-                                <i class="fa fa-circle-o" style="color: {{$dadosEmpresa->cor_botao_acao}}"></i> <span>Ver Depósitos Anteriores</span> <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                        <ul class="treeview-menu">--}}
                         <li @if(Route::currentRouteName() == "depositos.aguardando.deposito") class="active" @endif>
                             <a href="{{ route('depositos.aguardando.deposito') }}">
                                 <i class="fa fa-circle-o" style="color: red"></i>
@@ -196,13 +191,9 @@
                         <li @if(Route::currentRouteName() == "rede.organograma") class="active" @endif>
                             <a href="{{ route('rede.organograma') }}"><i class="fa fa-sitemap"></i> Organograma
                                 <span class="pull-right-container">
-                                  {{--<small class="label pull-right bg-red">{{ Auth::user()->consultores->count() }}</small>--}}
                                 </span>
                             </a>
                         </li>
-                        {{--<li>
-                            <a href="{{ route('user.diretos') }}"><i class="fa fa-sort-amount-asc"></i> Assoc. indicados diretos</a>
-                        </li>--}}
                     </ul>
                 </li>
             @endif
@@ -220,27 +211,6 @@
                 </ul>
             </li>
 
-            {{--@if(!\Entrust::hasRole('user-empresa'))
-            <li class="treeview">
-                <a href="{{ route('saude.dependentes.index', Auth::user()->id) }}">
-                    <i class="fa fa-user-plus"></i>
-                    <span>Dependentes</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-            </li>
-            @endif--}}
-
-            {{--@role('user-empresa')
-            <li class="treeview @if(strpos(Route::currentRouteName(), 'contratos') !== false &&  strpos(Route::currentRouteName(), 'minha-rede') === false)) active @endif">
-                <a href="javascript:;">
-                    <i class="fa fa-pencil"></i> <span>Contratos</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('contratos.index') }}"><i class="fa fa-circle-o"></i> Meus contratos</a></li>
-                </ul>
-            </li>
-            @endrole--}}
-
             @if(Auth::user()->nascimento->diffInYears(\Carbon\Carbon::now()) >= 18)
                 {{--@if(!Auth::user()->titulo->habilita_rede && Auth::user()->pedidos()->contratos()->where('status', 2)->count() > 0)--}}
                 @if(!Auth::user()->titulo->habilita_rede)
@@ -253,23 +223,6 @@
                 @endif
             @endif
 
-            {{--            <li class="treeview">--}}
-            {{--                <a href="{{ route('deposito.extrato.index') }}">--}}
-            {{--                    <i class="fa fa-black-tie"></i>--}}
-            {{--                    <span>Extrato</span>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
-
-            {{--@role('user-empresa')
-            <li class="treeview @if(strpos(Route::currentRouteName(), 'user') !== false) active @endif">
-                <a href="#">
-                    <i class="fa fa-user"></i> <span>Colaboradores</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('user.empresa') }}"><i class="fa fa-users"></i> Lista</a></li>
-                </ul>
-            </li>
-            @endrole--}}
 
             @include('default.layout.sidebar.download')
 

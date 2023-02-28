@@ -10,7 +10,6 @@
             <div class="pull-left info">
                 <p>{{ Auth::user()->name }}</p>
                 <p>Agência: 0001 / Conta: {{ Auth::user()->conta}}</p>
-                {{--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>--}}
             </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -23,16 +22,6 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
             </li>
-            {{--//TODO saude--}}
-            {{--@if(!$master)
-                <li class="treeview">
-                    <a href="{{ route('saude.dependentes.index') }}">
-                        <i class="fa fa-user-plus"></i>
-                        <span>Dependentes</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                </li>
-            @endif--}}
 
             @if(!$master)
                 <li class="treeview @if(strpos(Route::currentRouteName(), 'dados-usuario') !== false) active @endif">
@@ -115,33 +104,6 @@
                 </ul>
             </li>
 
-{{--            <li class="treeview @if(strpos(Route::currentRouteName(), 'contratos') !== false &&  strpos(Route::currentRouteName(), 'minha-rede') === false)) active @endif">
-                <a href="javascript:;">
-                    <i class="fa fa-pencil"></i> <span>Contratos</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('contratos.index') }}"><i class="fa fa-circle-o"></i> Aguardando liberação</a></li>
-                    <li><a href="{{ route('contratos.abertos') }}"><i class="fa fa-circle-o"></i> Liberados/em Aberto</a></li>
-                    <li><a href="{{ route('contratos.atrasados') }}"><i class="text-red fa fa-circle-o"></i> Atrasados</a></li>
-                    <li><a href="{{ route('contratos.finalizando') }}"><i class="fa fa-circle-o"></i> Em finalização</a></li>
-                    <li><a href="{{ route('contratos.finalizado') }}"><i class="fa fa-circle-o"></i> Finalizados</a></li>
-                    <li><a href="{{ route('contratos.cancelados') }}"><i class="text-red fa fa-circle-o"></i> Cancelados</a></li>
-                    <li><a href="{{ route('pedido.aguardando-pagamento') }}"><i class="fa fa-circle-o"></i> Vigente</a></li>
-                </ul>
-            </li>--}}
-
-            {{--<li class="treeview @if(strpos(Route::currentRouteName(), 'transferencia') !== false) active @endif">
-                <a href="#">
-                    <i class="fa fa-arrows-h"></i> <span>Transferências</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li @if(Route::currentRouteName() == "transferencia.em_liquidacao") class="active" @endif><a href="{{ route('transferencia.em_liquidacao') }}"><i class="fa fa-circle-o"></i>Em liquidação</a>
-                    <li @if(Route::currentRouteName() == "transferencia.todos") class="active" @endif><a href="{{ route('transferencia.todos') }}"><i class="fa fa-circle-o"></i>Todas</a>
-                    <li @if(Route::currentRouteName() == "transferencia.cancelados") class="active" @endif><a href="{{ route('transferencia.cancelados') }}"><i class="fa fa-circle-o"></i>Cancelados</a>
-                    </li>
-                </ul>
-            </li>--}}
-
             @include('default.layout.sidebar.documento')
 
             @if(!$master)
@@ -152,41 +114,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        {{--//TODO saude--}}
-                        {{--<li>
-                            <a href="{{ route('rede.agentes') }}"><i class="fa fa-building"></i> Consultores Ativos
-                                <span class="pull-right-container">
-                                  <small class="label pull-right bg-red">{{ Auth::user()->pendentes()->count() }}</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('rede.contratos') }}"><i class="fa fa-building"></i> Contratos Ativos
-                                <span class="pull-right-container">
-                                  <small class="label pull-right bg-red">{{ Auth::user()->pendentes()->count() }}</small>
-                                </span>
-                            </a>
-                        </li>--}}
-                        {{--<li>
-                            <a href="{{ route('rede') }}"><i class="fa fa-building"></i> Rede linear
-                                <span class="pull-right-container">
-                                  <small class="label pull-right bg-red">{{ Auth::user()->pendentes()->count() }}</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('user.rede-binaria') }}"><i class="glyphicon glyphicon-tower"></i> Rede binária</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('user.pendentes') }}"><i class="fa fa-building"></i> Indicados pendentes
-                                <span class="pull-right-container">
-                                  <small class="label pull-right bg-red">{{ Auth::user()->pendentes()->count() }}</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('user.diretos') }}"><i class="fa fa-sort-amount-asc"></i> Assoc. indicados diretos</a>
-                        </li>--}}
+
                         <li>
                             <a href="{{ route('rede') }}"><i class="fa fa-sort-amount-asc"></i> Diretos
                                 <span class="pull-right-container">
@@ -238,11 +166,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ route('user.index') }}"><i class="fa fa-users"></i> Todos</a></li>
 
-                    {{--   <li><a href="{{ route('user.aprovacao.doc') }}"><i class="fa fa-users"></i> Aguardando aprovação doc.</a></li>--}}
                     <li><a href="{{ route('user.consultor') }}"><i class="fa fa-users"></i> Agentes</a></li>
-                    {{--         <li><a href="{{ route('user.disabled') }}"><i class="fa fa-users"></i> Desabilitados</a></li>
-                             <li><a href="{{ route('user.finalizado') }}"><i class="fa fa-users text-yellow"></i> Finalizados</a></li>
-                             <li><a href="{{ route('user.inadimplente') }}"><i class="fa fa-users text-red"></i> Inadimplente</a></li>--}}
                     <li><a href="{{ route('user.inativo') }}"><i class="fa fa-users"></i> Inativos</a></li>
 
                     @if($sistema->sistema_saude)
@@ -257,18 +181,8 @@
                 </ul>
             </li>
 
-            {{--            <li class="treeview @if(strpos(Route::currentRouteName(), 'galeria') !== false)) active @endif">
-                            <a href="javascript:;">
-                                <i class="glyphicon glyphicon-picture"></i>
-                                <span>Galerias</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{ route('galeria.index') }}"><i class="fa fa-list"></i> Lista</a></li>
-                            </ul>
-                        </li>--}}
             @if($master)
-                <li class="treeview @if((strpos(Route::currentRouteName(), 'empresa') !== false) || (strpos(Route::currentRouteName(), 'contas_empresa') !== false) || (strpos(Route::currentRouteName(), 'sistema') !== false) || (strpos(Route::currentRouteName(), 'metodo_pagamento') !== false) || (strpos(Route::currentRouteName(), 'configuracao-bonus') !== false)) active @endif">
+                <li class="treeview @if((strpos(Route::currentRouteName(), 'empresa') !== false) || (strpos(Route::currentRouteName(), 'contas_empresa') !== false) || (strpos(Route::currentRouteName(), 'sistema') !== false) || (strpos(Route::currentRouteName(), 'metodo_pagamento') !== false)) active @endif">
                     <a href="#">
                         <i class="fa fa-wrench"></i>
                         <span>Configurações</span>
@@ -279,7 +193,7 @@
                         <li class="@if(Route::currentRouteName() == 'empresa.edit') active @endif"><a href="{{ route('empresa.edit', 1) }}"><i class="fa fa-building"></i> Dados da empresa</a></li>
                         <li class="@if(Route::currentRouteName() == 'metodo_pagamento.index') active @endif"><a href="{{ route('metodo_pagamento.index') }}"><i class="fa fa-building"></i> Métodos de Pagamento</a></li>
                         <li class="@if(Route::currentRouteName() == 'sistema.edit') active @endif"><a href="{{ route('sistema.edit', 1) }}"><i class="fa fa-building"></i> Sistema</a></li>
-                        <li class="@if(strpos(Route::currentRouteName(), 'configuracao-bonus') !== false) active @endif"><a href="{{ route('configuracao-bonus.index', 1) }}"><i class="fa fa-building"></i> Configuração de bônus</a></li>
+
                     </ul>
                 </li>
             @endif
@@ -308,22 +222,6 @@
                 </a>
             </li>
 
-            {{--//TODO saude--}}
-            {{-- <li class="treeview @if(strpos(Route::currentRouteName(), 'especialidade') !== false) active @endif">
-                 <a href="{{ route('saude.especialidade.index') }}">
-                     <i class="fa fa-medkit"></i>
-                     <span>Especialidades</span>
-                     <i class="fa fa-angle-left pull-right"></i>
-                 </a>
-             </li>
-
-             <li class="treeview @if(strpos(Route::currentRouteName(), 'exames') !== false) active @endif">
-                 <a href="{{ route('saude.exames.index') }}">
-                     <i class="fa fa-stethoscope"></i>
-                     <span>Exames</span>
-                     <i class="fa fa-angle-left pull-right"></i>
-                 </a>
-             </li>--}}
 
             <li class="treeview @if((strpos(Route::currentRouteName(), 'boleto') !== false) || (strpos(Route::currentRouteName(), 'movimento') !== false) || (strpos(Route::currentRouteName(), 'remessa') !== false) || (strpos(Route::currentRouteName(), 'pagamentos') !== false || strpos(Route::currentRouteName(), 'rentabilidade') !== false)) active @endif">
                 <a href="#">
@@ -364,40 +262,36 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('remessa.index') }}"><i class="glyphicon glyphicon-list-alt"></i>Lista</a></li>
-                            {{--<li><a target="_blank" href="{{ route('remessa.create') }}"><i class="glyphicon glyphicon-refresh"></i>Gerar</a></li>--}}
                         </ul>
                     </li>
                 </ul>
             </li>
 
-            {{--//TODO saude--}}
-            {{--<li class="treeview @if(strpos(Route::currentRouteName(), 'medicos') !== false) active @endif">
-                <a href="javascript:;">
-                    <i class="fa fa-user-md"></i>
-                    <span>Medicos</span>
-                    <i class="fa fa-angle-left pull-right"></i>
+            <li class="treeview @if((strpos(Route::currentRouteName(), 'item') !== false) || (strpos(Route::currentRouteName(), 'titulo') !== false) || (strpos(Route::currentRouteName(), 'configuracao-bonus') !== false)) active @endif">
+                <a href="#">
+                    <i class="fa fa-balance-scale"></i> <span>Bonificação</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('saude.medicos.index') }}"><i class="fa fa-list"></i> Ativos</a></li>
-                    <li><a href="{{ route('saude.medicos.disabled') }}"><i class="fa fa-list text-danger"></i> Desativados</a></li>
+                    <li>
+                        <a href="{{ route('item.index') }}">
+                            <i class="fa fa-cubes"></i>
+                            <span>Itens</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                    </li>
+                    @if($master || $admin)
+                        <li>
+                            <a href="{{ route('titulo.index') }}">
+                                <i class="fa fa-certificate"></i>
+                                <span>Titulos</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                        </li>
+                    @endif
+                    <li class="@if(strpos(Route::currentRouteName(), 'configuracao-bonus') !== false) active @endif"><a href="{{ route('configuracao-bonus.index', 1) }}"><i class="fa fa-building"></i> Configuração de bônus</a></li>
                 </ul>
             </li>
 
-            <li class="treeview @if(strpos(Route::currentRouteName(), 'procedimentos') !== false) active @endif">
-                <a href="{{ route('saude.procedimentos.index') }}">
-                    <i class="fa fa-bars"></i>
-                    <span>Procedimentos</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-            </li>--}}
-
-            <li class="treeview @if(strpos(Route::currentRouteName(), 'item') !== false) active @endif">
-                <a href="{{ route('item.index') }}">
-                    <i class="fa fa-cubes"></i>
-                    <span>Itens</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-            </li>
 
             {{--operações--}}
             <li class="treeview @if((strpos(Route::currentRouteName(), 'plataforma') !== false) || (strpos(Route::currentRouteName(), 'plataforma-conta') !== false) || (strpos(Route::currentRouteName(), 'operacao-historico') !== false)) active @endif">
@@ -428,31 +322,8 @@
                     <span>Relatórios</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-                <ul class="treeview-menu">
-              {{--      <li><a href="{{ route('relatorio.consultor') }}"><i class="fa fa-building"></i> Bonificações pagas</a></li>--}}
-                    <li><a href="{{ route('relatorio.depositos') }}"><i class="fa fa-building"></i> Depósitos</a></li>
-                    <li><a href="{{ route('relatorio.pedidos.pagos') }}"><i class="fa fa-building"></i> Pedidos Pagos</a></li>
-                    <li><a href="{{ route('relatorio.saques') }}"><i class="fa fa-building"></i> Saques</a></li>
-                   {{-- <li><a href="{{ route('relatorio.faturamento') }}"><i class="fa fa-building"></i> Faturamento</a></li>
-                    <li><a href="{{ route('relatorio.contratos') }}"><i class="fa fa-building"></i> Contratos</a></li>--}}
-                   {{-- <li><a href="{{ route('relatorio.pagamento-diarios') }}"><i class="fa fa-building"></i> Recebimentos</a></li>
-                    <li><a href="{{ route('relatorio.usuarios') }}"><i class="fa fa-building"></i> Usuários</a></li>
-                    <li><a href="{{ route('relatorio.inadimplentes') }}"><i class="fa fa-users"></i> Usuários inadimplentes</a></li>--}}
-                    {{--          <li><a href=""><i class="fa fa-building"></i> Inadimplentes</a></li>
-                              <li><a href="#"><i class="fa fa-building"></i> Consultas Atendidas</a></li>
-                              <li><a href="#"><i class="fa fa-building"></i> Exames Atendidos</a></li>--}}
-                </ul>
             </li>
 
-            @if($master || $admin)
-                <li class="treeview @if(strpos(Route::currentRouteName(), 'titulo') !== false) active @endif">
-                    <a href="{{ route('titulo.index') }}">
-                        <i class="fa fa-certificate"></i>
-                        <span>Titulos</span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                </li>
-            @endif
         </ul>
     </section>
     <!-- /.sidebar -->

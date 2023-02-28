@@ -25,7 +25,7 @@ class RoleUserSeeder extends Seeder
                 'user_id' => User::where('username', 'master')->first()->id,
             ],
             [
-                'role_id' => Role::whereName('admin')->first()->id,
+                'role_id' => Role::whereName('user-empresa')->first()->id,
                 'user_id' => User::where('username', 'empresa')->first()->id,
             ],
         ]);
