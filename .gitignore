@@ -11,3 +11,4 @@ vendor
 /public/cv
 /storage/framework
 /storage/downloads
+/public/storage
