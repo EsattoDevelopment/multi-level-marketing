@@ -10,6 +10,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Log;
 use Carbon\Carbon;
@@ -98,41 +100,36 @@ class PedidoController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
         $pedidos = Pedidos::with('itens.itens', 'dadosPagamento')
-                ->with([
-                    'user' => function ($query) {
-                        $query->withTrashed()->select('id', 'name', 'username', 'cpf', 'empresa');
-                    },
-                ])
-                ->get();
-
+            ->with(['user' => function ($query) {
+                $query->withTrashed()->select('id', 'name', 'username', 'cpf', 'empresa');
+            },])->get();
         return view('default.pedidos.index', [
-                'title'                      => 'Todos pedidos',
-                'pedidos_aguardando'         => $pedidos->where('status', 1),
-                'pedidos_pagos'              => $pedidos->where('status', 2),
-                'pedidos_cancelados'         => $pedidos->where('status', 3),
-                'pedidos_aguarda_confimacao' => $pedidos->where('status', 4),
-            ]);
+            'title' => 'Todos pedidos',
+            'pedidos_aguardando' => $pedidos->where('status', 1),
+            'pedidos_pagos' => $pedidos->where('status', 2),
+            'pedidos_cancelados' => $pedidos->where('status', 3),
+            'pedidos_aguarda_confimacao' => $pedidos->where('status', 4),
+        ]);
     }
 
     /**
      * @param $pacote
-     * @return Factory|\Illuminate\Http\RedirectResponse|View
+     * @return Factory|RedirectResponse|View
      */
     public function interna($pacote)
     {
         try {
             return view('default.pedidos.interna', [
-                    'title' => 'Página interna pacote',
-                    'item'  => Itens::findOrFail($pacote),
-                ]);
+                'title' => 'Página interna pacote',
+                'item'  => Itens::findOrFail($pacote),
+            ]);
         } catch (ModelNotFoundException $e) {
             flash()->error('Desculpe, o registro não pode ser carregado!');
-
             return redirect()->back();
         }
     }
@@ -173,8 +170,8 @@ class PedidoController extends Controller
     public function pagos()
     {
         return view('default.pedidos.pagos', [
-                'title'         => 'Pedidos Pagos ',
-            ]);
+            'title' => 'Pedidos Pagos ',
+        ]);
     }
 
     /**
@@ -183,34 +180,32 @@ class PedidoController extends Controller
     public function pagosJson()
     {
         $pedidos = DB::table('pedidos as p')
-                ->leftjoin('itens_pedido as ip', 'ip.pedido_id', '=', 'p.id')
-                ->leftjoin('itens as i', 'i.id', '=', 'ip.item_id')
-                ->leftjoin('dados_pagamento as dp', 'dp.pedido_id', '=', 'p.id')
-                ->leftjoin('users as u', 'u.id', '=', 'p.user_id')
-                ->where('p.status', '=', 2)
-                ->select([
-                    'p.id',
-                    'i.name as item',
-                    'u.name as nome',
-                    'u.username',
-                    'p.valor_total',
-                    'p.data_compra',
-                    'dp.data_pagamento',
-                    'dp.path_comprovante_ted',
-                ]);
-
+            ->leftjoin('itens_pedido as ip', 'ip.pedido_id', '=', 'p.id')
+            ->leftjoin('itens as i', 'i.id', '=', 'ip.item_id')
+            ->leftjoin('dados_pagamento as dp', 'dp.pedido_id', '=', 'p.id')
+            ->leftjoin('users as u', 'u.id', '=', 'p.user_id')
+            ->where('p.status', '=', 2)
+            ->select([
+                'p.id',
+                'i.name as item',
+                'u.name as nome',
+                'u.username',
+                'p.valor_total',
+                'p.data_compra',
+                'dp.data_pagamento',
+                'dp.path_comprovante_ted',
+            ]);
         $retorno = Datatables::of($pedidos)
-                ->orderColumn('id', 'id $1')
-                ->editColumn('data_compra', function ($pedidos) {
-                    return $pedidos->data_compra ? with(new Carbon($pedidos->data_compra))->format('d/m/Y H:i:s') : '';
-                })
-                ->editColumn('data_pagamento', function ($pedidos) {
-                    return $pedidos->data_pagamento ? with(new Carbon($pedidos->data_pagamento))->format('d/m/Y H:i:s') : '';
-                })
-                ->editColumn('valor_total', function ($pedidos) {
-                    return mascaraMoeda($this->sistema->moeda, $pedidos->valor_total, 2, true);
-                });
-
+            ->orderColumn('id', 'id $1')
+            ->editColumn('data_compra', function ($pedidos) {
+                return $pedidos->data_compra ? with(new Carbon($pedidos->data_compra))->format('d/m/Y H:i:s') : '';
+            })
+            ->editColumn('data_pagamento', function ($pedidos) {
+                return $pedidos->data_pagamento ? with(new Carbon($pedidos->data_pagamento))->format('d/m/Y H:i:s') : '';
+            })
+            ->editColumn('valor_total', function ($pedidos) {
+                return mascaraMoeda($this->sistema->moeda, $pedidos->valor_total, 2, true);
+            });
         if (Auth::user()->can(['master', 'admin'])) {
             $retorno->addColumn('action', function ($pedido) {
                 $botoes = '<div class="btn-group" role="group" aria-label="Botões de Ação">
@@ -250,23 +245,25 @@ class PedidoController extends Controller
     public function aguardandoPagamento()
     {
         return view('default.pedidos.aguardando-pagamento', [
-                'title'              => 'Aguardando pagamento',
-                'pedidos_aguardando' => DB::table('pedidos')
-                    ->join('itens_pedido', 'itens_pedido.pedido_id', '=', 'pedidos.id')
-                    ->join('itens', 'itens.id', '=', 'itens_pedido.item_id')
-                    ->join('users', 'users.id', '=', 'pedidos.user_id')
-                    ->where('itens.tipo_pedido_id', 4)
-                    ->select(
-                        'pedidos.id',
-                        'pedidos.valor_total',
-                        'pedidos.data_compra',
-                        'itens.name as item_name',
-                        'users.name',
-                        'users.empresa',
-                        'users.id as user_id',
-                        'users.username'
-                    )->where('pedidos.status', 1)->get(),
-            ]);
+            'title' => 'Aguardando pagamento',
+            'pedidos_aguardando' => DB::table('pedidos')
+                ->join('itens_pedido', 'itens_pedido.pedido_id', '=', 'pedidos.id')
+                ->join('itens', 'itens.id', '=', 'itens_pedido.item_id')
+                ->join('users', 'users.id', '=', 'pedidos.user_id')
+                ->where('itens.tipo_pedido_id', 4)
+                ->select(
+                    'pedidos.id',
+                    'pedidos.valor_total',
+                    'pedidos.data_compra',
+                    'itens.name as item_name',
+                    'users.name',
+                    'users.empresa',
+                    'users.id as user_id',
+                    'users.username'
+                )
+                ->where('pedidos.status', 1)
+                ->get(),
+        ]);
     }
 
     public function normalAguardandoPagamento()
@@ -297,15 +294,15 @@ class PedidoController extends Controller
     public function aguardandoConfirmacao()
     {
         return view('default.pedidos.aguardando-confirmacao', [
-                'title'                      => 'Aguardando confirmação ',
-                'pedidos_aguarda_confimacao' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
-                    ->whereHas('itens', function ($query) {
-                        $query->whereHas('item', function ($query) {
-                            $query->where('tipo_pedido_id', '=', 4);
-                        });
-                    })
-                    ->where('status', 4)->get(),
-            ]);
+            'title' => 'Aguardando confirmação ',
+            'pedidos_aguarda_confimacao' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
+                ->whereHas('itens', function ($query) {
+                    $query->whereHas('item', function ($query) {
+                        $query->where('tipo_pedido_id', '=', 4);
+                    });
+                })
+                ->where('status', 4)->get(),
+        ]);
     }
 
     public function normalAguardandoConfirmacao()
@@ -328,23 +325,23 @@ class PedidoController extends Controller
     public function cancelados()
     {
         return view('default.pedidos.cancelados', [
-                'title'              => 'Pedidos cancelados ',
-                'pedidos_cancelados' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')->where('status', 3)->get(),
-            ]);
+            'title' => 'Pedidos cancelados ',
+            'pedidos_cancelados' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')->where('status', 3)->get(),
+        ]);
     }
 
     public function nomalCancelados()
     {
         return view('default.pedidos.cancelados', [
-                'title'              => 'Pedidos cancelados ',
-                'pedidos_cancelados' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
-                    ->whereHas('itens', function ($query) {
-                        $query->whereHas('item', function ($query) {
-                            $query->where('tipo_pedido_id', '<>', 4);
-                        });
-                    })
-                    ->where('status', 3)->get(),
-            ]);
+            'title' => 'Pedidos cancelados ',
+            'pedidos_cancelados' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
+                ->whereHas('itens', function ($query) {
+                    $query->whereHas('item', function ($query) {
+                        $query->where('tipo_pedido_id', '<>', 4);
+                    });
+                })
+                ->where('status', 3)->get(),
+        ]);
     }
 
     /**
@@ -376,7 +373,6 @@ class PedidoController extends Controller
             ->whereNull('user_id')
             ->where('ativo', 1)
             ->get();
-
         return view('default.pedidos.consultor', [
             'title' => 'Seja um licenciado',
             'itens' => $itens,
@@ -390,12 +386,12 @@ class PedidoController extends Controller
     public function edit($id)
     {
         return view('default.pedidos.edit-adesao', [
-                'title'  => 'Pedido #'.$id.' ',
-                'dados'  => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
-                    ->find($id),
-                'contas' => ContasEmpresa::with('banco')->whereUsarBoleto(1)->get(),
-                'metodo_pagamento' => MetodoPagamento::whereIn('id', [1, 8])->get(),
-            ]);
+            'title'  => 'Pedido #'.$id.' ',
+            'dados'  => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
+                ->find($id),
+            'contas' => ContasEmpresa::with('banco')->whereUsarBoleto(1)->get(),
+            'metodo_pagamento' => MetodoPagamento::whereIn('id', [1, 8])->get(),
+        ]);
     }
 
     /**
@@ -403,7 +399,7 @@ class PedidoController extends Controller
      *
      * @param PedidoRequest|Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(PedidoRequest $request)
     {
@@ -412,7 +408,7 @@ class PedidoController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request)
     {
@@ -431,7 +427,7 @@ class PedidoController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -448,13 +444,13 @@ class PedidoController extends Controller
         }
 
         return view('default.pedidos.show', [
-                'title'  => 'Pedido #'.$id.' ',
-                'dados'  => $pedido,
-                'contas' => $contas,
-                'contaEmpresa' => $contaEmpresa,
-                'metodo_pagamento' => $metodosPagamento,
-                'metodosPagamentoBancoTed' => $metodosPagamentoBancoTed,
-            ]);
+            'title'  => 'Pedido #'.$id.' ',
+            'dados'  => $pedido,
+            'contas' => $contas,
+            'contaEmpresa' => $contaEmpresa,
+            'metodo_pagamento' => $metodosPagamento,
+            'metodosPagamentoBancoTed' => $metodosPagamentoBancoTed,
+        ]);
     }
 
     /**
@@ -464,18 +460,18 @@ class PedidoController extends Controller
     public function usuarioPedidos($id)
     {
         return view('default.pedidos.user-pedido', [
-                'title'                        => 'Meus pedidos ',
-                'pedidos_pagos'                => Pedidos::with('itens.itens', 'dadosPagamento')
-                    ->whereUserId($id)
-                    ->whereIn('status', [2, 7])
-                    ->where('tipo_pedido', '<>', 4)
-                    ->get(),
-                'pedidos_concluidos'                => Pedidos::with('itens.itens', 'dadosPagamento')
-                    ->whereUserId($id)
-                    ->whereStatus(6)
-                    ->where('tipo_pedido', '<>', 4)
-                    ->get(),
-            ]);
+            'title' => 'Meus pedidos ',
+            'pedidos_pagos' => Pedidos::with('itens.itens', 'dadosPagamento')
+                ->whereUserId($id)
+                ->whereIn('status', [2, 7])
+                ->where('tipo_pedido', '<>', 4)
+                ->get(),
+            'pedidos_concluidos' => Pedidos::with('itens.itens', 'dadosPagamento')
+                ->whereUserId($id)
+                ->whereStatus(6)
+                ->where('tipo_pedido', '<>', 4)
+                ->get(),
+        ]);
     }
 
     /**
@@ -483,7 +479,7 @@ class PedidoController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function visualizarPedido($user, $id)
     {
@@ -549,10 +545,10 @@ class PedidoController extends Controller
         }
 
         return view('default.pedidos.visualizar-outros', [
-                'title'     => 'Pedido #'.$id.' ',
-                'dados'     => Pedidos::with('itens.itens', 'dadosPagamento', 'usuario', 'status')->find($id),
-                'movimento' => $movimento,
-            ]);
+            'title' => 'Pedido #'.$id.' ',
+            'dados' => Pedidos::with('itens.itens', 'dadosPagamento', 'usuario', 'status')->find($id),
+            'movimento' => $movimento,
+        ]);
     }
 
     public function visualizarBoleto($pedido_id, $msg)
@@ -578,7 +574,7 @@ class PedidoController extends Controller
     /**
      * @param $user
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function cancelarPedido($user, $id)
     {
@@ -612,7 +608,7 @@ class PedidoController extends Controller
 
     /**
      * @param $pedido
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * https://github.com/jenssegers/date
      */
     public function verContrato($pedido)
@@ -749,8 +745,8 @@ class PedidoController extends Controller
     public function usuarioPedidosAguardandoPagamento()
     {
         return view('default.pedidos.pedidos', [
-            'title'                        => 'Pedidos - Aguardando pagamento',
-            'usuarioDepositosAguardandoDeposito'           => Pedidos::with('itens.itens', 'dadosPagamento')
+            'title' => 'Pedidos - Aguardando pagamento',
+            'usuarioDepositosAguardandoDeposito' => Pedidos::with('itens.itens', 'dadosPagamento')
                 ->whereUserId(Auth::user()->id)
                 ->whereStatus(1)
                 ->pedidos()
@@ -761,7 +757,7 @@ class PedidoController extends Controller
     public function usuarioPedidosAguardandoConferencia()
     {
         return view('default.pedidos.pedidos', [
-            'title'                        => 'Pedidos - Aguardando conferência',
+            'title' => 'Pedidos - Aguardando conferência',
             'usuarioDepositosAguardandoConferencia' => Pedidos::with('itens.itens', 'dadosPagamento')
                 ->whereUserId(Auth::user()->id)
                 ->whereStatus(4)
@@ -773,8 +769,8 @@ class PedidoController extends Controller
     public function usuarioPedidosConfirmados()
     {
         return view('default.pedidos.pedidos', [
-            'title'                        => 'Pedidos - Confirmados',
-            'usuarioDepositosConfirmados'                => Pedidos::with('itens.itens', 'dadosPagamento')
+            'title' => 'Pedidos - Confirmados',
+            'usuarioDepositosConfirmados' => Pedidos::with('itens.itens', 'dadosPagamento')
                 ->whereUserId(Auth::user()->id)
                 ->whereStatus(2)
                 ->pedidos()
@@ -785,8 +781,8 @@ class PedidoController extends Controller
     public function usuarioPedidosCancelados()
     {
         return view('default.pedidos.pedidos', [
-            'title'                        => 'Pedidos - Cancelados',
-            'usuarioDepositosCancelados'           => Pedidos::with('itens.itens', 'dadosPagamento')
+            'title' => 'Pedidos - Cancelados',
+            'usuarioDepositosCancelados' => Pedidos::with('itens.itens', 'dadosPagamento')
                 ->whereUserId(Auth::user()->id)
                 ->whereStatus(3)
                 ->pedidos()
