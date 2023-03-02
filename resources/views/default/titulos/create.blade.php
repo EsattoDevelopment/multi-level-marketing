@@ -207,12 +207,14 @@
                             <div class="form-group col-xs-12">
                                 <label for="exampleInputEmail1">Quantidade de diretos por título <strong class="text-red">*</strong></label><br>
                             </div>
-                            @foreach($titulos as $titulo)
-                                <div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">{{$titulo->name}}</label><br>
-                                    <input type="text" name="titulos_update[{{$titulo->id}}]" value="{{ old('titulos_update')[$titulo->id] }}" class="form-control" placeholder="Quantidade de diretos">
-                                </div>
-                            @endforeach
+                            @if($titulos)
+                                @foreach($titulos as $titulo)
+                                    <div class="form-group col-xs-12 col-sm-6">
+                                        <label for="exampleInputEmail1">{{$titulo->name}}</label><br>
+                                        <input type="text" name="titulos_update[{{$titulo->id}}]" value="{{ old('titulos_update')[$titulo->id] }}" class="form-control" placeholder="Quantidade de diretos">
+                                    </div>
+                                @endforeach
+                            @endif
                         </div><!-- /.box-body -->
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
