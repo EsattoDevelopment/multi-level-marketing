@@ -1,8 +1,8 @@
 {
   "lang": "pt-br",
-  "short_name": "Sirius Tecnology",
-  "name": "Sirius Tecnology",
-  "description":"Sistema da Sirius Tecnology",
+  "short_name": "G8 Cred",
+  "name": "G8 Cred",
+  "description":"Sistema Multi Level Marketing da G8 Cred",
   "icons": [
     {
       "src": "images/logo-fundo.png",
@@ -22,7 +22,7 @@
   ],
   "related_applications": [{
     "platform": "web",
-    "url": "https://app.siriustecnology.com/"
+    "url": "https://app.g8cred.com/"
   }],
   "start_url": "/",
   "display": "standalone",
