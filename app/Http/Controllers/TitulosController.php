@@ -9,6 +9,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ConfiguracaoBonus;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Log;
 use App\Models\Titulos;
 use Illuminate\Http\Request;
@@ -32,7 +36,7 @@ class TitulosController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -46,14 +50,14 @@ class TitulosController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
         return view('default.titulos.create', [
             'title' => 'Cadastro de Titulos ',
-            'titulos' => Titulos::all(),
-            'configuracaoBonus' => ConfiguracaoBonus::where('status',1)->get()
+            'titulos' => Titulos::all() ?? [],
+            'configuracaoBonus' => ConfiguracaoBonus::where('status', 1)->get() ?? [],
         ]);
     }
 
@@ -61,7 +65,7 @@ class TitulosController extends Controller
      * Store a newly created resource in storage.
      *
      * @param TitulosRequest $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(TitulosRequest $request)
     {
@@ -98,7 +102,7 @@ class TitulosController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -123,7 +127,7 @@ class TitulosController extends Controller
      *
      * @param TitulosRequest|Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(TitulosRequest $request, $id)
     {
@@ -173,7 +177,7 @@ class TitulosController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function delete($id)
     {
