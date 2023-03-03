@@ -110,14 +110,19 @@
             @if(!Auth::user()->empresa_id)
                 <li class="treeview @if(strpos(Route::currentRouteName(), 'pedidos.') !== false || strpos(Route::currentRouteName(), 'portfolio.lista') !== false) active @endif">
                     <a href="#">
-                        <i class="fa fa-file-text-o"></i> <span>Licenças e Setups</span> <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-file-text-o"></i>
+                        <span>Credenciais</span>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(Route::currentRouteName() == "portfolio.lista") class="active" @endif><a href="{{ route('portfolio.lista') }}"><i class="fa fa-file-o"></i> Adquirir Nova Licença</a></li>
+                        <li @if(Route::currentRouteName() == "portfolio.lista") class="active" @endif>
+                            <a href="{{ route('portfolio.lista') }}">
+                                <i class="fa fa-file-o"></i> Adquirir/Renovar Credencial
+                            </a>
+                        </li>
                         <li @if(Route::currentRouteName() == "pedidos.aguardando.pagamento") class="active" @endif>
                             <a href="{{ route('pedidos.aguardando.pagamento') }}">
-                                <i class="fa fa-circle-o" style="color: red"></i>
-                                Aguardando Pagamento
+                                <i class="fa fa-circle-o" style="color: red"></i> Aguardando Pagamento
                                 <small class="label pull-right bg-red">{{ Auth::user()->pedidos()->whereStatus(1)->where('tipo_pedido', '<>', 4)->count() }}</small>
                             </a>
                         </li>
@@ -130,20 +135,19 @@
                         </li>
                         <li @if(Route::currentRouteName() == "pedidos.confirmados") class="active" @endif>
                             <a href="{{ route('pedidos.confirmados') }}">
-                                <i class="fa fa-circle-o" style="color: green"></i>
-                                Confirmados
+                                <i class="fa fa-circle-o" style="color: green"></i> Confirmados
                                 <small class="label pull-right bg-green">{{ Auth::user()->pedidos()->whereStatus(2)->where('tipo_pedido', '<>', 4)->count() }}</small>
                             </a>
                         </li>
                         <li @if(Route::currentRouteName() == "pedidos.cancelados") class="active" @endif>
                             <a href="{{ route('pedidos.cancelados') }}">
-                                <i class="fa fa-circle-o" style="color: gray"></i>
-                                Cancelados
+                                <i class="fa fa-circle-o" style="color: gray"></i> Cancelados
                                 <small class="label pull-right bg-gray">{{ Auth::user()->pedidos()->whereStatus(3)->where('tipo_pedido', '<>', 4)->count() }}</small>
                             </a>
                         </li>
-                        <li @if(Route::currentRouteName() == "pedido.usuario.pedidos") class="active" @endif><a href="{{ route('pedido.usuario.pedidos', Auth::user()->id) }}">
-                                <i class="fa fa-files-o"></i>Ver Licenças Anteriores
+                        <li @if(Route::currentRouteName() == "pedido.usuario.pedidos") class="active" @endif>
+                            <a href="{{ route('pedido.usuario.pedidos', Auth::user()->id) }}">
+                                <i class="fa fa-files-o"></i> Ver Aquisições Anteriores
                             </a>
                         </li>
                     </ul>
