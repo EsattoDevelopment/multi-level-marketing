@@ -111,10 +111,6 @@
                             @endif
 
                             @if($sistema->rede_binaria)
-                                {{--<div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Binário para o patrocinador</label>
-                                    <input type="text" name="binario_patrocinado" value="{{ old('binario_patrocinado') }}" class="form-control"  placeholder="Binário para o indicador">
-                                </div>--}}
                                 <div class="form-group col-xs-12 col-sm-6">
                                     <label for="exampleInputEmail1">Percentual dos pontos <strong
                                                 class="text-red">*</strong></label>
@@ -163,10 +159,8 @@
                             <div class="form-group col-xs-12 col-sm-6">
                                 <label for="exampleInputEmail1">Cor do titulo <strong
                                             class="text-red">*</strong></label>
-                                <small><i>Utilize tabela de código <a target="_blank"
-                                                                      href="http://erikasarti.net/html/tabela-cores/">hexadecimal</a></i></small></label>
                                 <br>
-                                <input type="text" name="cor" value="{{ old('cor') }}" class="form-control"
+                                <input type="text" name="cor" value="{{ old('cor') }}" class="form-control colorpicker colorpicker-element"
                                        placeholder="Cor do titulo">
                             </div>
 
@@ -291,16 +285,21 @@
 @section('style')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
 @endsection
 
 @section('script')
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
 
     <script>
         $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
         });
+
+        //Colorpicker
+        $('.colorpicker').colorpicker();
     </script>
 @endsection

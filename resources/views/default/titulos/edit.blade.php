@@ -77,27 +77,7 @@
 
                             </div>
 
-                            {{--                   @elseif($sistema->tipo_bonus_indicador == 2)
-
-                                                   <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                                                       <label for="exampleInputEmail1">Bonus Indicador (Percentual) <span class="text-red">*</span></label><br>
-                                                       <small><i>Porcentagem do valor do item pago ao patrocinador</i></small>
-                                                       <div class="input-group">
-                                                           <span class="input-group-addon">%</span>
-                                                           <input type="text" name="bonus_indicador_percentual"
-                                                                  value="{{ old('bonus_indicador_percentual', $dados->bonus_indicador_percentual) }}"
-                                                                  class="form-control" placeholder="Bonus Indicador (Percentual)">
-                                                       </div>
-                                                   </div>
-                                               @endif--}}
-
                             @if($sistema->rede_binaria)
-                                {{--<div class="form-group col-xs-12 col-sm-6">
-                                    <label for="exampleInputEmail1">Binário para o patrocinador</label><br>
-                                    <small><i>Bonus para patrocinador quando direto subir de titulo</i></small>
-                                    <input type="text" name="binario_patrocinado" value="{{ old('binario_patrocinado', $dados->binario_patrocinado) }}" class="form-control"  placeholder="Binário para o patrocinador">
-                                </div>--}}
-
                                 <div class="form-group col-xs-12 col-sm-6">
                                     <label for="exampleInputEmail1">Percentual do binário</label>
                                     <input type="text" name="percentual_binario" value="{{ old('percentual_binario', $dados->percentual_binario) }}" class="form-control"  placeholder="Percentual dos pontos">
@@ -130,8 +110,8 @@
                             @endif
                             <div class="form-group col-xs-12 col-sm-6">
                                 <label for="exampleInputEmail1">Cor do titulo</label>
-                                <small><i>Utilize tabela de código <a target="_blank" href="http://erikasarti.net/html/tabela-cores/">hexadecimal</a></i></small></label><br>
-                                <input type="text" name="cor" value="{{ old('cor', $dados->cor) }}" class="form-control"  placeholder="Cor do titulo">
+                                <input type="text" name="cor" value="{{ old('cor',$dados->cor) }}" class="form-control colorpicker colorpicker-element"
+                                       placeholder="Cor do titulo">
                             </div>
                             @if($sistema->update_titulo)
                                 <div class="form-group col-xs-12 col-sm-6">
@@ -230,16 +210,21 @@
 @section('style')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
 @endsection
 
 @section('script')
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
 
     <script>
         $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
         });
+
+        //Colorpicker
+        $('.colorpicker').colorpicker();
     </script>
 @endsection

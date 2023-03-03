@@ -82,7 +82,11 @@ class TitulosController extends Controller
             if($request->configuracao_bonus_rentabilidade_id == 0)
                 $request->merge(['configuracao_bonus_rentabilidade_id' => null]);
 
-            Titulos::create($request->all());
+            $body = $request->all();
+
+            $body['cor'] = preg_replace('/\W/', '',$body['cor']);
+
+            Titulos::create($body);
 
             flash()->success('Titulo <strong>'.$request->name.'</strong> adicionada com sucesso!');
 
