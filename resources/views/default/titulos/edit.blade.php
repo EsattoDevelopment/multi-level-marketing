@@ -19,11 +19,11 @@
                             <div class="form-group col-xs-12">
                                 <label for="status"><span>Habilita rede</span></label> <br>
                                 <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == true ? 'active' : $dados->habilita_rede == true ? 'active' : '' }}">
-                                        <input type="radio" value="1" {{ old('habilita_rede', $dados->habilita_rede) == true ? 'checked' : $dados->habilita_rede == true ? 'checked' : ''  }} name="habilita_rede" autocomplete="off"><span>Sim</span>
+                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == true ? 'active' : ($dados->habilita_rede == true ? 'active' : '') }}">
+                                        <input type="radio" value="1" {{ old('habilita_rede', $dados->habilita_rede) == true ? 'checked' : ($dados->habilita_rede == true ? 'checked' : '')  }} name="habilita_rede" autocomplete="off"><span>Sim</span>
                                     </label>
-                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == false ? 'active' : $dados->habilita_rede == false ? 'active' : '' }}">
-                                        <input type="radio" value="0" {{ old('habilita_rede', $dados->habilita_rede) == false ? 'checked' : $dados->habilita_rede == false ? 'checked' : ''  }} name="habilita_rede" autocomplete="off"><span>Não</span>
+                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == false ? 'active' : ($dados->habilita_rede == false ? 'active' : '') }}">
+                                        <input type="radio" value="0" {{ old('habilita_rede', $dados->habilita_rede) == false ? 'checked' : ($dados->habilita_rede == false ? 'checked' : '')  }} name="habilita_rede" autocomplete="off"><span>Não</span>
                                     </label>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                             @endif
                             <div class="form-group col-xs-12 col-sm-6">
                                 <label for="exampleInputEmail1">Cor do titulo</label>
-                                <small><i>Utilize tabela de código <a target="_blank" href="http://erikasarti.net/html/tabela-cores/">hexadecimal</a></i></small></label><br>
+                                <small><i>Utilize tabela de código <a target="_blank" href="http://erikasarti.net/html/tabela-cores/">hexadecimal</a></i></small><br>
                                 <input type="text" name="cor" value="{{ old('cor', $dados->cor) }}" class="form-control"  placeholder="Cor do titulo">
                             </div>
                             @if($sistema->update_titulo)
