@@ -226,15 +226,15 @@
                                 </div>
                                 <div class="form-group col-xs-12">
                                     <label for="configuracao">Token comum</label>
-                                    <input type="text" name="configuracao[]" value="{{ old('configuracao', $dados->configuracao[0])}}" class="form-control"  placeholder="token comum">
+                                    <input type="text" name="configuracao[]" value="{{ old('configuracao', @isset($dados->configuracao[0]) ? $dados->configuracao[0] : '')}}" class="form-control"  placeholder="token comum">
                                 </div>
                                 <div class="form-group col-xs-12">
                                     <label for="configuracao">Token para Transferência</label>
-                                    <input type="text" name="configuracao[]" value="{{ old('configuracao', $dados->configuracao[1])}}" class="form-control"  placeholder="token para transferência">
+                                    <input type="text" name="configuracao[]" value="{{ old('configuracao', @isset($dados->configuracao[1]) ? $dados->configuracao[1] : '')}}" class="form-control"  placeholder="token para transferência">
                                 </div>
                                 <div class="form-group col-xs-12">
                                     <label for="configuracao">Token para TED</label>
-                                    <input type="text" name="configuracao[]" value="{{ old('configuracao', $dados->configuracao[2])}}" class="form-control"  placeholder="token para TED">
+                                    <input type="text" name="configuracao[]" value="{{ old('configuracao', @isset($dados->configuracao[2]) ? $dados->configuracao[2] : '')}}" class="form-control"  placeholder="token para TED">
                                 </div>
                             @endif
                         </div>
