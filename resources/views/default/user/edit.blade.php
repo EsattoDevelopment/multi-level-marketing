@@ -32,23 +32,20 @@
                                         <div class="form-group col-xs-12">
                                             <label for="status">Status</label> <br>
                                             <div class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-primary {{ old('status', $dados->status) == 1 ? 'active' : $dados->status == 1 ? 'active' : '' }}">
-                                                    <input type="radio" value="1" {{ old('status', $dados->status) == 1 ? 'checked' : $dados->status == 1 ? 'checked' : ''  }} name="status"
-                                                           autocomplete="off">Ativo
+                                                <label class="btn btn-primary {{ old('status', $dados->status) == 1 ? 'active' : ($dados->status == 1 ? 'active' : '') }}">
+                                                    <input type="radio" value="1" {{ old('status', $dados->status) == 1 ? 'checked' : ($dados->status == 1 ? 'checked' : '')  }} name="status" autocomplete="off">Ativo
                                                 </label>
-                                                <label class="btn btn-primary {{ old('status', $dados->status) === 0 ? 'active' : $dados->status === 0 ? 'active' : '' }}">
-                                                    <input type="radio" value="0" {{ old('status', $dados->status) === 0 ? 'checked' : $dados->status === 0 ? 'checked' : ''  }} name="status" autocomplete="off">Inativo
+                                                <label class="btn btn-primary {{ old('status', $dados->status) === 0 ? 'active' : ($dados->status === 0 ? 'active' : '') }}">
+                                                    <input type="radio" value="0" {{ old('status', $dados->status) === 0 ? 'checked' : ($dados->status === 0 ? 'checked' : '')  }} name="status" autocomplete="off">Inativo
                                                 </label>
-
                                                 @if($sistema->campo_cpf)
-                                                    <label class="btn btn-primary {{ old('status') === 3 ? 'active' : $dados->status === 3 ? 'active' : '' }}">
-                                                        <input type="radio" value="3" {{ old('status') === 3 ? 'checked' : $dados->status === 3 ? 'checked' : ''  }} name="status" autocomplete="off">Inadimplente
+                                                    <label class="btn btn-primary {{ old('status') === 3 ? 'active' : ($dados->status === 3 ? 'active' : '') }}">
+                                                        <input type="radio" value="3" {{ old('status') === 3 ? 'checked' : ($dados->status === 3 ? 'checked' : '')  }} name="status" autocomplete="off">Inadimplente
                                                     </label>
-                                                    <label class="btn btn-primary {{ old('status') === 4 ? 'active' : $dados->status === 4 ? 'active' : '' }}">
-                                                        <input type="radio" value="4" {{ old('status') === 4 ? 'checked' : $dados->status === 4 ? 'checked' : ''  }} name="status" autocomplete="off">Desabilitado
+                                                    <label class="btn btn-primary {{ old('status') === 4 ? 'active' : ($dados->status === 4 ? 'active' : '') }}">
+                                                        <input type="radio" value="4" {{ old('status') === 4 ? 'checked' : ($dados->status === 4 ? 'checked' : '')  }} name="status" autocomplete="off">Desabilitado
                                                     </label>
                                                 @endif
-
                                             </div>
                                         </div>
                                         {{--<div class="form-group col-xs-12">
@@ -168,7 +165,6 @@
                                                    placeholder="Incrição estadual">
                                         </div>
                                         @if($sistema->campo_dtnasc)
-
                                             <div class="form-group has-feedback">
                                                 <label for="exampleInputEmail1">Data de nascimento</label>
                                                 <input type="text" required name="data_nasc"
@@ -176,7 +172,6 @@
                                                        class="form-control datepicker" placeholder="Data de nascimento">
                                             </div>
                                         @endif
-
                                         @if($sistema->campo_rg)
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Profissão</label>
@@ -195,7 +190,6 @@
                                                 </select>
                                             </div>
                                         @endif
-
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Telefone</label>
                                             <input type="text" name="telefone"
@@ -219,80 +213,101 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 @if($sistema->endereco)
                                     <div class="col-md-12">
-                                        <!-- general form elements -->
                                         <div class="box box-warning">
                                             <div class="box-header with-border">
                                                 <h3 class="box-title">Dados de endereço</h3>
                                             </div>
-                                            <!-- /.box-header -->
-                                            <!-- form start -->
                                             <div class="box-body">
                                                 <div class="form-group col-md-3">
                                                     <label for="exampleInputEmail1">CEP</label>
-                                                    <input type="text" {{ $sistema->endereco_obrigatorio ? 'required' : '' }} name="endereco[cep]"
-                                                           value="{{ old('endereco.cep', isset($endereco->cep) ? $endereco->cep : '') }}"
-                                                           class="form-control" id="exampleInputEmail1" placeholder="CEP">
+                                                    <input
+                                                        type="text"
+                                                        {{ $sistema->endereco_obrigatorio ? 'required' : '' }}
+                                                        name="endereco[cep]"
+                                                        value="{{ old('endereco.cep', isset($endereco->cep) ? $endereco->cep : '') }}"
+                                                        class="form-control"
+                                                        id="exampleInputEmail1"
+                                                        placeholder="CEP"
+                                                    />
                                                 </div>
                                                 <div class="form-group col-md-7">
                                                     <label for="exampleInputEmail1">Endereço</label>
-                                                    <input type="text" name="endereco[logradouro]"
-                                                           value="{{ old('endereco.logradouro', isset($endereco->logradouro) ? $endereco->logradouro : '' ) }}"
-                                                           class="form-control" id="exampleInputEmail1"
-                                                           placeholder="Endereço">
+                                                    <input
+                                                        type="text"
+                                                        name="endereco[logradouro]"
+                                                        value="{{ old('endereco.logradouro', isset($endereco->logradouro) ? $endereco->logradouro : '' ) }}"
+                                                        class="form-control"
+                                                        id="logradouro"
+                                                        placeholder="Endereço"
+                                                    />
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="exampleInputPassword1">Numero</label>
-                                                    <input type="text" name="endereco[numero]"
-                                                           value="{{ old('endereco.numero', isset($endereco->numero) ? $endereco->numero : '' ) }}"
-                                                           class="form-control" id="exampleInputPassword1"
-                                                           placeholder="Numero">
+                                                    <input
+                                                        type="text"
+                                                        name="endereco[numero]"
+                                                        value="{{ old('endereco.numero', isset($endereco->numero) ? $endereco->numero : '' ) }}"
+                                                        class="form-control"
+                                                        id="numero"
+                                                        placeholder="Numero"
+                                                    />
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="exampleInputPassword1">Bairro</label>
-                                                    <input type="text" name="endereco[bairro]"
-                                                           value="{{ old('endereco.bairro', isset($endereco->bairro) ? $endereco->bairro : '' ) }}"
-                                                           class="form-control" id="exampleInputPassword1"
-                                                           placeholder="Bairro">
+                                                    <input
+                                                        type="text"
+                                                        name="endereco[bairro]"
+                                                        value="{{ old('endereco.bairro', isset($endereco->bairro) ? $endereco->bairro : '' ) }}"
+                                                        class="form-control"
+                                                        id="bairro"
+                                                        placeholder="Bairro"
+                                                    />
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="exampleInputPassword1">Cidade</label>
-                                                    <input type="text" name="endereco[cidade]"
-                                                           value="{{ old('endereco.cidade', isset($endereco->cidade) ? $endereco->cidade : '' ) }}"
-                                                           class="form-control" id="exampleInputPassword1"
-                                                           placeholder="Cidade">
+                                                    <input
+                                                        type="text"
+                                                        name="endereco[cidade]"
+                                                        value="{{ old('endereco.cidade', isset($endereco->cidade) ? $endereco->cidade : '' ) }}"
+                                                        class="form-control"
+                                                        id="cidade"
+                                                        placeholder="Cidade"
+                                                    />
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="exampleInputPassword1">Estado</label>
-                                                    <input type="text" name="endereco[estado]"
-                                                           value="{{ old('endereco.estado', isset($endereco->estado) ? $endereco->estado : '' ) }}"
-                                                           class="form-control" id="exampleInputPassword1"
-                                                           placeholder="Estado">
+                                                    <input
+                                                        type="text"
+                                                        name="endereco[estado]"
+                                                        value="{{ old('endereco.estado', isset($endereco->estado) ? $endereco->estado : '' ) }}"
+                                                        class="form-control"
+                                                        id="endereco"
+                                                        placeholder="Estado"
+                                                    />
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label for="exampleInputPassword1">Complemento</label>
-                                                    <input type="text" name="endereco[complemento]"
-                                                           value="{{ old('endereco.complemento', isset($endereco->complemento) ? $endereco->complemento : '') }}"
-                                                           class="form-control" id="exampleInputPassword1"
-                                                           placeholder="Complemento">
+                                                    <input
+                                                        type="text"
+                                                        name="endereco[complemento]"
+                                                        value="{{ old('endereco.complemento', isset($endereco->complemento) ? $endereco->complemento : '') }}"
+                                                        class="form-control"
+                                                        id="complemento"
+                                                        placeholder="Complemento"
+                                                    />
                                                 </div>
                                             </div>
-                                            <!-- /.box-body -->
                                         </div>
-                                        <!-- /.box -->
                                     </div>
                                 @endif
                                 <div class="col-md-12">
-                                    <!-- general form elements -->
                                     <div class="box box-danger">
                                         <div class="box-header with-border">
                                             <h3 class="box-title">Dados de acesso</h3><br>
                                             <small>Troque a senha somente se necessário</small>
                                         </div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email</label>

@@ -23,14 +23,14 @@ class ContratosCapitalController extends Controller
     public function ativos()
     {
         return view('default.contratos-capital.ativos', [
-            'title'         => 'Licenciamentos Ativos',
+             'title' => 'Credenciamentos Ativos',
         ]);
     }
 
     public function finalizados()
     {
         return view('default.contratos-capital.finalizados', [
-            'title'         => 'Licenciamentos Finalizados',
+            'title' => 'Credenciamentos Finalizados',
         ]);
     }
 }

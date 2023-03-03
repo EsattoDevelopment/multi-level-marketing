@@ -19,11 +19,11 @@
                             <div class="form-group col-xs-12">
                                 <label for="status"><span>Habilita rede</span></label> <br>
                                 <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == true ? 'active' : $dados->habilita_rede == true ? 'active' : '' }}">
-                                        <input type="radio" value="1" {{ old('habilita_rede', $dados->habilita_rede) == true ? 'checked' : $dados->habilita_rede == true ? 'checked' : ''  }} name="habilita_rede" autocomplete="off"><span>Sim</span>
+                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == true ? 'active' : ($dados->habilita_rede == true ? 'active' : '') }}">
+                                        <input type="radio" value="1" {{ old('habilita_rede', $dados->habilita_rede) == true ? 'checked' : ($dados->habilita_rede == true ? 'checked' : '')  }} name="habilita_rede" autocomplete="off"><span>Sim</span>
                                     </label>
-                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == false ? 'active' : $dados->habilita_rede == false ? 'active' : '' }}">
-                                        <input type="radio" value="0" {{ old('habilita_rede', $dados->habilita_rede) == false ? 'checked' : $dados->habilita_rede == false ? 'checked' : ''  }} name="habilita_rede" autocomplete="off"><span>Não</span>
+                                    <label class="btn btn-primary {{ old('habilita_rede', $dados->habilita_rede) == false ? 'active' : ($dados->habilita_rede == false ? 'active' : '') }}">
+                                        <input type="radio" value="0" {{ old('habilita_rede', $dados->habilita_rede) == false ? 'checked' : ($dados->habilita_rede == false ? 'checked' : '')  }} name="habilita_rede" autocomplete="off"><span>Não</span>
                                     </label>
                                 </div>
                             </div>
@@ -77,7 +77,27 @@
 
                             </div>
 
+                            {{--                   @elseif($sistema->tipo_bonus_indicador == 2)
+
+                                                   <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                                                       <label for="exampleInputEmail1">Bonus Indicador (Percentual) <span class="text-red">*</span></label><br>
+                                                       <small><i>Porcentagem do valor do item pago ao patrocinador</i></small>
+                                                       <div class="input-group">
+                                                           <span class="input-group-addon">%</span>
+                                                           <input type="text" name="bonus_indicador_percentual"
+                                                                  value="{{ old('bonus_indicador_percentual', $dados->bonus_indicador_percentual) }}"
+                                                                  class="form-control" placeholder="Bonus Indicador (Percentual)">
+                                                       </div>
+                                                   </div>
+                                               @endif--}}
+
                             @if($sistema->rede_binaria)
+                                {{--<div class="form-group col-xs-12 col-sm-6">
+                                    <label for="exampleInputEmail1">Binário para o patrocinador</label><br>
+                                    <small><i>Bonus para patrocinador quando direto subir de titulo</i></small>
+                                    <input type="text" name="binario_patrocinado" value="{{ old('binario_patrocinado', $dados->binario_patrocinado) }}" class="form-control"  placeholder="Binário para o patrocinador">
+                                </div>--}}
+
                                 <div class="form-group col-xs-12 col-sm-6">
                                     <label for="exampleInputEmail1">Percentual do binário</label>
                                     <input type="text" name="percentual_binario" value="{{ old('percentual_binario', $dados->percentual_binario) }}" class="form-control"  placeholder="Percentual dos pontos">

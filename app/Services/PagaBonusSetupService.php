@@ -98,7 +98,7 @@ class PagaBonusSetupService
 
                         $tipoPagamentoBonus = $this->pedido->tipo_pedido == 3 ? config('constants.pagamento_bonus_tipo')[1] : config('constants.pagamento_bonus_tipo')[2];
 
-                        $mensagem = "Bônus de nível {$this->nivelAtual} sobre ".($this->pedido->tipo_pedido == 3 ? 'credenciamento de Agente' : 'Taxa ou Licenciamento')." #{$this->pedido->id} de {$this->usuarioPedido->name}";
+                        $mensagem = "Bônus de nível {$this->nivelAtual} sobre ".($this->pedido->tipo_pedido == 3 ? 'credenciamento de Agente' : 'Taxa ou Credenciamento')." #{$this->pedido->id} de {$this->usuarioPedido->name}";
 
                         $bonusParametros = (new PagaBonusParametros())
                             ->setPedidoOrigemBonus($this->pedido)

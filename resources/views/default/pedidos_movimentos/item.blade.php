@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb hidden-xs">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{{ route('capitalizacao.index') }}">Licenciamentos</a></li>
+            <li><a href="{{ route('capitalizacao.index') }}">Credenciamentos</a></li>
             <li><b>{{ $item->name }}</b></li>
         </ol>
     </section>

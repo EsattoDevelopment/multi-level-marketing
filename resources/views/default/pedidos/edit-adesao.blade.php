@@ -34,13 +34,15 @@
                             <dd>{{ $dados->getRelation('user')->name }}</dd>
                             <dt>Item</dt>
                             <dd>
-                                #{{ $dados->getRelation('itens')->first()->item_id }} {{ $dados->getRelation('itens')->first()->name_item }}</dd>
+                                #{{ $dados->getRelation('itens')->first()->item_id }} - {{ $dados->getRelation('itens')->first()->name_item }}</dd>
                             <dt>Valor</dt>
-                            <dd>{{ $sistema->moeda }} {{ $dados->getRelation('dadosPagamento')->valor }}</dd>
+                            <dd>{{ mascaraMoeda($sistema->moeda, $dados->getRelation('dadosPagamento')->valor, 2, true) }}</dd>
                             <dt>Data compra</dt>
                             <dd>{{ $dados->data_compra->format('d/m/Y') }}</dd>
                             <dt>Pontos válidos</dt>
                             <dd>{{ $dados->getRelation('itens')->first()->getRelation('itens')->pontos_binarios }}</dd>
+                            <dt>Aprovado por</dt>
+                            <dd>#{{$dados->getRelation('dadosPagamento')->first()->responsavel->id}} - {{ $dados->getRelation('dadosPagamento')->first()->responsavel->name }}</dd>
                             {{--<dt>Milhas</dt>
                             <dd>{{ $dados->getRelation('itens')->first()->getRelation('itens')->milhas }}</dd>--}}
                         </dl>

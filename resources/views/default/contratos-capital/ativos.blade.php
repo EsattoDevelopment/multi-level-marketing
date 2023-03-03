@@ -3,27 +3,21 @@
 @section('content')
 
     @include('default.errors.errors')
-
     <section class="content-header">
-        <h1>
-            Licenciamentos Ativos
-        </h1>
+        <h1>Credenciamentos Ativos</h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li>Licenciamentos</li>
+            <li>Credenciamento</li>
             <li class="active">Ativos</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        Lista de licenciamentos ativos
+                        Lista de credenciamentos ativos
                     </div>
-                    <!-- /.box-header -->
                     <div class="box-body">
                         <table id="tabela_index" class="table table-striped">
                             <thead>
@@ -40,13 +34,9 @@
                             </thead>
                         </table>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </section>
 @endsection
 

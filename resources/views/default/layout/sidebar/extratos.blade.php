@@ -6,7 +6,7 @@
         <li @if(Route::currentRouteName() == "extrato.financeiro") class="active" @endif><a href="{{ route('extrato.financeiro') }}"><i class="text-green fa fa-money"></i> Conta digital</a>
         </li>
         @if($sistema->extrato_capitalizacao_exibicao == 1)
-            <li @if(Route::currentRouteName() == 'capitalizacao.index') class="active" @endif><a href="{{ route('capitalizacao.index') }}"><i class="fa fa-files-o"></i> Licenciamentos</a></li>
+            <li @if(Route::currentRouteName() == 'capitalizacao.index') class="active" @endif><a href="{{ route('capitalizacao.index') }}"><i class="fa fa-files-o"></i> Credenciamentos</a></li>
         @endif
             @if(Auth::user()->titulo->habilita_rede)
 
