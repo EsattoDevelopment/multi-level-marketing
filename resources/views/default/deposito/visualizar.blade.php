@@ -53,8 +53,11 @@
                         <i class="glyphicon glyphicon-list-alt"></i>
                         <h3 class="box-title">Clique na opção desejada para ver os detalhes:</h3><br>
                         <small class="text-red">{{$mensagemBoleto}}</small><br>
-                        <small class="text-warning">Para pagamentos via TED, por favor contate o suporte! Whatsapp: <a target="_blank" href="https://api.whatsapp.com/send?phone=5519982378723">19 98237-8723</a></small>
-                        <br>
+
+                        @if($empresa)
+                            <small class="text-warning">Para pagamentos via TED, por favor contate o suporte! Whatsapp: <a target="_blank" href="https://api.whatsapp.com/send?phone={{preg_replace('/[^0-9]/', '', $empresa->celular)}}">{{$empresa->celular}}</a></small>
+                            <br>
+                        @endif
                         <small class="text-info">Pagamentos via PagSeguro e PayPal podem ser parcelados (consulte as taxas diretamente com eles) </small>
                     </div>
                     <!-- /.box-header -->

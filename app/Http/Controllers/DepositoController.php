@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Log;
 use Carbon\Carbon;
 use App\Models\Itens;
@@ -238,6 +239,7 @@ class DepositoController extends Controller
         return view('default.deposito.visualizar', [
             'title' => 'Pedido #'.$id.' ',
             'dados' => $pedido,
+            'empresa' => User::whereHas('roles', function ($query) {$query->where('name', 'user-empresa');})->first(),
             'contasTed' => ContasEmpresa::with('banco')->where('status', 1)->where('recebe_ted', 1)->get(),
             'metodoPagamento' => $metodoPagamento,
             'movimento' => $movimento,

@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -523,6 +524,7 @@ class PedidoController extends Controller
             'dados' => $pedido,
             'tipo' => $tipo,
             'url' => $tipo,
+            'empresa' => User::whereHas('roles', function ($query) {$query->where('name', 'user-empresa');})->first(),
             'contasTed' => ContasEmpresa::with('banco')->where('status', 1)->where('recebe_ted', 1)->get(),
             'metodoPagamento' => $metodoPagamento,
             'movimento' => $movimento,
