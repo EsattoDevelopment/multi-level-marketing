@@ -68,6 +68,8 @@
                                 <dd>{{$contasTed->agencia}}</dd>
                                 <dt>Conta Corrente - Digito</dt>
                                 <dd>{{$contasTed->conta . '-' . $contasTed->contaDv}}</dd>
+                                <dt>Chave PIX</dt>
+                                <dd>{{$contasTed->chave_pix}}</dd>
                             @endif
                         </dl>
                     </div><!-- /.box-body -->

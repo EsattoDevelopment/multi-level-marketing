@@ -49,6 +49,7 @@ class ContasEmpresa extends Model
         'recebe_ted',
         'favorecido',
         'cpfcnpj',
+        'chave_pix',
     ];
 
     public function banco()
