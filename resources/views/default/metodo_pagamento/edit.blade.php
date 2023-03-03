@@ -20,12 +20,12 @@
                             <div class="form-group col-xs-12">
                                 <label for="status">Status</label> <br>
                                 <div class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary {{ old('status', $dados->status) == 1 ? 'active' : $dados->status == 1 ? 'active' : '' }}">
-                                        <input type="radio" value="1" {{ old('status', $dados->status) == 1 ? 'checked' : $dados->status == 1 ? 'checked' : ''  }} name="status"
+                                    <label class="btn btn-primary {{ old('status', $dados->status) == 1 ? 'active' : ($dados->status == 1 ? 'active' : '') }}">
+                                        <input type="radio" value="1" {{ old('status', $dados->status) == 1 ? 'checked' : ($dados->status == 1 ? 'checked' : '')  }} name="status"
                                                autocomplete="off">Ativo
                                     </label>
-                                    <label class="btn btn-primary {{ old('status', $dados->status) == 0 ? 'active' : $dados->status == 0 ? 'active' : '' }}">
-                                        <input type="radio" value="0" {{ old('status', $dados->status) == 0 ? 'checked' : $dados->status == 0 ? 'checked' : ''  }} name="status" autocomplete="off">Inativo
+                                    <label class="btn btn-primary {{ old('status', $dados->status) == 0 ? 'active' : ($dados->status == 0 ? 'active' : '') }}">
+                                        <input type="radio" value="0" {{ old('status', $dados->status) == 0 ? 'checked' : ($dados->status == 0 ? 'checked' : '')  }} name="status" autocomplete="off">Inativo
                                     </label>
                                 </div>
                             </div>
@@ -33,11 +33,11 @@
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Usar no depósito</label> <br>
                                 <label style="padding-right: 25px">
-                                    <input type="radio" value="1" name="usar_deposito" class="flat-red" {{ old('usar_deposito', $dados->usar_deposito)  == 1 ? 'checked' : '' }}>
+                                    <input type="radio" value="1" name="usar_deposito" class="flat-red" {{ old('usar_deposito', $dados->usar_deposito) == 1 ? 'checked' : '' }}>
                                     Sim
                                 </label>
                                 <label>
-                                    <input type="radio" value="0" name="usar_deposito" class="flat-red" {{ old('usar_deposito', $dados->usar_deposito)  == 0 ? 'checked' : '' }}>
+                                    <input type="radio" value="0" name="usar_deposito" class="flat-red" {{ old('usar_deposito', $dados->usar_deposito) == 0 ? 'checked' : '' }}>
                                     Não
                                 </label>
                             </div>
@@ -45,11 +45,11 @@
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Usar nos itens</label> <br>
                                 <label style="padding-right: 25px">
-                                    <input type="radio" value="1" name="usar_item" class="flat-red" {{ old('usar_item', $dados->usar_item)  == 1 ? 'checked' : '' }}>
+                                    <input type="radio" value="1" name="usar_item" class="flat-red" {{ old('usar_item', $dados->usar_item) == 1 ? 'checked' : '' }}>
                                     Sim
                                 </label>
                                 <label>
-                                    <input type="radio" value="0" name="usar_item" class="flat-red" {{ old('usar_item', $dados->usar_item)  == 0 ? 'checked' : '' }}>
+                                    <input type="radio" value="0" name="usar_item" class="flat-red" {{ old('usar_item', $dados->usar_item) == 0 ? 'checked' : '' }}>
                                     Não
                                 </label>
                             </div>
