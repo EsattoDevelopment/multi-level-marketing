@@ -50,52 +50,52 @@ class PedidoController extends Controller
     {
         $this->sistema = Sistema::findOrFail(1);
         $this->middleware('manipularOutro', [
-                'except' => [
-                    'show',
-                    'index',
-                    'create',
-                    'interna',
-                    'store',
-                    'pagos',
-                    'pagosJson',
-                    'aguardandoPagamento',
-                    'cancelados',
-                    'aguardandoConfirmacao',
-                    'bonusVisualizar',
-                    'bonus',
-                    'consultor',
-                    'verContrato',
-                    'visualizarBoleto',
-                    'modoRecontratacao',
-                    'novoContrato',
-                    'usuarioPedidosAguardandoPagamento',
-                    'usuarioPedidosAguardandoConferencia',
-                    'usuarioPedidosConfirmados',
-                    'usuarioPedidosCancelados',
+            'except' => [
+                'show',
+                'index',
+                'create',
+                'interna',
+                'store',
+                'pagos',
+                'pagosJson',
+                'aguardandoPagamento',
+                'cancelados',
+                'aguardandoConfirmacao',
+                'bonusVisualizar',
+                'bonus',
+                'consultor',
+                'verContrato',
+                'visualizarBoleto',
+                'modoRecontratacao',
+                'novoContrato',
+                'usuarioPedidosAguardandoPagamento',
+                'usuarioPedidosAguardandoConferencia',
+                'usuarioPedidosConfirmados',
+                'usuarioPedidosCancelados',
 
-                    'normalAguardandoPagamento',
-                    'normalAguardandoConfirmacao',
-                    'nomalCancelados',
-                ],
+                'normalAguardandoPagamento',
+                'normalAguardandoConfirmacao',
+                'nomalCancelados',
+            ],
             ]);
 
         $this->middleware('permission:master|admin', [
-                'only' => [
-                    'show',
-                    'index',
-                    'pagos',
-                    'aguardandoPagamento',
-                    'cancelados',
-                    'aguardandoConfirmacao',
-                    'download',
-                ],
-            ]);
+            'only' => [
+                'show',
+                'index',
+                'pagos',
+                'aguardandoPagamento',
+                'cancelados',
+                'aguardandoConfirmacao',
+                'download',
+            ],
+        ]);
 
         $this->middleware('permission:master', [
-                'only' => [
-                    'edit',
-                ],
-            ]);
+            'only' => [
+                'edit',
+            ],
+        ]);
     }
 
     /**
@@ -375,7 +375,7 @@ class PedidoController extends Controller
             ->where('ativo', 1)
             ->get();
         return view('default.pedidos.consultor', [
-            'title' => 'Seja um licenciado',
+            'title' => 'Seja um Credenciado',
             'itens' => $itens,
         ]);
     }
@@ -388,7 +388,7 @@ class PedidoController extends Controller
     {
         return view('default.pedidos.edit-adesao', [
             'title'  => 'Pedido #'.$id.' ',
-            'dados'  => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
+            'dados'  => Pedidos::with('itens.itens', 'user', 'dadosPagamento.responsavel')
                 ->find($id),
             'contas' => ContasEmpresa::with('banco')->whereUsarBoleto(1)->get(),
             'metodo_pagamento' => MetodoPagamento::whereIn('id', [1, 8])->get(),
@@ -428,7 +428,7 @@ class PedidoController extends Controller
      *
      * @param  int $id
      *
-     * @return Response
+     * @return Application|Factory|View
      */
     public function show($id)
     {
@@ -438,12 +438,10 @@ class PedidoController extends Controller
         $pedido = Pedidos::with('itens.itens', 'dadosPagamento', 'user')->find($id);
         $metodosPagamento = MetodoPagamento::where('status', 1)->get();
         $metodosPagamentoBancoTed = ContasEmpresa::with('banco')->where('recebe_ted', 1)->get();
-
         if ($pedido->getRelation('dadosPagamento')->metodo_pagamento_id == 9) {
             $contaEmpresa = ContasEmpresa::with('banco')->find($pedido->getRelation('dadosPagamento')->conta_empresa_id);
             $metodosPagamento = MetodoPagamento::find($pedido->getRelation('dadosPagamento')->metodo_pagamento_id);
         }
-
         return view('default.pedidos.show', [
             'title'  => 'Pedido #'.$id.' ',
             'dados'  => $pedido,
