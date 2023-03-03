@@ -36,7 +36,7 @@
 
                                     <div class="text-center">
                                         @if(Auth::user()->ultimoMovimento() ? Auth::user()->ultimoMovimento()->saldo : 0 >= $item->valor)
-                                            <input type="checkbox" id="aceite_consultor"  name="aceite_consultor"> Li e aceito todos os <a href="{{ asset('docs/Aceite-agente.pdf') }}" target="_blank">termos</a> do contrato de licenciado<br><br>
+                                            <input type="checkbox" id="aceite_consultor"  name="aceite_consultor"> Li e aceito todos os <a href="{{ asset('docs/Aceite-agente.pdf') }}" target="_blank">termos</a> do contrato de credenciado<br><br>
                                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-item-agente" {!! ($item->cor_item ? 'style="background-color: '.$item->cor_item.'; border-color: '.$item->cor_item.'; color: #FFF;"' : '') !!}>
                                                 Contratar
                                             </button>

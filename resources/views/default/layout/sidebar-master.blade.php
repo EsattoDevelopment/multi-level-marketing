@@ -93,7 +93,7 @@
 
             <li class="treeview @if(strpos(Route::currentRouteName(), 'contratos.capital') !== false || strpos(Route::currentRouteName(), 'pedidos.normal') !== false) active @endif">
                 <a href="#">
-                    <i class="fa fa-th-large"></i> <span>Licenciamentos</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-th-large"></i> <span>Credenciamentos</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('pedidos.normal.aguardando.pagamento') }}"><i class="fa fa-truck"></i> Aguardando pagamento</a></li>

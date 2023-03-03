@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb hidden-xs">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><b>Licenciamentos</b></li>
+            <li><b>Credenciamentos</b></li>
         </ol>
     </section>
     <section class="content">
@@ -18,7 +18,7 @@
                 <div class="box box-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header bg-black" style="background: url('{{ asset('storage/images/empresa/background.webp') }}') center center;">
-                        <h3 class="widget-user-username">Licenciamentos</h3>
+                        <h3 class="widget-user-username">Credenciamentos</h3>
                         <h5 class="widget-user-desc hidden-xs">Posição em {{ \Carbon\Carbon::now()->format('d/m/Y') }}</h5>
                     </div>
                     <div class="widget-user-image">
