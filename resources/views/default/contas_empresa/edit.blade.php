@@ -2,27 +2,21 @@
 
 @section('content')
     <section class="content">
-
         @include('default.errors.errors')
-
         <div class="row">
             <div class="col-md-12">
                 <form role="form" action="{{ route('contas_empresa.update', $dados->id) }}" method="post">
                 {!! csrf_field() !!}
-                <!-- general form elements -->
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Dados conta</h3>
-                        </div><!-- /.box-header -->
-                        <!-- form start -->
-
+                        </div>
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="language">Status</label><br>
                                 <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-primary {{ old('status', $dados->status) == 1 ? 'active' : ($dados->status == 1 ? 'active' : '') }}">
-                                        <input type="radio" value="1" {{ old('status', $dados->status) == 1 ? 'checked' : ($dados->status == 1 ? 'checked' : '')  }} name="status"
-                                               autocomplete="off">Ativo
+                                        <input type="radio" value="1" {{ old('status', $dados->status) == 1 ? 'checked' : ($dados->status == 1 ? 'checked' : '')  }} name="status" autocomplete="off">Ativo
                                     </label>
                                     <label class="btn btn-primary {{ old('status', $dados->status) == 0 ? 'active' : ($dados->status == 0 ? 'active' : '') }}">
                                         <input type="radio" value="0" {{ old('status', $dados->status) == 0 ? 'checked' : ($dados->status == 0 ? 'checked' : '')  }} name="status" autocomplete="off">Inativo
@@ -55,6 +49,11 @@
                                 <small><i>Se possuir (Brasdescon, HSBC, Itau)</i></small><br>
                                 <input type="text" name="contaDv" value="{{ old('contaDv', $dados->contaDv) }}" class="form-control" placeholder="Conta digito">
                             </div>
+                            <div class="form-group col-xs-12">
+                                <label for="exampleInputEmail1">Chave Pix</label><br>
+                                <small><i>Email, Telefone, Chave aleatória</i></small><br>
+                                <input type="text" name="chave_pix" value="{{ old('chave_pix', $dados->chave_pix) }}" class="form-control" placeholder="Chave Pix">
+                            </div>
                             <div class="form-group col-xs-12 col-sm-6">
                                 <label for="language">Utilizado para boleto? <br>
                                     <small><i>Esta conta sera utilizada para gerar boleto do respectivo banco. A ativação do mesmo desativa as outras contas do mesmo banco.</i></small></label><br>
@@ -73,8 +72,7 @@
                                 </label><br>
                                 <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-primary {{ old('recebe_ted', $dados->recebe_ted) == 1 ? 'active' : ($dados->recebe_ted == 1 ? 'active' : '') }}">
-                                        <input type="radio" value="1" {{ old('recebe_ted', $dados->recebe_ted) == 1 ? 'checked' : ($dados->recebe_ted == 1 ? 'checked' : '')  }} name="recebe_ted"
-                                               autocomplete="off">Sim
+                                        <input type="radio" value="1" {{ old('recebe_ted', $dados->recebe_ted) == 1 ? 'checked' : ($dados->recebe_ted == 1 ? 'checked' : '')  }} name="recebe_ted" autocomplete="off">Sim
                                     </label>
                                     <label class="btn btn-primary {{ old('recebe_ted', $dados->recebe_ted) == 0 ? 'active' : ($dados->recebe_ted == 0 ? 'active' : '') }}">
                                         <input type="radio" value="0" {{ old('recebe_ted', $dados->recebe_ted) == 0 ? 'checked' : ($dados->recebe_ted == 0 ? 'checked' : '')  }} name="recebe_ted" autocomplete="off">Não
@@ -89,13 +87,12 @@
                                 <label for="cpf">CPF ou CNPJ do favorecido</label><br>
                                 <input type="text" name="cpfcnpj" value="{{ old('cpfcnpj', $dados->cpfcnpj) }}" class="form-control" placeholder="CPF ou CNPJ do favorecido">
                             </div>
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
+                        </div>
+                    </div>
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Dados boleto</h3>
-                        </div><!-- /.box-header -->
-                        <!-- form start -->
+                        </div>
                         <div class="box-body">
                             <div class="form-group col-xs-12">
                                 <label for="exampleInputEmail1">Vence em quanto dias?</label><br>
@@ -201,20 +198,17 @@
                                 <label for="exampleInputEmail1">Instruções 5</label>
                                 <input type="text" name="inst5" value="{{ old('inst5', $dados->inst5) }}" class="form-control"  placeholder="Instruções 5">
                             </div>
-                        </div><!-- /.box-body -->
+                        </div>
                         <div class="box-footer">
                             <input type="hidden" name="_method" value="PUT">
                             <button type="submit" class="btn btn-primary">Salvar</button>
-                            <a class="btn btn-primary pull-right"
-                               href="{{ route('contas_empresa.index') }}">Voltar
-                            </a>
+                            <a class="btn btn-primary pull-right" href="{{ route('contas_empresa.index') }}">Voltar</a>
                         </div>
-                    </div><!-- /.box -->
+                    </div>
                 </form>
-            </div><!--/.col (left) -->
-        </div>   <!-- /.row -->
-    </section><!-- /.content -->
-
+            </div>
+        </div>
+    </section>
 @endsection
 
 @section('style')
