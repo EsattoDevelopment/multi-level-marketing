@@ -70,8 +70,7 @@
                         </p>
                     @endif
                     <p>Efetivada em: {{ $transferencia->dt_efetivacao->format('d/m/Y H:i:s') }} <b></b></p>
-                    <p>Se não foi você que realizou a transferência, altere sua senha imediatamente e fale com nossa equipe pelo link: <a href="{{ $empresa->site }}#contato" target="
-                    ">{{ $empresa->site }}#contato</a></p>
+                    <p>Se não foi você que realizou a transferência, altere sua senha imediatamente e fale com nossa equipe pelo link: <a href="{{ $empresa->site }}" target="">{{ $empresa->site }}</a></p>
                     <p style="margin-bottom: 0;">Atenciosamente,</p>
                     <p style="margin: 0;"><b>{{ env('COMPANY_NAME') }}</b></p>
                 </td>
