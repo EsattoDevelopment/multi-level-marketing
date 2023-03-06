@@ -8,7 +8,7 @@
         <h1>
             Portfólio {{ env('COMPANY_NAME', 'Nome empresa') }}
         </h1>
-        <small>Escolha o plano que melhor se adequa ao seu perfil.</small>
+        <p>Escolha a CREDENCIAL mais adequada ao seu perfil.</p>
         <h2>Saldo: {{ Auth::user()->ultimoMovimento() ? mascaraMoeda($sistema->moeda, Auth::user()->ultimoMovimento()->saldo, 2, true) : 0 }}</h2>
         <ol class="breadcrumb hidden-xs">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -237,7 +237,7 @@
                         success: function(){
                             $("input[name='code']").val(inputValue);
                             formulario.unbind('submit').submit();
-                            swal("Enviando...", "Modo de recontratação automática atualizado com sucesso!", "success");
+                            swal("Enviando...", "Realizando o pedido de CREDENCIAMENTO!", "success");
                         },
                         error: function(){
                             swal.showInputError("Código inválido, tente novamente.");
@@ -247,7 +247,7 @@
                 });
                 @else
                 formulario.unbind('submit').submit();
-                swal("Enviando...", "Modo de recontratação automática atualizado com sucesso!", "success");
+                swal("Enviando...", "Realizando o pedido de CREDENCIAMENTO!", "success");
                 @endif
             });
         });
