@@ -1,9 +1,10 @@
 ---
 deployment:
   tasks:
-    - export DEPLOY_ROOT=/home/credg8
+    - export DEPLOY_ROOT=/home/appg8cred
     - export DEPLOYPATH="${DEPLOY_ROOT}/multi-level-marketing-deploy"
     - /bin/pwd
+    - /bin/whoami
     - /bin/mkdir -p "./storage/framework/sessions"
     - /bin/mkdir -p "./storage/framework/views"
     - /bin/mkdir -p "./storage/framework/cache/data"
@@ -13,8 +14,8 @@ deployment:
     - /bin/mkdir -p "${DEPLOYPATH}/storage/framework/cache/data"
     - /bin/cp -R * $DEPLOYPATH
     - /bin/cp .env.production "${DEPLOYPATH}/.env"
-    - /bin/ln -sf "${DEPLOYPATH}/public" "${DEPLOY_ROOT}/app.g8cred.com"
-    - /bin/ln -sf "${DEPLOYPATH}/storage/app/public" "${DEPLOY_ROOT}/app.g8cred.com/storage"
+    - /bin/ln -sf "${DEPLOYPATH}/public" "${DEPLOY_ROOT}/public_html"
+    - /bin/ln -sf "${DEPLOYPATH}/storage/app/public" "${DEPLOY_ROOT}/public_html/storage"
     - /bin/chmod -R 777 "${DEPLOYPATH}/storage"
     - /bin/cd $DEPLOYPATH
     - /opt/cpanel/composer/bin/composer install --no-dev
