@@ -92,11 +92,8 @@ class EmprestimosController extends Controller
 
     private function calcularValorParcela(float $valor, array $parcela): float
     {
-        return (
-            $parcela['valor_fixo']
-            + ($parcela['valor_porcentagem'] * $valor)
-            + $valor
-        ) / $parcela['numero'];
+
+        return ($valor + ($valor * ($parcela['valor_porcentagem'] * $parcela['numero']))) / $parcela['numero'];
     }
 
     private function moneyToFloat(string $value): float
