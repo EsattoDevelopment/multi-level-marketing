@@ -55,7 +55,7 @@ class TitulosRequest extends Request
 
         $retorno['teto_mensal_financeiro'] = 'required|numeric';
 
-        $retorno['cor'] = 'required|min:6|max:6';
+        $retorno['cor'] = 'required|min:6|max:7';
         $retorno['pontos_pessoais_update'] = 'required|numeric';
         $retorno['pontos_equipe_update'] = 'required|numeric';
 

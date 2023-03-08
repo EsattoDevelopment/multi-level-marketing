@@ -130,8 +130,8 @@
                             @endif
                             <div class="form-group col-xs-12 col-sm-6">
                                 <label for="exampleInputEmail1">Cor do titulo</label>
-                                <small><i>Utilize tabela de código <a target="_blank" href="http://erikasarti.net/html/tabela-cores/">hexadecimal</a></i></small><br>
-                                <input type="text" name="cor" value="{{ old('cor', $dados->cor) }}" class="form-control"  placeholder="Cor do titulo">
+                                <input type="text" name="cor" value="{{ old('cor',$dados->cor) }}" class="form-control colorpicker colorpicker-element"
+                                       placeholder="Cor do titulo">
                             </div>
                             @if($sistema->update_titulo)
                                 <div class="form-group col-xs-12 col-sm-6">
@@ -230,16 +230,21 @@
 @section('style')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.css') }}">
 @endsection
 
 @section('script')
     <!-- Select2 -->
     <script src="{{ asset('plugins/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/colorpicker/bootstrap-colorpicker.min.js') }}"></script>
 
     <script>
         $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
         });
+
+        //Colorpicker
+        $('.colorpicker').colorpicker();
     </script>
 @endsection

@@ -58,7 +58,7 @@
                             <small class="text-warning">Para pagamentos via TED, por favor contate o suporte! Whatsapp: <a target="_blank" href="https://api.whatsapp.com/send?phone={{preg_replace('/[^0-9]/', '', $empresa->celular)}}">{{$empresa->celular}}</a></small>
                             <br>
                         @endif
-                        <small class="text-info">Pagamentos via PagSeguro e PayPal podem ser parcelados (consulte as taxas diretamente com eles)</small>
+                        <small class="text-info">Pagamentos via Cartão de Crédito podem ser parcelados (consulte as taxas e juros)</small>
                     </div>
                     <!-- /.box-header -->
                     @if($dados->status != 2 && $dados->status != 3)
