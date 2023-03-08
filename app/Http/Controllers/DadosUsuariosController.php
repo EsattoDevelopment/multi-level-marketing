@@ -544,7 +544,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
                 // após criar cadastrar todos os dados enviar para novo depósito
                 if (isset($cria_endereco)) {
-                    flash()->success('Parabéns, você completou seu cadastro, você já pode adquirir uma licença!');
+                    flash()->success('Parabéns, você completou seu cadastro, você já pode adquirir uma credencial!');
 
                     Auth::user()->notify(new CadastroInicialFinalizado());
 
