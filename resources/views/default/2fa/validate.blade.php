@@ -76,7 +76,7 @@
     <a href="{{ route('auth.logout') }}">Ou entrar com outro usuário.</a>
   </div>
   <div class="lockscreen-footer text-center">
-    <small><strong>Copyright &copy; {{ date('Y') }} www.DOMYNUS.com.br <i class="fa fa-copyright"></i> .</strong> Todos os direitos reservados.</small>
+    <small><strong>Copyright &copy; {{ date('Y') }} banco@diretoria.net <i class="fa fa-copyright"></i> .</strong> Todos os direitos reservados.</small>
   </div>
 </div>
 <!-- /.center -->

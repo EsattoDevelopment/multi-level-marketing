@@ -2,7 +2,7 @@
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.9.2
     </div>
-    <strong>Copyright © {{ date('Y') }} www.DOMYNUS.com.br <i class="fa fa-copyright"></i> .</strong> Todos os direitos reservados.
+    <strong>Copyright © {{ date('Y') }} banco@diretoria.net <i class="fa fa-copyright"></i> .</strong> Todos os direitos reservados.
 </footer>
 <script>
     paceOptions = {

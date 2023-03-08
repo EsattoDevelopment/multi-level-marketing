@@ -3,7 +3,7 @@
         <b>Version</b> 1.1.1
     </div>
     <strong>Empresa: {{ env('COMPANY_NAME_FOOTER', 'Nome empresa') }} - Copyright © {{ date('Y') }} // Software
-        Gerenciamento by www.DOMYNUS.com.br © .</strong> Todos os direitos reservados.
+        Gerenciamento by banco@diretoria.net © .</strong> Todos os direitos reservados.
 </footer>
 
 <script>
