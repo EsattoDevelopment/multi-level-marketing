@@ -98,7 +98,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ route('pedidos.normal.aguardando.pagamento') }}"><i class="fa fa-truck"></i> Aguardando pagamento</a></li>
                     <li><a href="{{ route('pedidos.normal.aguardando.confirmacao') }}"><i class="fa fa-truck text-warning"></i> Aguardando confirmação</a></li>
-                    <li><a href="{{ route('contratos.capital.ativos') }}"><i class="fa fa-truck text-green"></i> Ativos</a></li>
+                    <li><a href="{{ route('contratos.capital.ativos') }}"><i class="fa fa-truck text-green"></i> Pagos</a></li>
                     <li><a href="{{ route('contratos.capital.finalizados') }}"><i class="fa fa-truck text-orange"></i> Finalizados</a></li>
                     <li><a href="{{ route('pedidos.normal.cancelados') }}"><i class="fa fa-truck text-red"></i> Cancelados</a></li>
                 </ul>
