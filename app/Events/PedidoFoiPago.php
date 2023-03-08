@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Events;
 
 use App\Models\Itens;
@@ -28,6 +22,18 @@ class PedidoFoiPago extends Event
     private $equiparacaoNivel = 4;
     private $patrocinador;
     public $sistema;
+
+    public function __construct(Pedidos $pedido)
+    {
+        $configuracao = new ConfiguracaoRepository();
+        $this->pedido = $pedido;
+        $this->setConfiguracao($configuracao->getAll()->first());
+        $this->dadosPagamento = $this->pedido->getRelation('dadosPagamento');
+        $this->itens = $this->pedido->itens;
+        $this->usuario = $this->pedido->user;
+        $this->patrocinador = $this->usuario->indicador;
+        $this->sistema = Sistema::findOrFail(1);
+    }
 
     /**
      * @return mixed
@@ -75,30 +81,6 @@ class PedidoFoiPago extends Event
     public function setEquiparacaoPago($equiparacaoPago)
     {
         $this->equiparacaoPago += $equiparacaoPago;
-    }
-
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct(Pedidos $pedido)
-    {
-        $configuracao = new ConfiguracaoRepository();
-
-        $this->pedido = $pedido;
-
-        $this->setConfiguracao($configuracao->getAll()->first());
-
-        $this->dadosPagamento = $this->pedido->getRelation('dadosPagamento');
-
-        $this->itens = $this->pedido->itens;
-
-        $this->usuario = $this->pedido->user;
-
-        $this->patrocinador = $this->usuario->indicador;
-
-        $this->sistema = Sistema::findOrFail(1);
     }
 
     /**

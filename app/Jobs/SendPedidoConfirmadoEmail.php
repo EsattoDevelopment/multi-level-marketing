@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Jobs;
 
 use App\Models\Pedidos;
@@ -15,39 +9,27 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-/**
- * Class SendPedidoConfirmadoEmail.
- */
 class SendPedidoConfirmadoEmail extends Job implements SelfHandling, ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    /**
-     * @var Pedidos
-     */
+    /** @var Pedidos */
     protected $pedido;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $nome_usuario;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(Pedidos $pedido)
     {
         $this->pedido = $pedido;
-        $this->nome_usuario = ucfirst(explode(' ', $this->pedido->user->name)[0]);
+        $primeiro_nome = explode(' ', $this->pedido->user->name)[0];
+        $this->nome_usuario = ucfirst($primeiro_nome);
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle(Mailer $mailer)
+    public function handle(Mailer $mailer): void
     {
         $mailer->send('default.emails.confirmacoes.pedido_confirmado', [
             'pedido' => $this->pedido->id,

@@ -1,15 +1,52 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Events\PedidoFoiPago;
+use App\Listeners\AtivaUsuario;
+use App\Listeners\CriaContrato;
+use App\Listeners\PosicionaRede;
+use App\Listeners\QualificaUsuario;
+use App\Listeners\QualificaUsuarioPosicionaHotel;
+use App\Listeners\PedidoGeraHotel;
+use App\Listeners\SobeTituloItem;
+use App\Listeners\PagaPontosPessoais;
+use App\Listeners\PagaPontosEquiparacao;
+use App\Listeners\PagaBonusEvent;
+use App\Listeners\PagaBonusIndicador;
+use App\Listeners\Equiparacao;
+use App\Listeners\PagaMilhas;
+use App\Listeners\PagaBinarios;
+use App\Listeners\PagaDeposito;
+use App\Listeners\GerarContrato;
+use App\Events\RodarSistema;
+use App\Listeners\RodarSistema\SubirTitulo;
+use App\Listeners\RodarSistema\RodaBinario;
+use App\Listeners\RodarSistema\VerificarContratosFinalizado;
+use App\Listeners\RodarSistema\VerificarMensalidades;
+use App\Events\AcoesSistema;
+use App\Listeners\AcoesSistema\BonusMilhasCadastro;
+use App\Events\ReservaRealizada;
+use App\Listeners\ReservaRealizada\EmailColaborador;
+use App\Listeners\ReservaRealizada\EmailEmpresa as ReservaRealizadaEmailEmpresa;
+use App\Events\CancelamentoReserva;
+use App\Listeners\CancelamentoReserva\EmailEmpresa as CancelamentoReservaEmailEmpresa;
+use App\Events\GerarMensalidadeEmpresa;
+use App\Listeners\MensalidadeEmpresa;
+use App\Events\BonusMensalidade;
+use App\Listeners\PagaPontosUnilevel;
+use App\Listeners\verificacaoContrato;
+use App\Listeners\MensalidadePaga;
+use App\Listeners\Pontuacao;
+use App\Events\MensalidadeSemBonus;
+use App\Listeners\verificacaoContrato2;
+use App\Saude\Events\CancelamentoContrato;
+use App\Saude\Listeners\Contrato\CancelarMensalidade;
+use App\Saude\Listeners\Contrato\EstornoBonus;
+use App\Saude\Listeners\Contrato\EstornoValorPedido;
+use App\Saude\Listeners\Contrato\EstornoPontos;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,95 +56,78 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\PedidoFoiPago'           => [
-            //ativa usuario caso esteja desativado
-            'App\Listeners\AtivaUsuario',
-
-            //Cria o contrato do associado
-            'App\Listeners\CriaContrato',
-
-            //adiciona apenas na rede binaria
-            'App\Listeners\PosicionaRede',
-
-            'App\Listeners\QualificaUsuario',
-
-            //verifica se o indicador agora tem diretos necessarios para hotel
-            'App\Listeners\QualificaUsuarioPosicionaHotel',
-
-            //Libera hotel se o item comprado dar direito
-            'App\Listeners\PedidoGeraHotel',
-
-            //sobe de nivel caso o item comprado de direito
-            'App\Listeners\SobeTituloItem',
-
-            'App\Listeners\PagaPontosPessoais',
-
-            'App\Listeners\PagaPontosEquiparacao',
-
-            //paga bonus de indicação direta
-            'App\Listeners\PagaBonusEvent',
-#            'App\Listeners\PagaBonusIndicador',
-
-            //paga bonus de equiparação
-#            'App\Listeners\Equiparacao',
-
-            //paga milhas
-            'App\Listeners\PagaMilhas',
-
-            //paga os pontos
-            'App\Listeners\PagaBinarios',
-
-            //paga deposito
-            'App\Listeners\PagaDeposito',
-
-            //gerar contrato
-#            'App\Listeners\GerarContrato',
+        PedidoFoiPago::class => [
+            // ativa usuario caso esteja desativado
+            AtivaUsuario::class,
+            // cria o contrato do associado
+            CriaContrato::class,
+            // adiciona apenas na rede binaria
+            PosicionaRede::class,
+            QualificaUsuario::class,
+            // verifica se o indicador agora tem diretos necessarios para hotel
+            QualificaUsuarioPosicionaHotel::class,
+            // libera hotel se o item comprado dar direito
+            PedidoGeraHotel::class,
+            // sobe de nivel caso o item comprado de direito
+            SobeTituloItem::class,
+            PagaPontosPessoais::class,
+            PagaPontosEquiparacao::class,
+            // paga bonus de indicação direta
+            PagaBonusEvent::class,
+//            PagaBonusIndicador::class,
+            // paga bonus de equiparação
+//            Equiparacao::class,
+            // paga milhas
+            PagaMilhas::class,
+            // paga os pontos
+            PagaBinarios::class,
+            // paga deposito
+            PagaDeposito::class,
+            // gerar contrato
+//            GerarContrato::class,
         ],
-        'App\Events\RodarSistema'            => [
-            'App\Listeners\RodarSistema\SubirTitulo',
-            'App\Listeners\RodarSistema\RodaBinario',
-            'App\Listeners\RodarSistema\VerificarContratosFinalizado',
-            'App\Listeners\RodarSistema\VerificarMensalidades',
+        RodarSistema::class => [
+            SubirTitulo::class,
+            RodaBinario::class,
+            VerificarContratosFinalizado::class,
+            VerificarMensalidades::class,
         ],
-        'App\Events\AcoesSistema'            => [
-            //'App\Listeners\AcoesSistema\BonusMilhasCadastro',
+        AcoesSistema::class => [
+//            BonusMilhasCadastro::class,
         ],
-        'App\Events\ReservaRealizada'        => [
-            //'App\Listeners\ReservaRealizada\EmailColaborador',
-            //'App\Listeners\ReservaRealizada\EmailEmpresa',
+        ReservaRealizada::class => [
+//            EmailColaborador::class,
+//            ReservaRealizadaEmailEmpresa::class,
         ],
-        'App\Events\CancelamentoReserva'     => [
-            //'App\Listeners\CancelamentoReserva\EmailEmpresa'
+        CancelamentoReserva::class => [
+//            CancelamentoReservaEmailEmpresa::class
         ],
-        'App\Events\GerarMensalidadeEmpresa' => [
-            'App\Listeners\MensalidadeEmpresa',
+        GerarMensalidadeEmpresa::class => [
+            MensalidadeEmpresa::class,
         ],
-        'App\Events\BonusMensalidade'        => [
-            //'App\Listeners\MensalidadePaga',
-            //'App\Listeners\Pontuacao',
-            //'App\Listeners\Equiparacao',
-            'App\Listeners\PagaPontosUnilevel',
-            'App\Listeners\verificacaoContrato',
+        BonusMensalidade::class => [
+//            MensalidadePaga::class,
+//            Pontuacao::class,
+//            Equiparacao::class,
+            PagaPontosUnilevel::class,
+            verificacaoContrato::class,
         ],
-        'App\Events\MensalidadeSemBonus'  => [
-            'App\Listeners\verificacaoContrato2',
+        MensalidadeSemBonus::class => [
+            verificacaoContrato2::class,
         ],
-        'App\Saude\Events\CancelamentoContrato'  => [
-            //'App\Saude\Listeners\Contrato\CancelarMensalidade',
-            //'App\Saude\Listeners\Contrato\EstornoBonus',
-            //'App\Saude\Listeners\Contrato\EstornoValorPedido',
-            //'App\Saude\Listeners\Contrato\EstornoPontos'
+        CancelamentoContrato::class => [
+//            CancelarMensalidade::class,
+//            EstornoBonus::class,
+//            EstornoValorPedido::class,
+//            EstornoPontos::class
         ],
 
     ];
 
     /**
      * Register any other events for your application.
-     *
-     * @param  \Illuminate\Contracts\Events\Dispatcher $events
-     * @return void
      */
-    public function boot(DispatcherContract $events)
+    public function boot(DispatcherContract $events): void
     {
         parent::boot($events);
     }

@@ -1,15 +1,10 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pedidos extends Model
@@ -52,15 +47,15 @@ class Pedidos extends Model
         return $this->belongsToMany(Itens::class, 'itens_pedido', 'pedido_id', 'item_id')->withTrashed()->first();
     }
 
-    public function dadosPagamento()
+    public function dadosPagamento(): HasOne
     {
         return $this->hasOne(DadosPagamento::class, 'pedido_id');
     }
 
-    /*    public function getDataCompraAttribute()
-        {
-            return Carbon::parse($this->attributes['data_compra'])->format('d/m/Y');
-        }*/
+//    public function getDataCompraAttribute()
+//    {
+//        return Carbon::parse($this->attributes['data_compra'])->format('d/m/Y');
+//    }
 
     public function getDataCompraFormatadaAttribute()
     {

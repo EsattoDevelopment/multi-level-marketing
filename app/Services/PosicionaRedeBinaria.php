@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Services;
 
 use App\Models\User;
@@ -18,7 +12,7 @@ class PosicionaRedeBinaria
     private $lado;
     private $user;
 
-    public function __construct(RedeBinaria $rede, $lado, User $user)
+    public function __construct(RedeBinaria $rede, string $lado, User $user)
     {
         Log::info('Instanciado posicionamento de rede binária');
         $this->rede = $rede;
@@ -28,29 +22,23 @@ class PosicionaRedeBinaria
 
     /**
      * Posiciona usuário na rede.
-     * @return bool
      */
-    public function posicionar()
+    public function posicionar(): void
     {
         $lado = $this->lado;
-
-        Log::info("Verificando se tem posição vaga do lado {$this->lado} da rede do #ID {$this->rede->user_id}");
-        if (! $this->rede->$lado) {
-            Log::info('Esta vago!');
+        Log::info("Verificando se há posição na vaga do lado $this->lado da rede do usuário # {$this->rede->user_id}");
+        if (!$this->rede->$lado) {
+            Log::info("Lado {$this->rede->$lado} está vago");
             $this->rede->$lado = $this->user->id;
             $this->rede->save();
-
-            $this->user->lado = $lado == 'esquerda' ? 1 : 2; //seta no cadastro do usuario em que lado ele esta posicionado
+            // seta no cadastro do usuario em que lado ele está posicionado
+            $this->user->lado = $lado === 'esquerda' ? 1 : 2;
             $this->user->save();
-
-            Log::info('Posicionamento finalizado!');
-
-            return true;
+            Log::info('Posicionamento finalizado');
+            return;
         }
-
-        Log::info('Não há, descendo um nivél.');
+        Log::info("Lado {$this->rede->$lado} ocupado, descendo um nivél");
         $usuarioAbaixo = $this->rede->usuarioAbaixo($lado);
-
         $this->rede = $usuarioAbaixo->redeBinario;
         $this->posicionar();
     }

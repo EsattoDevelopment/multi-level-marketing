@@ -62,10 +62,7 @@ class QualificaUsuarioPosicionaHotel
                             Log::info('Usuario qualificado', $usuario->toArray());
 
                             $titulo = Titulos::find(5);
-                            $objTitulo = new Titulos();
-                            $subirPara = $objTitulo->tituloMaiorQueDoUsuario($titulo, $usuario->titulo()->first());
-
-                            if ($subirPara) {
+                            if ($titulo->maiorQue($usuario->titulo()->first())) {
                                 UpgradeTitulo::create(['user_id' => $usuario->id, 'titulo_id' => $titulo->id]);
                                 $usuario->titulo_id = $titulo->id;
                                 $usuario->save();

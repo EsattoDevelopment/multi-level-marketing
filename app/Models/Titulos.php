@@ -104,21 +104,14 @@ class Titulos extends Model
         return $this->belongsTo(self::class, 'titulo_superior');
     }
 
-    public function tituloMaiorQueDoUsuario(Titulos $titulo, Titulos $tituloUsuario)
+    public function maiorQue(Titulos $titulo)
     {
-        Log::info('Campara titulo do usuario com o titulo a ser subido');
-
-        $superior = $tituloUsuario->tituloSuperior;
-
-        if ($superior) {
-            if ($superior->id == $titulo->id) {
-                return $titulo;
-            } else {
-                return $this->tituloMaiorQueDoUsuario($titulo, $superior);
-            }
-        } else {
+        Log::info("Camparando # $this->id com o titulo # $titulo->id");
+        $superior = $titulo->tituloSuperior;
+        if (!$superior) {
             return false;
         }
+        return $superior->id == $this->id ? true : $this->maiorQue($superior);
     }
 
     public function setTituloSuperiorAttribute($value)

@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers;
 
+use Event;
+use Illuminate\Http\RedirectResponse;
 use Log;
     use Carbon\Carbon;
     use App\Models\User;
@@ -55,9 +57,28 @@ class PagamentosController extends Controller
         $this->sistema = Sistema::findOrFail(1);
     }
 
-    public function produtoPago()
+    public function produtoPago(): void
     {
-        \Event::fire(new RodarSistema());
+        Event::fire(new RodarSistema());
+    }
+
+    private function houveErros($erros): bool
+    {
+        if ($erros > 0) {
+            DB::rollback();
+            return true;
+        }
+        DB::commit();
+        return false;
+    }
+
+    private function temBoleto(): bool
+    {
+        $retorno = false;
+        if (! is_null($this->pedido->getRelation('boleto'))) {
+            $retorno = true;
+        }
+        return $retorno;
     }
 
     public function pagamentoSistema($id, Request $request)
@@ -107,13 +128,10 @@ class PagamentosController extends Controller
 
             $erros = $pagamento->efetivarPagamento();
 
-            $retorno = self::verificaErros($erros);
-
-            if (! $retorno) {
+            if ($this->houveErros($erros)) {
                 Log::info('Houve erros no pagamento');
                 Log::info('');
                 flash()->error('Houve alguns erros no processamento do pagamento!');
-
                 return redirect()->route('pedido.show', $this->pedido->id);
             }
 
@@ -121,7 +139,7 @@ class PagamentosController extends Controller
             Log::info('');
 
             $msg = 'Deposito conferido com sucesso';
-            // se tiver boleto associado a este deposito eu cancelo
+            // se tiver boleto associado a este depósito eu cancelo
             if (isset($request->cancelar_boleto)) {
                 $charge_id = $this->pedido->getRelation('dadosPagamento')->dados_boleto['charge_id'];
                 $boletoService = new BoletoGerencianetService($this->pedido->id, false);
@@ -213,9 +231,7 @@ class PagamentosController extends Controller
 
             $erros = $pagamento->efetivarPagamento();
 
-            $retorno = self::verificaErros($erros);
-
-            if (! $retorno) {
+            if ($this->houveErros($erros)) {
                 Log::info('Houve erros no pagamento automatico de pedido de agente');
                 Log::info('');
                 flash()->error('Solicitação para se tornar um agente recebida com sucesso.<br>Por favor aguarde liberação do sistema!');
@@ -233,29 +249,6 @@ class PagamentosController extends Controller
         }
     }
 
-    private function verificaErros($erros)
-    {
-        if ($erros > 0) {
-            DB::rollback();
-
-            return false;
-        }
-
-        DB::commit();
-
-        return true;
-    }
-
-    private function temBoleto()
-    {
-        $retorno = false;
-        if (! is_null($this->pedido->getRelation('boleto'))) {
-            $retorno = true;
-        }
-
-        return $retorno;
-    }
-
     /**
      * faz o pagamento do pedido conforme o metodo.
      *
@@ -263,7 +256,7 @@ class PagamentosController extends Controller
      * @param         $user
      * @param         $id
      *
-     * @return \Illuminate\Http\RedirectResponse|string
+     * @return RedirectResponse|string
      */
     public function pagarPedido(Request $request, $user, $id)
     {
@@ -431,64 +424,53 @@ class PagamentosController extends Controller
         }
     }
 
-    public function confirmarTed(Request $request, $id)
+    public function confirmarTed(Request $request, string $id): RedirectResponse
     {
-        Log::info('##########################################');
-        Log::warning('Confirmação de pagamento por TED/DOC pedido #'.$id);
-
+        $log_id = str_pad($id, 10, '0', STR_PAD_LEFT);
+        Log::info('[~]==================================================================[~]');
+        Log::info("[~]===[ Confirmação de pagamento por TED/DOC pedido # $log_id ]===[~]");
+        Log::info('[~]==================================================================[~]');
         try {
             DB::beginTransaction();
-
             $this->pedido = Pedidos::with('dadosPagamento', 'user', 'itens')->findOrFail($id);
-
-            $valor_efetivo_real = str_replace('.', '', $request->valor_efetivo_real);
+            $valor_efetivo_real = str_replace('.', '', $request->get('valor_efetivo_real'));
             $valor_efetivo_real = str_replace(',', '.', $valor_efetivo_real);
-            $cotacao_dolar_dia_efetivo = $request->cotacao_dolar_dia_efetivo;
-            $valor_efetivo = str_replace('.', '', $request->valor_efetivo);
+            $cotacao_dolar_dia_efetivo = $request->get('cotacao_dolar_dia_efetivo');
+            $valor_efetivo = str_replace('.', '', $request->get('valor_efetivo'));
             $valor_efetivo = str_replace(',', '.', $valor_efetivo);
-            $valor_autorizado_diretoria = str_replace('.', '', $request->valor_autorizado_diretoria);
+            $valor_autorizado_diretoria = str_replace('.', '', $request->get('valor_autorizado_diretoria'));
             $valor_autorizado_diretoria = str_replace(',', '.', $valor_autorizado_diretoria);
 
-            $this->pedido->getRelation('dadosPagamento')->documento = $request->get('documento');
-            $this->pedido->getRelation('dadosPagamento')->status = 2;
-            $this->pedido->getRelation('dadosPagamento')->valor_efetivo = $valor_efetivo;
-            $this->pedido->getRelation('dadosPagamento')->valor_efetivo_real = $valor_efetivo_real;
-            $this->pedido->getRelation('dadosPagamento')->cotacao_dolar_dia_efetivo = $cotacao_dolar_dia_efetivo;
-            $this->pedido->getRelation('dadosPagamento')->valor_autorizado_diretoria = $valor_autorizado_diretoria;
-            /*$this->pedido->getRelation('dadosPagamento')->metodo_pagamento_id = $request->get('metodo_pagamento_id'); //liberação sistema*/
-            $this->pedido->getRelation('dadosPagamento')->data_pagamento_efetivo = implode('-', array_reverse(explode('/', $request->get('data_pagamento_efetivo'))));
-            $this->pedido->getRelation('dadosPagamento')->responsavel_user_id = Auth::user()->id;
-            $this->pedido->getRelation('dadosPagamento')->save();
-
-            Log::info('Pedido pago por TED/DOC pedido #'.$id);
-
+            $dados_pagamento = $this->pedido->getRelation('dadosPagamento');
+            $dados_pagamento->documento = $request->get('documento');
+            $dados_pagamento->status = 2;
+            $dados_pagamento->valor_efetivo = $valor_efetivo;
+            $dados_pagamento->valor_efetivo_real = $valor_efetivo_real;
+            $dados_pagamento->cotacao_dolar_dia_efetivo = $cotacao_dolar_dia_efetivo;
+            $dados_pagamento->valor_autorizado_diretoria = $valor_autorizado_diretoria;
+            // $dados_pagamento->metodo_pagamento_id = $request->get('metodo_pagamento_id'); // liberação sistema
+            $dados_pagamento->data_pagamento_efetivo = implode('-', array_reverse(explode('/', $request->get('data_pagamento_efetivo'))));
+            $dados_pagamento->responsavel_user_id = Auth::user()->id;
+            $dados_pagamento->save();
+            Log::info("Pedido pago por TED/DOC pedido # $log_id");
             $this->pedido->status = 2;
             $this->pedido->save();
 
             $pagamento = new Pagamentos($this->pedido);
-
             $erros = $pagamento->efetivarPagamento();
-
-            $retorno = self::verificaErros($erros);
-
-            if (! $retorno) {
+            if ($this->houveErros($erros)) {
                 Log::info('Houve erros no pagamento');
                 Log::info('');
                 flash()->error('Houve alguns erros no processamento do pagamento!');
-
                 return redirect()->route('pedido.show', $id);
             }
-
-            Log::info('pagamento OK #'.$this->pedido->id);
+            Log::info("pagamento OK # {$this->pedido->id}");
             Log::info('');
-            flash()->success('Deposito conferido com sucesso');
-
 //            $this->dispatch(new SendPedidoConfirmadoEmail($this->pedido));
-
+            flash()->success('Deposito conferido com sucesso');
             return redirect()->route('pedido.index');
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException|\Exception $e) {
             flash()->success('Erro ao pagar pedido!');
-
             return redirect()->route('pedido.show', $id);
         }
     }

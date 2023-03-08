@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Services;
 
 use Carbon\Carbon;
@@ -31,25 +25,21 @@ class Pagamentos
         $this->usuario = Auth::user() ?? $pedido->user;
     }
 
-    public function efetivarPagamento()
+    public function efetivarPagamento(): int
     {
         try {
             Log::info('@@@@@@@@@@@@@@@@@@@  Rodar sistema apos pagamento @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
             $respostaEventos = \Event::fire(new PedidoFoiPago($this->pedido));
-
             $count = 0;
-
             foreach ($respostaEventos as $key => $respostas) {
-                if (! $respostas) {
-                    Log::info('Erro no evento #'.$key);
+                if (!$respostas) {
+                    Log::error("Erro no evento # $key");
                     $count++;
                 }
             }
-
             return $count;
         } catch (ModelNotFoundException $e) {
             Log::error('Erro ao efetivar pagamento!');
-
             return 1;
         }
     }

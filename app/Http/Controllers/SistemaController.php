@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sistema;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,7 @@ class SistemaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request): ?Response
+    public function update(Request $request): ?RedirectResponse
     {
         DB::beginTransaction();
         try {

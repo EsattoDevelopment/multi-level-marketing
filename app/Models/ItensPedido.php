@@ -15,24 +15,24 @@ class ItensPedido extends Model
     protected $table = 'itens_pedido';
 
     protected $fillable = [
-            'name_item',
-            'valor_unitario',
-            'valor_total',
-            'quantidade',
-            'item_id',
-            'pedido_id',
-            'pontos_binarios',
-            'quitar_com_bonus',
-            'potencial_mensal_teto',
-            'resgate_minimo',
-            'total_dias_contrato',
-            'total_meses_contrato',
-            'resgate_minimo_automatico',
-            'finaliza_contrato_automatico',
-            'dias_carencia_transferencia',
-            'dias_carencia_saque',
-            'modo_recontratacao_automatica',
-        ];
+        'name_item',
+        'valor_unitario',
+        'valor_total',
+        'quantidade',
+        'item_id',
+        'pedido_id',
+        'pontos_binarios',
+        'quitar_com_bonus',
+        'potencial_mensal_teto',
+        'resgate_minimo',
+        'total_dias_contrato',
+        'total_meses_contrato',
+        'resgate_minimo_automatico',
+        'finaliza_contrato_automatico',
+        'dias_carencia_transferencia',
+        'dias_carencia_saque',
+        'modo_recontratacao_automatica',
+    ];
 
     public function pedido()
     {
