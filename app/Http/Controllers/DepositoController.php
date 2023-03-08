@@ -75,7 +75,7 @@ class DepositoController extends Controller
         if($this->sistema->deposito_is_active) {
 
             try {
-                $item = Itens::whereTipoPedidoId(4)->first();
+                $item = Itens::whereTipoPedidoId(1)->first();
 
                 $dados['status'] = 1;
                 $dados['sen-dependente'] = null;
@@ -99,11 +99,11 @@ class DepositoController extends Controller
                     'quantidade'      => 1,
 
                     'quitar_com_bonus'             => $item->quitar_com_bonus,
-                    'potencial_mensal_teto'        => $item->potencial_mensal_teto,
-                    'resgate_minimo'               => $item->resgate_minimo,
-                    'total_dias_contrato'          => $item->contrato,
-                    'total_meses_contrato'         => $item->meses,
-                    'resgate_minimo_automatico'    => $item->resgate_minimo_automatico,
+                    'potencial_mensal_teto'        => $item->potencial_mensal_teto ?? -1,
+                    'resgate_minimo'               => $item->resgate_minimo ?? -1,
+                    'total_dias_contrato'          => $item->contrato  ?? 3,
+                    'total_meses_contrato'         => $item->meses ?? 2,
+                    'resgate_minimo_automatico'    => $item->resgate_minimo_automatico ?? -1,
                     'finaliza_contrato_automatico' => $item->finaliza_contrato_automatico,
                     'dias_carencia_saque'          => $item->dias_carencia_saque,
                 ];
