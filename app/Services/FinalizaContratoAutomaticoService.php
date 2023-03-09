@@ -22,7 +22,7 @@ class FinalizaContratoAutomaticoService
         $this->dataProcessamento = $dataProcessamento;
     }
 
-    public function processar()
+    public function processar(): bool
     {
         $sucesso = false;
 
