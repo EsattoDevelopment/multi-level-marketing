@@ -18,8 +18,11 @@ use App\Models\Movimentos;
 use App\Models\DadosPagamento;
 use App\Models\Transferencias;
 use App\Models\PedidosMovimentos;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -33,7 +36,7 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|Application|View
      */
     public function indiceEconomico()
     {
