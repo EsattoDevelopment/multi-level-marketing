@@ -106,18 +106,18 @@
                 @if(isset($usuarioDepositosConfirmados))
                     <div class="box">
                         <div class="box-header">
-                            Veja abaixo a lista de licenças já confirmados pela empresa:
+                            Veja abaixo os credenciamentos já confirmados:
                         </div>
                         <div class="box-body">
                             <table id="tabela_ingles" class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Nº Doc</th>
-                                    <th>Item</th>
-                                    <th>Valor</th>
-                                    <th>Data</th>
-                                    <th>Método de pagamento</th>
-                                </tr>
+                                    <tr>
+                                        <th>Nº Doc</th>
+                                        <th>Item</th>
+                                        <th>Valor</th>
+                                        <th>Data</th>
+                                        <th>Método de pagamento</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($usuarioDepositosConfirmados as $dd)
