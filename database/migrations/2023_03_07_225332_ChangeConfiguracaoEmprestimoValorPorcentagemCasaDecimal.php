@@ -15,7 +15,7 @@ class ChangeConfiguracaoEmprestimoValorPorcentagemCasaDecimal extends Migration
     public function down(): void
     {
         Schema::table('configuracao_emprestimo', static function (Blueprint $table) {
-            $table->float('valor_porcentagem');
+            $table->float('valor_porcentagem')->change();
         });
     }
 }
