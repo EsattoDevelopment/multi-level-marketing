@@ -51,7 +51,11 @@
                                         @foreach($pedidos_aguardando as $dd)
                                             <tr>
                                                 <td>{{ $dd->id }}</td>
-                                                <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
+                                                @if($dd->getRelation('itens')->first())
+                                                    <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
+                                                @else
+                                                    <td>Nenhum</td>
+                                                @endif
                                                 <td>{{ $dd->getRelation('user')->name }}</td>
                                                 <td>{{ $dd->getRelation('user')->username }}</td>
                                                 <td> {{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
@@ -101,7 +105,11 @@
                                         @foreach($pedidos_aguarda_confimacao as $dd)
                                             <tr>
                                                 <td>{{ $dd->id }}</td>
-                                                <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
+                                                @if($dd->getRelation('itens')->first())
+                                                    <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
+                                                @else
+                                                    <td>Nenhum</td>
+                                                @endif
                                                 <td>{{ $dd->getRelation('user')->name }}</td>
                                                 <td>{{ $dd->getRelation('user')->username }}</td>
                                                 <td> {{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
@@ -159,7 +167,11 @@
                                         @foreach($pedidos_pagos as $dd)
                                             <tr>
                                                 <td>{{ $dd->id }}</td>
-                                                <td>{{ $dd->itens->first()->getRelation('itens')->name }}</td>
+                                                @if($dd->getRelation('itens')->first())
+                                                    <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
+                                                @else
+                                                    <td>Nenhum</td>
+                                                @endif
                                                 <td>{{ $dd->user->name }}</td>
                                                 <td> {{ $dd->user->username }}</td>
                                                 <td> {{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
@@ -217,7 +229,11 @@
                                         @foreach($pedidos_cancelados as $dd)
                                             <tr>
                                                 <td>{{ $dd->id }}</td>
-                                                <td>{{ $dd->itens->first()->getRelation('itens')->name }}</td>
+                                                @if($dd->getRelation('itens')->first())
+                                                    <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
+                                                @else
+                                                    <td>Nenhum</td>
+                                                @endif
                                                 <td>{{ $dd->user->name }}</td>
                                                 <td>{{ $dd->user->username }}</td>
                                                 <td> {{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>

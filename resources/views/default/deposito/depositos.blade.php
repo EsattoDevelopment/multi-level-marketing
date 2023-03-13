@@ -27,7 +27,6 @@
                                 <thead>
                                 <tr>
                                     <th>Nº Doc</th>
-                                    <th>Item</th>
                                     <th>Valor</th>
                                     <th>Data do depósito</th>
                                     <th class="text-green">INSTRUÇÕES PARA DEPÓSITO</th>
@@ -37,7 +36,6 @@
                                 @foreach($usuarioDepositosAguardandoDeposito as $dd)
                                     <tr>
                                         <td>{{ $dd->id }}</td>
-                                        <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
                                         <td>{{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
                                         <td>{{ $dd->data_compra->format('d/m/Y') }}</td>
                                         <td>
@@ -69,7 +67,6 @@
                                 <thead>
                                 <tr>
                                     <th>Nº Doc</th>
-                                    <th>Item</th>
                                     <th>Valor</th>
                                     <th>Data do depósito</th>
                                     <th>Método de depósito</th>
@@ -80,7 +77,6 @@
                                 @foreach($usuarioDepositosAguardandoConferencia as $dd)
                                     <tr>
                                         <td>{{ $dd->id }}</td>
-                                        <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
                                         <td>{{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
                                         <td>{{ $dd->data_compra->format('d/m/Y') }}</td>
                                         <td>{{ $dd->getRelation('dadosPagamento')->metodoPagamento->name }}</td>
@@ -113,7 +109,6 @@
                                 <thead>
                                 <tr>
                                     <th>Nº Doc</th>
-                                    <th>Item</th>
                                     <th>Valor</th>
                                     <th>Data do depósito</th>
                                     <th>Método de depósito</th>
@@ -123,7 +118,6 @@
                                 @foreach($usuarioDepositosConfirmados as $dd)
                                     <tr>
                                         <td>{{ $dd->id }}</td>
-                                        <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
                                         <td>{{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
                                         <td>{{ $dd->data_compra->format('d/m/Y') }}</td>
                                         <td>{{ $dd->getRelation('dadosPagamento')->metodoPagamento->name ?? '' }}</td>
@@ -146,7 +140,6 @@
                                 <thead>
                                 <tr>
                                     <th>Nº Doc</th>
-                                    <th>Item</th>
                                     <th>Valor</th>
                                     <th>Data do depósito</th>
                                 </tr>
@@ -155,7 +148,6 @@
                                 @foreach($usuarioDepositosCancelados as $dd)
                                     <tr>
                                         <td>{{ $dd->id }}</td>
-                                        <td>{{ $dd->getRelation('itens')->first()->getRelation('itens')->name }}</td>
                                         <td>{{ mascaraMoeda($sistema->moeda, $dd->valor_total, 0, true) }}</td>
                                         <td>{{ $dd->data_compra->format('d/m/Y') }}</td>
                                     </tr>

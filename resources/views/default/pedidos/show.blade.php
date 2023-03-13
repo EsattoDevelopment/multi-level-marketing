@@ -33,9 +33,12 @@
                         <dl class="dl-horizontal">
                             <dt>Nome usuário</dt>
                             <dd>{{ $dados->getRelation('user')->name }}</dd>
-                            <dt>Item</dt>
-                            <dd>
-                                #{{ $dados->getRelation('itens')->first()->item_id }} {{ $dados->getRelation('itens')->first()->name_item }}</dd>
+                            @if($dados->getRelation('itens')->first())
+                                <dt>Item</dt>
+                                <dd>
+                                    #{{ $dados->getRelation('itens')->first()->item_id }} {{ $dados->getRelation('itens')->first()->name_item }}
+                                </dd>
+                            @endif
                             <dt>Valor</dt>
                             <dd>{{ mascaraMoeda($sistema->moeda, $dados->getRelation('dadosPagamento')->valor, 2, true) }}</dd>
                             <dt>Data compra</dt>

@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TipoPedidos;
 use App\Models\User;
 use Log;
 use Carbon\Carbon;
@@ -75,40 +76,18 @@ class DepositoController extends Controller
         if($this->sistema->deposito_is_active) {
 
             try {
-                $item = Itens::whereTipoPedidoId(1)->first();
+                $tiposPedido = TipoPedidos::where('name', 'Depósito')->first();
 
                 $dados['status'] = 1;
                 $dados['sen-dependente'] = null;
                 $dados['valor_total'] = $this->getMoney($request->get('valor'));
                 $dados['user_id'] = Auth::user()->id;
-                $dados['tipo_pedido'] = $item->tipo_pedido_id;
+                $dados['tipo_pedido'] = $tiposPedido->id;
                 $dados['data_compra'] = Carbon::now();
 
                 DB::beginTransaction();
 
                 $pedido = Pedidos::create($dados);
-
-                // adicionar quantidade de pontos
-                $dadoItenPedido = [
-                    'pedido_id'       => $pedido->id,
-                    'item_id'         => $item->id,
-                    'name_item'       => $item->name,
-                    'pontos_binarios' => $item->pontos_binarios,
-                    'valor_unitario'  => $item->valor,
-                    'valor_total'     => $this->getMoney($request->get('valor')),
-                    'quantidade'      => 1,
-
-                    'quitar_com_bonus'             => $item->quitar_com_bonus,
-                    'potencial_mensal_teto'        => $item->potencial_mensal_teto ?? -1,
-                    'resgate_minimo'               => $item->resgate_minimo ?? -1,
-                    'total_dias_contrato'          => $item->contrato  ?? 3,
-                    'total_meses_contrato'         => $item->meses ?? 2,
-                    'resgate_minimo_automatico'    => $item->resgate_minimo_automatico ?? -1,
-                    'finaliza_contrato_automatico' => $item->finaliza_contrato_automatico,
-                    'dias_carencia_saque'          => $item->dias_carencia_saque,
-                ];
-
-                ItensPedido::create($dadoItenPedido);
 
                 DadosPagamento::create([
                     'valor'           => $this->getMoney($request->get('valor')),
@@ -219,7 +198,8 @@ class DepositoController extends Controller
 
         $metodoPagamentoQuery = MetodoPagamento::where('status', 1);
 
-        if ($pedido->itens->first()->itens->tipo_pedido_id === 4) {
+
+        if ($pedido->tipo_pedido === 4) {
             $metodoPagamentoQuery->where('usar_deposito', 1);
         } else {
             $metodoPagamentoQuery->where('usar_item', 1);

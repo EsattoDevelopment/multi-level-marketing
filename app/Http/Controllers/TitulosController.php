@@ -84,7 +84,7 @@ class TitulosController extends Controller
 
             $body = $request->all();
 
-            $body['cor'] = preg_replace('/\W/', '',$body['cor']);
+            $body['cor'] = preg_replace('/\W/', '', $body['cor']);
 
             Titulos::create($body);
 
@@ -157,7 +157,12 @@ class TitulosController extends Controller
             if($request->configuracao_bonus_rentabilidade_id == 0)
                 $request->merge(['configuracao_bonus_rentabilidade_id' => null]);
 
-            $titulo->update($request->all());
+
+            $body = $request->all();
+
+            $body['cor'] = preg_replace('/\W/', '', $body['cor']);
+
+            $titulo->update($body);
 
             DB::commit();
 

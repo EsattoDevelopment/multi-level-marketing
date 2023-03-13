@@ -73,23 +73,24 @@
                             @endif
                         </dl>
                     </div><!-- /.box-body -->
-
+                    {{--
                     @if($dados->metodo_pagamento_id == 9)
-                        <div class="box-header with-border">
-                            <i class="glyphicon glyphicon-asterisk"></i>
-                            <h3 class="box-title">
-                                Atenção
-                            </h3>
+                    <div class="box-header with-border">
+                        <i class="glyphicon glyphicon-asterisk"></i>
+                        <h3 class="box-title">
+                            Atenção
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group col-xs-12">
+                            <strong class="text-red">É expressamente proibido transferências bancárias por contas de
+                                terceiros.<br>
+                                A transferência deve ser feita exclusivamente de uma conta bancária de SUA TITULARIDADE.
+                            </strong>
                         </div>
-                        <div class="box-body">
-                            <div class="form-group col-xs-12">
-                                <strong class="text-red">É expressamente proibido transferências bancárias por contas de terceiros.<br>
-                                    A transferência deve ser feita exclusivamente de uma conta bancária de SUA TITULARIDADE.
-                                </strong>
-                            </div>
-                        </div>
+                    </div>
                     @endif
-
+                    --}}
                     <div class="box-header with-border">
                         <i class="glyphicon glyphicon-list-alt"></i>
                         <h3 class="box-title">
