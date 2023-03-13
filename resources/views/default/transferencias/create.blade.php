@@ -26,10 +26,10 @@
                         <br><small :class="{'text-red': excede}">Saldo disponível: {{ $sistema->moeda }}@{{saldo | price}}</small>
                         <br>
                         <label class="pull-left">Contas cadastradas</label>
-                        @if($dadosBancarios->count() > 0)
+                        @if($dados_bancarios->count() > 0)
                             <select class="pull-left form-control" required name="conta_id" id="banco">
                                 <option value=" ">Escolha uma conta bancária</option>
-                                @foreach($dadosBancarios as $dados)
+                                @foreach($dados_bancarios as $dados)
                                     <option {{ old('conta_id') == $dados->id ? 'selected' : '' }} value="{{ $dados->id }}">{{ $dados->bancoReferencia->nome }} - {{ $dados->agencia }} -{{ $dados->conta }}</option>
                                 @endforeach
                             </select>

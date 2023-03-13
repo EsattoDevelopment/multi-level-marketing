@@ -2,28 +2,23 @@
 
 @section('content')
     <section class="content-header">
-        <h1>
-            Configurações do sistema
-        </h1>
+        <h1>Configurações do sistema</h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         </ol>
     </section>
     <section class="content">
-
         @include('default.errors.errors')
-
         <div class="row">
-            <!-- form start -->
             <form role="form" action="{{ route('sistema.update', $dados->id) }}" method="post">
                 {!! csrf_field() !!}
                 <input type="hidden" name="_method" value="PUT">
                 <div class="col-md-12">
-                    <!-- general form elements -->
+                    {{--Sistemas--}}
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Sistemas</h3>
-                        </div><!-- /.box-header -->
+                        </div>
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Sistema de viagens</label> <br>
@@ -51,15 +46,14 @@
                                     Não
                                 </label>
                             </div>
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
+                        </div>
+                    </div>
 
                     {{--Tipo de matrizes--}}
                     <div class="box box-warning">
                         <div class="box-header with-border">
                             <h3 class="box-title">Tipos de matriz</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Matriz unilevel</label> <br>
@@ -92,21 +86,19 @@
                                 <small><i>Válido somente para matriz fechada</i></small>
                                 <input type="number" name="matriz_fechada_tamanho" value="{{ old('matriz_fechada_tamanho', $dados->matriz_fechada_tamanho) }}" class="form-control" placeholder="Lateralidade da matriz fechada">
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Profundidade Matriz</label><br>
                                 <small><i>Pronfundidade de pagamento das matrizes</i></small>
                                 <input type="number" name="profundidade_pagamento_matriz" value="{{ old('profundidade_pagamento_matriz', $dados->profundidade_pagamento_matriz) }}" class="form-control" placeholder="Profundidade Matriz">
                             </div>
                         </div>
-                    </div><!--/.col (left) -->
+                    </div>
 
                     {{--Rede binaria--}}
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">Binário</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Rede binária</label> <br>
@@ -121,20 +113,19 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Valor ponto binário</label><br>
                                 <small><i>Valores do pontos ao rodar o binário</i></small>
                                 <input type="text" name="valor_ponto_binario" value="{{ old('valor_ponto_binario', $dados->valor_ponto_binario) }}" class="form-control" placeholder="Profundidade Matriz">
                             </div>
                         </div>
-                    </div><!--/.col (left) -->
+                    </div>
+
                     {{--Rentabilidade--}}
                     <div class="box box-warning">
                         <div class="box-header with-border">
                             <h3 class="box-title">Rentabilidade</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="rendimento_titulo">Paga rendimentos do titulo</label> <br>
@@ -149,7 +140,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="rendimento_item">Paga rendimentos do item</label> <br>
                                 <small>Faz pagamento de rendimentos através do item</small>
@@ -164,13 +154,13 @@
                                 </label>
                             </div>
                         </div>
-                    </div><!--/.col (left) -->
+                    </div>
 
+                    {{--Royalties--}}
                     <div class="box box-success">
                         <div class="box-header with-border">
                             <h3 class="box-title">Royalties</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Porcentagem de royalties</label> <br>
@@ -203,13 +193,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!--/.col (left) -->
+                    </div>
 
+                    {{--Recontratação--}}
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Recontratação</h3>
                         </div>
-
                         <div class="box-body">
                                 <div class="form-group col-xs-12 col-sm-6">
                                     <label for="alertas_recontratacao_range_dias">Alertas de recontratação automática</label><br>
@@ -224,11 +214,11 @@
                         </div>
                     </div>
 
+                    {{--Transferências--}}
                     <div class="box box-success">
                         <div class="box-header with-border">
                             <h3 class="box-title">Parâmetros de transferências</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-12">
                                 <label for="">Transferências internas</label>
@@ -279,7 +269,6 @@
                                     Nas operações de estorno de transferência interna, estornar o valor da taxa quando houver
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-12">
                                 <hr>
                                 <label for="">Transferências externas</label>
@@ -333,21 +322,64 @@
                                     <span class="input-group-addon">Dias úteis</span>
                                 </div>
                             </div>
-                            <div class="form-group col-xs-12 col-lg-12">
+                            <div class="form-group col-xs-12 col-lg-6">
+                                <label for="">Dia permitido para transferência</label> <br>
+                                <small>Em qual dia do mês a opção de transferência é habilitada para os usuários</small>
+                                <div class="input-group">
+                                    <input
+                                        type="text"
+                                        name="dia_permitido_para_saques"
+                                        value="{{ old('dia_permitido_para_saques', $dados->dia_permitido_para_saques) }}"
+                                        min="0"
+                                        class="form-control"
+                                    />
+                                    <span class="input-group-addon">Dia do mês</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12 col-lg-6">
                                 <label style="padding-right: 25px">
-                                    <input type="checkbox" value="1" name="transferencia_externa_estornar_taxa" class="flat-red" {{ old('transferencia_externa_estornar_taxa', $dados->transferencia_externa_estornar_taxa)  == 1 ? 'checked' : '' }}>
+                                    <input
+                                        type="checkbox"
+                                        value="1"
+                                        name="transferencia_externa_exige_upload_nota_fiscal"
+                                        class="flat-red"
+                                        {{ old('transferencia_externa_exige_upload_nota_fiscal', $dados->transferencia_externa_exige_upload_nota_fiscal)  == 1 ? 'checked' : '' }}
+                                    />
+                                    Exigir upload de nota fiscal nas transferências
+                                </label>
+                            </div>
+                            <div class="form-group col-xs-12 col-lg-6">
+                                <label style="padding-right: 25px">
+                                    <input
+                                        type="checkbox"
+                                        value="1"
+                                        name="restringir_dias_para_saques"
+                                        class="flat-red"
+                                        {{ old('restringir_dias_para_saques', $dados->restringir_dias_para_saques)  == 1 ? 'checked' : '' }}
+                                    />
+                                    Restringir dias para transferências
+                                </label>
+                            </div>
+                            <div class="form-group col-xs-12 col-lg-6">
+                                <label style="padding-right: 25px">
+                                    <input
+                                        type="checkbox"
+                                        value="1"
+                                        name="transferencia_externa_estornar_taxa"
+                                        class="flat-red"
+                                        {{ old('transferencia_externa_estornar_taxa', $dados->transferencia_externa_estornar_taxa)  == 1 ? 'checked' : '' }}
+                                    />
                                     Nas operações de estorno de transferência externa, estornar o valor da taxa quando houver
                                 </label>
                             </div>
                         </div>
-                    </div><!--/.col (left) -->
+                    </div>
 
                     {{--Parametros--}}
                     <div class="box box-danger">
                         <div class="box-header with-border">
                             <h3 class="box-title">Parametros do sistema</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Bonus diário do titulo</label> <br>
@@ -362,7 +394,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Bonus diário do item</label> <br>
                                 <small>Os pagamentos de bonus diários usará os valores cadastrados nos itens</small>
@@ -376,7 +407,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Bonificação diaria</label> <br>
                                 <small>As bonificações serão pagas diariamente automaticamente</small>
@@ -390,7 +420,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Bonificação diaria recorrente</label> <br>
                                 <small>Se ativo as bonificações pagas serão referentes ao ultima inserção de bonus</small>
@@ -404,7 +433,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Tipo Bonus patrocinado</label> <br>
                                 <small>Seta qual sera o tipo de calculo usado para bonificar o patrocinador</small>
@@ -418,7 +446,6 @@
                                     Percentual
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Tipo Bonus equiparação</label> <br>
                                 <small>Seta qual sera o tipo de calculo usado na equiparação</small>
@@ -432,7 +459,6 @@
                                     Percentual
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Update de titulo</label> <br>
                                 <small>Seta se o sistema terá update de titulo</small>
@@ -446,7 +472,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Update de titulo automatico</label> <br>
                                 <small>Seta se o sistema o update de titulo será automatico</small>
@@ -460,19 +485,16 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Moeda</label><br>
                                 <small><i>Moeda utilizada no sistema ({{ $sistema->moeda }}, $, £ ...)</i></small>
                                 <input type="text" name="moeda" value="{{ old('moeda', $dados->moeda) }}" class="form-control" placeholder="Profundidade Matriz">
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Valor depósito</label><br>
                                 <small><i>Valor minimo para realizar depósito (ex 20.00)</i></small>
                                 <input type="text" name="min_deposito" value="{{ old('min_deposito', $dados->min_deposito) }}" class="form-control" placeholder="Valor depósito">
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Habilitar deposito?</label> <br>
                                 <small>Flag para habilitar e desabilitar o deposito</small>
@@ -491,7 +513,6 @@
                                 <small><i>Valor minimo para realizar transferência (ex 20.00)</i></small>
                                 <input type="text" name="min_transferencia" value="{{ old('min_transferencia', $dados->min_transferencia) }}" class="form-control" placeholder="Valor transferência">
                             </div>--}}
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Pagar bônus de equiparação</label> <br>
                                 <small>Calcula e paga bônus de equiparação</small>
@@ -571,13 +592,13 @@
                                 </label>
                             </div>
                         </div>
-                    </div><!--/.col (left) -->
+                    </div>
+
                     {{--Campos sistema--}}
                     <div class="box box-success">
                         <div class="box-header with-border">
                             <h3 class="box-title">Campos do sistema</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de CPF</label> <br>
@@ -592,7 +613,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de RG</label> <br>
                                 <small>habilita o campos de RG obrigatório</small>
@@ -606,7 +626,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de Data de nascimento</label> <br>
                                 <small>habilita o campos de Data de nascimento obrigatório</small>
@@ -620,7 +639,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de Endereço</label> <br>
                                 <small>habilita os campos de endereço</small>
@@ -634,7 +652,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de Endereço obrigatório</label> <br>
                                 <small>Torna os campos de endereço obrigatório</small>
@@ -648,7 +665,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de dados bancarios</label> <br>
                                 <small>Habilita os campos de dados bancarios</small>
@@ -662,7 +678,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo de dados bancarios obrigatório</label> <br>
                                 <small>Torna os campos de dados bancarios obrigatório</small>
@@ -676,7 +691,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="">Campo Estrangeiro</label> <br>
                                 <small>Habilitar campo para aceitar cadastro estrangeiro</small>
@@ -690,14 +704,14 @@
                                     Não
                                 </label>
                             </div>
-
                         </div>
                     </div>
+
+                    {{--Interface do usuário--}}
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Interface do usuário</h3>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="habilita_registro_usuario_sem_indicacao">Exibe o botão "Abrir minha conta"</label> <br>
@@ -727,13 +741,13 @@
                             </div>
                         </div>
                     </div>
+
+                    {{--Segurança--}}
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">Autenticações de dois fatores</h3>
                         </div>
-
                         <div class="box-body">
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="habilita_autenticacao_contratacao">Contratação</label> <br>
                                 <small>Habilita a autenticação de dois fatores na contratação de novos contratos pelo usuário</small>
@@ -747,7 +761,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="habilita_autenticacao_recontratacao">Recontratação</label> <br>
                                 <small>Habilita a autenticação de dois fatores na alteração do modo de renovação automática pelo usuário</small>
@@ -761,7 +774,6 @@
                                     Não
                                 </label>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="habilita_autenticacao_transferencias">Transferências</label> <br>
                                 <small>Habilita a autenticação de dois fatores nas solicitações de transferências do usuário</small>
@@ -775,16 +787,15 @@
                                     Não
                                 </label>
                             </div>
-
                         </div>
                     </div>
 
+                    {{--Emails--}}
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <h3 class="box-title">E-mails</h3>
                             <i>Configuração para quem vai receber emails do sistema.</i>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="emails_dados_bancarios">Dados bancários</label> <br>
@@ -795,7 +806,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="emails_documentacao">Documentação</label> <br>
                                 <small>E-mail de quem vai conferir verificação da documentação.</small>
@@ -805,7 +815,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                             <div class="form-group col-xs-12 col-lg-6">
                                 <label for="emails_comprovante_pagamento">Comprovante de pagamento</label> <br>
                                 <small>E-mail de quem vai conferir comprovante de pagamento.</small>
@@ -815,7 +824,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                     </div>
 
@@ -824,16 +832,15 @@
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                     </div>
+                </div>
             </form>
-        </div>   <!-- /.row -->
-    </section><!-- /.content -->
-
+        </div>
+    </section>
 @endsection
 
 @section('style')
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
-
 @endsection
 
 @section('script')

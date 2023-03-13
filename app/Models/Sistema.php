@@ -1,28 +1,13 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Sistema.
- */
 class Sistema extends Model
 {
-    /**
-     * @var string
-     */
     protected $table = 'configuracao_sistema';
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'sistema_viagens', //sim = 1, não = 0
         'bonus_milha_cadastro',
@@ -74,6 +59,7 @@ class Sistema extends Model
 
         'min_deposito', //valor minimo para deposito
         'min_transferencia', //valor minimo para transferencia
+        'deposito_is_active',
 
         'habilita_autenticacao_contratacao',
         'habilita_autenticacao_recontratacao',
@@ -94,6 +80,7 @@ class Sistema extends Model
         'royalties_valor_minimo_bonus',
         'royalties_porcentagem_distribuir',
 
+        'dias_para_transferencia', // prazo em dias úteis para efetivação da transferência
         'transferencia_interna_valor_minimo',
         'transferencia_interna_valor_minimo_gratis',
         'transferencia_interna_valor_taxa',
@@ -104,38 +91,25 @@ class Sistema extends Model
         'transferencia_externa_qtde_gratis',
         'transferencia_interna_estornar_taxa',
         'transferencia_externa_estornar_taxa',
+        'transferencia_externa_exige_upload_nota_fiscal',
+        'restringir_dias_para_saques',
+        'dia_permitido_para_saques',
 
         'habilita_registro_usuario_sem_indicacao',
         'habilita_registro_usuario_troca_indicador',
-
-        'dias_para_transferencia',
-
-        'deposito_is_active',
     ];
 
-    /**
-     * @param $value
-     * @return array
-     */
-    public function getEmailsDadosBancariosAttribute($value)
+    public function getEmailsDadosBancariosAttribute(string $value): array
     {
         return array_filter(explode(', ', $value));
     }
 
-    /**
-     * @param $value
-     * @return array
-     */
-    public function getEmailsDocumentacaoAttribute($value)
+    public function getEmailsDocumentacaoAttribute(string $value): array
     {
         return array_filter(explode(', ', $value));
     }
 
-    /**
-     * @param $value
-     * @return array
-     */
-    public function getEmailsComprovantePagamentoAttribute($value)
+    public function getEmailsComprovantePagamentoAttribute(string $value): array
     {
         return array_filter(explode(', ', $value));
     }

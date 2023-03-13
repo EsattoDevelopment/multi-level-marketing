@@ -1,7 +1,6 @@
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-        <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
                 <img src="@if(Auth::user()->image){{ route('imagecache', ['user', 'user/'.Auth::user()->image]) }}@else{{ route('imagecache', ['user', 'user-img.jpg']) }}@endif"
@@ -22,7 +21,6 @@
                     <span>Início</span>
                 </a>
             </li>
-
             <li class="treeview @if(strpos(Route::currentRouteName(), 'dados-usuario') !== false || strpos(Route::currentRouteName(), '2fa') !== false) active @endif">
                 <a href="#">
                     <i class="fa fa-file-text"></i>
@@ -37,19 +35,15 @@
                     <li class="@if(Route::currentRouteName() == 'dados-usuario.seguranca' || strpos(Route::currentRouteName(), '2fa') !== false) active @endif"><a href="{{ route('dados-usuario.seguranca') }}"><i class="fa fa-lock"></i> Segurança</a></li>
                 </ul>
             </li>
-
             @role('manipulador-documento')
             @include('default.layout.sidebar.documento')
             @endrole
-
-
             <li class="treeview">
                 <a href="{{ route('indices.economicos') }}">
                     <i class="fa fa-line-chart"></i>
                     <span>Índices Econômicos</span>
                 </a>
             </li>
-
             <li class="treeview @if(strpos(Route::currentRouteName(), 'emprestimos.') !== false) active @endif">
                 <a href="javascript:">
                     <i class="fa fa-money"></i>
@@ -60,7 +54,6 @@
                     <li><a href="{{ route('emprestimos.calculadora') }}"><i class="fa fa-calculator"></i> Fazer simulação</a></li>
                 </ul>
             </li>
-
             @if(!Auth::user()->empresa_id)
                 <li class="treeview @if(strpos(Route::currentRouteName(), 'depositos.') !== false || strpos(Route::currentRouteName(), 'deposito.depositar') !== false) active @endif">
                     <a href="#">
@@ -106,7 +99,6 @@
                     </ul>
                 </li>
             @endif
-
             @if(!Auth::user()->empresa_id)
                 <li class="treeview @if(strpos(Route::currentRouteName(), 'pedidos.') !== false || strpos(Route::currentRouteName(), 'portfolio.lista') !== false) active @endif">
                     <a href="#">
@@ -153,23 +145,42 @@
                     </ul>
                 </li>
             @endif
-
             @include('default.layout.sidebar.extratos')
-
             <li class="treeview @if(strpos(Route::currentRouteName(), 'transferencia') !== false) active @endif">
                 <a href="#">
                     <i class="fa fa-exchange"></i> <span>Transferências</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li @if(Route::currentRouteName() == "transferencia.liberty") class="active" @endif><a href="{{ route('transferencia.liberty') }}"><i class="fa fa-circle-o"></i> Entre contas {{ ucfirst(env('COMPANY_NAME_SHORT', 'empresa')) }}</a></li>
-                    <li @if(Route::currentRouteName() == "transferencia.create") class="active" @endif><a href="{{ route('transferencia.create') }}"><i class="fa fa-circle-o"></i> Para outros bancos</a></li>
-                    <li @if(Route::currentRouteName() == "transferencia.index") class="active" @endif><a href="{{ route('transferencia.index') }}"><i class="fa fa-circle-o"></i>Histórico</a>
+                    <li @if(Route::currentRouteName() == "transferencia.liberty") class="active" @endif>
+                        <a href="{{ route('transferencia.liberty') }}">
+                            <i class="fa fa-circle-o"></i> Entre contas {{ ucfirst(env('COMPANY_NAME_SHORT', 'empresa')) }}
+                        </a>
+                    </li>
+                    <li @if(Route::currentRouteName() == "transferencia.create") class="active" @endif>
+                        <a
+                            @if($sistema->restringir_dias_para_saques && \Carbon\Carbon::now()->day !== $sistema->dia_permitido_para_saques)
+                                style="cursor: not-allowed; color: rgba(138,164,175,0.3);"
+                                href="#"
+                                class="tooltip2"
+                                title="Transferências permitidas apenas dia {{$sistema->dia_permitido_para_saques}}."
+                            @else
+                                href="{{ route('transferencia.create') }}"
+                            @endif
+                        >
+                            <i class="fa fa-circle-o"></i> Para outros bancos
+                            @if($sistema->restringir_dias_para_saques && \Carbon\Carbon::now()->day !== $sistema->dia_permitido_para_saques)
+                                <span class="tooltiptext">Transferências permitidas apenas dia {{$sistema->dia_permitido_para_saques}}.</span>
+                            @endif
+                        </a>
+                    </li>
+                    <li @if(Route::currentRouteName() == "transferencia.index") class="active" @endif>
+                        <a href="{{ route('transferencia.index') }}">
+                            <i class="fa fa-circle-o"></i>Histórico
+                        </a>
                     </li>
                 </ul>
             </li>
-
             @if(Auth::user()->titulo->habilita_rede)
-
                 <li class="treeview @if(Route::currentRouteName() == 'rede') active @endif">
                     <a href="{{ route('rede') }}">
                         <i class="fa fa-slideshare"></i>
@@ -177,7 +188,6 @@
                         <small class="label pull-right bg-red">{{ Auth::user()->diretos->count() }}</small>
                     </a>
                 </li>
-
                 <li class="treeview @if(strpos(Route::currentRouteName(), 'rede.organograma') !== false || strpos(Route::currentRouteName(), 'rede.agentes') !== false) active @endif">
                     <a href="#">
                         <i class="fa fa-users"></i>
@@ -201,7 +211,6 @@
                     </ul>
                 </li>
             @endif
-
             <li class="treeview @if(Route::currentRouteName() == 'videos.show') active @endif">
                 <a href="#">
                     <i class="glyphicon glyphicon-play-circle"></i>
@@ -214,7 +223,6 @@
                     @endforeach
                 </ul>
             </li>
-
             @if(Auth::user()->nascimento->diffInYears(\Carbon\Carbon::now()) >= 18)
                 {{--@if(!Auth::user()->titulo->habilita_rede && Auth::user()->pedidos()->contratos()->where('status', 2)->count() > 0)--}}
                 @if(!Auth::user()->titulo->habilita_rede)
@@ -226,10 +234,7 @@
                     </li>
                 @endif
             @endif
-
-
             @include('default.layout.sidebar.download')
-
             <li class="treeview">
                 <a href="{{ route('auth.logout') }}">
                     <i class="fa fa-sign-out"></i>
@@ -238,5 +243,4 @@
             </li>
         </ul>
     </section>
-    <!-- /.sidebar -->
 </aside>

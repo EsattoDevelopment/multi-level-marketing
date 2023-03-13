@@ -57,8 +57,7 @@
             position: absolute;
             z-index: 1;
             bottom: 150%;
-            left: 50%;
-            margin-left: -60px;
+            left: 0;
             white-space: normal;
         }
 

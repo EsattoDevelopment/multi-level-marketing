@@ -1,11 +1,5 @@
 <?php
 
-/*
- * Esse arquivo faz parte de <MasterMundi/Master MDR>
- * (c) Nome Autor zehluiz17[at]gmail.com
- *
- */
-
 namespace App\Http\Controllers;
 
 use App\Services\TransferenciaService;
@@ -15,6 +9,11 @@ use App\Models\Sistema;
 use App\Models\Movimentos;
 use App\Models\DadosBancarios;
 use App\Models\Transferencias;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\DestinatarioRequest;
@@ -24,6 +23,7 @@ use App\Notifications\TransferenciaEfetivada;
 use App\Notifications\TransferenciaSolicitada;
 use App\Notifications\TransferenciaSolicitadaAdmin;
 use App\Notifications\TransferenciaEfetivadaDestinatario;
+use Illuminate\View\View;
 
 class TransferenciaController extends Controller
 {
@@ -68,7 +68,7 @@ class TransferenciaController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -80,20 +80,19 @@ class TransferenciaController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|Application|RedirectResponse|View
      */
     public function create()
     {
-        $dadosBancarios = \Auth::user()->dadosBancarios->where('status_comprovante', 'validado');
-
-        /*return view('default.transferencias.create', compact('dadosBancarios'));*/
-
+        if ($this->sistema->restringir_dias_para_saques && Carbon::now()->day !== $this->sistema->dia_permitido_para_saques) {
+            return redirect()->route('home');
+        }
+        $dados_bancarios = \Auth::user()->dadosBancarios->where('status_comprovante', 'validado');
         $transferencia_gratuitas = $this->sistema->transferencia_externa_qtde_gratis;
         $transferenciaService = new TransferenciaService();
         $transferencia_gratuitas_restante = $transferenciaService->transferenciaExternaGratuitaQtde(Auth::user()->id);
-
         return view('default.transferencias.create', [
-            'dadosBancarios' => $dadosBancarios,
+            'dados_bancarios' => $dados_bancarios,
             'transferencia_gratuitas' => $transferencia_gratuitas,
             'transferencia_gratuitas_restante' => $transferencia_gratuitas_restante
         ]);
@@ -102,8 +101,9 @@ class TransferenciaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param TransferenciaRequest $request
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function store(TransferenciaRequest $request)
     {
@@ -173,7 +173,7 @@ class TransferenciaController extends Controller
             DB::commit();
 
             return redirect()->route('transferencia.index');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollback();
 
             flash()->error('Desculpe, não foi possivel realizar a operação!');
@@ -225,7 +225,7 @@ class TransferenciaController extends Controller
                 Movimentos::create($dadosMovimento);
             }
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
 
         }
@@ -272,7 +272,7 @@ class TransferenciaController extends Controller
                 Movimentos::create($dadosMovimento);
             }
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
 
         }
@@ -330,7 +330,7 @@ class TransferenciaController extends Controller
                 }
             }
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
 
         }
@@ -374,7 +374,7 @@ class TransferenciaController extends Controller
 
             $sucesso = true;
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
 
         }
@@ -447,7 +447,7 @@ class TransferenciaController extends Controller
                 }
             }
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
 
         }
@@ -506,7 +506,7 @@ class TransferenciaController extends Controller
             DB::commit();
 
             return redirect()->route('transferencia.index');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollback();
 
             flash()->error('Desculpe, não foi possivel realizar a operação!');
@@ -519,7 +519,7 @@ class TransferenciaController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function todos()
     {
@@ -585,7 +585,7 @@ class TransferenciaController extends Controller
 
             return redirect()->route('transferencia.em_liquidacao');
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
             DB::rollback();
 
