@@ -31,9 +31,11 @@ class PosicionaRede
         Log::info("Usuário # $usuario->id ainda não tem rede");
         try {
             $pedido = $event->getPedido();
-            $item = $event->getItens()->first()->itens()->first();
-            if (!($item->tipo_pedido_id == 1 && in_array($pedido->status, [1, 2]))) {
-                return true;
+            if ($pedido->tipo_pedido !== 4) {
+                $item = $event->getItens()->first()->itens()->first();
+                if (!($item->tipo_pedido_id == 1 && in_array($pedido->status, [1, 2]))) {
+                    return true;
+                }
             }
             $associado = $event->getUsuario();
             if ($event->getPatrocinador()) {

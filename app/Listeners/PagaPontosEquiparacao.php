@@ -34,6 +34,12 @@ class PagaPontosEquiparacao
     {
         \Log::warning('Pagando pontos Equiparação');
 
+        \Log::warning($event->getPedido()->tipo_pedido);
+
+        if($event->getPedido()->tipo_pedido===4) {
+            return true;
+        }
+
         $usuario = $event->getUsuario()->getRelation('indicador');
         $itemPedido = $event->getPedido()->itens->first();
 

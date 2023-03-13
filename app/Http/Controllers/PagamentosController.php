@@ -452,12 +452,12 @@ class PagamentosController extends Controller
             $dados_pagamento->data_pagamento_efetivo = implode('-', array_reverse(explode('/', $request->get('data_pagamento_efetivo'))));
             $dados_pagamento->responsavel_user_id = Auth::user()->id;
             $dados_pagamento->save();
-            Log::info("Pedido pago por TED/DOC pedido # $log_id");
             $this->pedido->status = 2;
             $this->pedido->save();
 
             $pagamento = new Pagamentos($this->pedido);
             $erros = $pagamento->efetivarPagamento();
+
             if ($this->houveErros($erros)) {
                 Log::info('Houve erros no pagamento');
                 Log::info('');

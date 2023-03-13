@@ -246,15 +246,12 @@ class PedidoController extends Controller
         return view('default.pedidos.aguardando-pagamento', [
             'title' => 'Aguardando pagamento',
             'pedidos_aguardando' => DB::table('pedidos')
-                ->join('itens_pedido', 'itens_pedido.pedido_id', '=', 'pedidos.id')
-                ->join('itens', 'itens.id', '=', 'itens_pedido.item_id')
                 ->join('users', 'users.id', '=', 'pedidos.user_id')
-                ->where('itens.tipo_pedido_id', 4)
+                ->where('tipo_pedido', 4)
                 ->select(
                     'pedidos.id',
                     'pedidos.valor_total',
                     'pedidos.data_compra',
-                    'itens.name as item_name',
                     'users.name',
                     'users.empresa',
                     'users.id as user_id',
@@ -295,11 +292,7 @@ class PedidoController extends Controller
         return view('default.pedidos.aguardando-confirmacao', [
             'title' => 'Aguardando confirmação ',
             'pedidos_aguarda_confimacao' => Pedidos::with('itens.itens', 'dadosPagamento', 'user')
-                ->whereHas('itens', function ($query) {
-                    $query->whereHas('item', function ($query) {
-                        $query->where('tipo_pedido_id', '=', 4);
-                    });
-                })
+                ->where('tipo_pedido', 4)
                 ->where('status', 4)->get(),
         ]);
     }

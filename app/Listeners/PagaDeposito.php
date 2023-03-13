@@ -45,7 +45,7 @@ class PagaDeposito
                 //resgata ultima movimentação
                 $ultimoMovimento = Movimentos::ultimoMovimentoUserId($pedido->user->id);
 
-                $dadosMovimento = [
+               $dadosMovimento = [
                     'valor_manipulado' => $pedido->valor_total,
                     'saldo_anterior' => ! $ultimoMovimento ? 0 : $ultimoMovimento->saldo,
                     'saldo' => ! $ultimoMovimento ? $pedido->valor_total : $pedido->valor_total + $ultimoMovimento->saldo,
@@ -54,7 +54,7 @@ class PagaDeposito
                     'descricao' => 'Depósito #'.$pedido->id,
                     'responsavel_user_id' => Auth::user() ? Auth::user()->id : 1,
                     'user_id' => $pedido->user->id,
-                    'item_id' => $pedido->item()->id,
+                    //'item_id' => $pedido->item()->id,
                     'titulo_id' => $pedido->user->titulo->id,
                     'operacao_id' => 32,
                 ];

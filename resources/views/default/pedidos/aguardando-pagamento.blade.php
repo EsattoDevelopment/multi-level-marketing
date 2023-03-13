@@ -35,7 +35,6 @@
                                         <thead>
                                         <tr>
                                             <th>Nº Doc</th>
-                                            <th>Item</th>
                                             <th>Nome</th>
                                             <th>Valor</th>
                                             <th>Data compra</th>
@@ -46,7 +45,6 @@
                                         @foreach($pedidos_aguardando as $dd)
                                             <tr>
                                                 <td>{{ $dd->id }}</td>
-                                                <td>{{ $dd->item_name }}</td>
                                                 <td>{{ $dd->name }}</td>
                                                 <td>{{ mascaraMoeda($sistema->moeda, $dd->valor_total, 2, true) }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($dd->data_compra)->format('d/m/Y H:i:s') }}</td>

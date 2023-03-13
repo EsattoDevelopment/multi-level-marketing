@@ -30,6 +30,7 @@ class Pagamentos
         try {
             Log::info('@@@@@@@@@@@@@@@@@@@  Rodar sistema apos pagamento @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
             $respostaEventos = \Event::fire(new PedidoFoiPago($this->pedido));
+
             $count = 0;
             foreach ($respostaEventos as $key => $respostas) {
                 if (!$respostas) {
