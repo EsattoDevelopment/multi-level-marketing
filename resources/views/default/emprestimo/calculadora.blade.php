@@ -55,7 +55,7 @@
                                             <strong>
                                                 <sup>{{ $sistema->moeda }}</sup>
                                                 <span style="font-size: 32px">{{ mascaraMoeda($sistema->moeda, $parcela['valor_total'], 0) }}</span>
-                                                <sub>{{substr(explode('.', (string) $parcela['valor_total'])[1], 0, 2)}}</sub>
+                                                <sub>,{{substr(explode('.', (string) $parcela['valor_total'])[1], 0, 2)}}</sub>
                                             </strong>
                                         </span>
                                         <div class="mais-popular">
