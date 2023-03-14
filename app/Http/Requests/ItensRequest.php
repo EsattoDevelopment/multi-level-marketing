@@ -133,7 +133,7 @@ class ItensRequest extends Request
             'valor' => 'Valor',
             'temp_contrato' => 'Tempo de contrato',
             'avanca_titulo' => 'Avança titulo',
-            'pontos_binarios' => 'Pontos',
+            'pontos_binarios' => 'GMilhas',
             'milhas' => 'required|numeric',
             'libera_hotel' => 'required',
             'validade_milhas' => 'required|numeric',

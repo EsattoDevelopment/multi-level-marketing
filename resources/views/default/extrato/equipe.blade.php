@@ -5,14 +5,10 @@
     @include('default.errors.errors')
 
     <section class="content-header">
-        <h1>
-            Extrato Pontos de Equipe<br>
-        </h1>
-
+        <h1>Extrato GMilhas de Equipe<br></h1>
         <div style="width: 100%;">
             Total de pontos: <i id="total_pontos" class="text-green text-bold" style="font-size:1.3em;"></i>
         </div>
-
         <ol class="breadcrumb">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li>Extrato</li>
@@ -32,7 +28,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Data</th>
-                                    <th>Pontos</th>
+                                    <th>GMilhas</th>
                                     <th>Operação</th>
                                 </tr>
                             </thead>

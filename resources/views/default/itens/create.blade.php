@@ -415,24 +415,24 @@
                             <div class="box-body">
                                 @if($sistema->pontos_pessoais_calculo_exibicao == 1)
                                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                                        <label for="exampleInputEmail1">Pontos Pessoais<span class="text-red">*</span></label><br>
+                                        <label for="exampleInputEmail1">GMilhas Pessoais<span class="text-red">*</span></label><br>
                                         <small>Será multiplicado pela quantidade de itens</small>
                                         <div class="input-group">
                                             <input type="text" min="0" required name="pontos_pessoais"
                                                    value="{{ old('pontos_pessoais') }}"
-                                                   class="form-control" placeholder="Pontos Pessoais">
+                                                   class="form-control" placeholder="GMilhas Pessoais">
                                         </div>
                                     </div>
                                 @endif
 
                                 @if($sistema->pontos_equipe_calculo_exibicao == 1)
                                     <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                                        <label for="exampleInputEmail1">Pontos Equipe<span class="text-red">*</span></label><br>
+                                        <label for="exampleInputEmail1">GMilhas Equipe<span class="text-red">*</span></label><br>
                                         <small>Será multiplicado pela quantidade de itens</small>
                                         <div class="input-group">
                                             <input type="text" required min="0" name="pontos_equipe"
                                                    value="{{ old('pontos_equipe') }}"
-                                                   class="form-control" placeholder="Pontos Equipe">
+                                                   class="form-control" placeholder="GMilhas Equipe">
                                         </div>
                                     </div>
                                 @endif

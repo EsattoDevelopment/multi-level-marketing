@@ -89,7 +89,7 @@ class PagarPontosServices
     }
 
     /**
-     * verifica onde os pontos devem ser pagos (Pessoais, Equiparação ou unilevel).
+     * verifica onde os GMilhas devem ser pagos (Pessoais, Equiparação ou unilevel).
      *
      * @return bool
      */
@@ -172,7 +172,7 @@ class PagarPontosServices
     private function inserirPontosRedeUnilevel()
     {
         if ($this->profundidadePaga < $this->profundidade) {
-            \Log::info("Pagando profundidade {$this->profundidadePaga} - Pontos de Equipe");
+            \Log::info("Pagando profundidade {$this->profundidadePaga} - GMilhas de Equipe");
 
             $this->profundidadePaga++;
 

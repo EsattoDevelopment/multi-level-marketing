@@ -68,12 +68,12 @@ class TitulosRequest extends Request
             'bonus_indicador' => 'Bonus para patrocinador',
             'min_diretos_aprovados_binario_perna' => 'Minimo diretos ativos (Binario)',
             'cor' => 'Cor do titulo',
-            'percentual_binario' => 'Percentual dos pontos',
+            'percentual_binario' => 'Percentual das GMilhas',
             'teto_mensal_financeiro' => 'Teto financeiro mensal',
             'min_pontuacao_perna_menor' => 'Minimo pontuação (Binário)',
             'teto_pagamento_sobre_binario' => 'Teto pagamento diário do binário',
-            'pontos_pessoais_update' => 'Quantidade de pontos pessoais',
-            'pontos_equipe_update' => 'Quantidade de pontos de equipe',
+            'pontos_pessoais_update' => 'Quantidade de GMilhas pessoais',
+            'pontos_equipe_update' => 'Quantidade de GMilhas de equipe',
         ];
     }
 }

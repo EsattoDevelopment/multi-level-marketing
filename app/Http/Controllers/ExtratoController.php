@@ -207,7 +207,7 @@ class ExtratoController extends Controller
     public function equipe()
     {
         return view('default.extrato.equipe', [
-            'title' => 'Extrato de Pontos de Equipe',
+            'title' => 'Extrato de GMilhas de Equipe',
         ]);
     }
 
@@ -258,7 +258,7 @@ class ExtratoController extends Controller
     public function pessoais()
     {
         return view('default.extrato.pessoais', [
-            'title' => 'Extrato de Pontos Pessoais',
+            'title' => 'Extrato de GMilhas Pessoais',
         ]);
     }
 

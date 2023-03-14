@@ -358,7 +358,7 @@
                 <ul class="treeview-menu">
                     <li><a href="#"><i class="fa fa-building"></i> Código de Rastreamento </a></li>
                     <li><a href="#"><i class="fa fa-building"></i> Financeiro</a></li>
-                    <li><a href="#"><i class="fa fa-building"></i> Pontos Pessoais </a></li>
+                    <li><a href="#"><i class="fa fa-building"></i> GMilhas Pessoais </a></li>
                     <li><a href="#"><i class="fa fa-building"></i> Pontos Volume </a></li>
                 </ul>
             </li>

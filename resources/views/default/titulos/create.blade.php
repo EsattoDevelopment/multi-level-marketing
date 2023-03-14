@@ -243,16 +243,16 @@
                                 <h4>Parâmetros Para Update Automático de Título</h4>
                             </div>
                             <div class="form-group col-xs-12 col-sm-6">
-                                <label for="exampleInputEmail1">Quantidade de pontos pessoais <strong
+                                <label for="exampleInputEmail1">Quantidade de GMilhas pessoais <strong
                                             class="text-red">*</strong></label><br>
                                 <input type="text" name="pontos_pessoais_update"
                                        value="{{ old('pontos_pessoais_update') }}" class="form-control"
-                                       placeholder="Quantidade de pontos pessoais">
+                                       placeholder="Quantidade de GMilhas pessoais">
                             </div>
                             <div class="form-group col-xs-12 col-sm-6">
-                                <label for="exampleInputEmail1">Quantidade de pontos de equipe <strong class="text-red">*</strong></label><br>
+                                <label for="exampleInputEmail1">Quantidade de GMilhas de equipe <strong class="text-red">*</strong></label><br>
                                 <input type="text" name="pontos_equipe_update" value="{{ old('pontos_equipe_update') }}"
-                                       class="form-control" placeholder="Quantidade de pontos de equipe">
+                                       class="form-control" placeholder="Quantidade de GMilhas de equipe">
                             </div>
                             <div class="form-group col-xs-12">
                                 <label for="exampleInputEmail1">Quantidade de diretos por título <strong

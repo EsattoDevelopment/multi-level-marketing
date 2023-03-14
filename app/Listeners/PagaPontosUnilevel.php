@@ -32,7 +32,7 @@ class PagaPontosUnilevel
      */
     public function handle(BonusMensalidade $event)
     {
-        \Log::info('Pagando Pontos de Equipe');
+        \Log::info('Pagando GMilhas de Equipe');
 
         $usuario = $event->getUser();
         $pontos = $event->getMensalidade()->valor_pago;

@@ -26,10 +26,10 @@
                     </ul>
                 </li>
                 @if($sistema->pontos_pessoais_calculo_exibicao == 1)
-                    <li @if(Route::currentRouteName() == 'extrato.pessoais') class="active" @endif><a href="{{ route('extrato.pessoais') }}"><i class="fa fa-line-chart"></i> Pontos Pessoais</a></li>
+                    <li @if(Route::currentRouteName() == 'extrato.pessoais') class="active" @endif><a href="{{ route('extrato.pessoais') }}"><i class="fa fa-line-chart"></i> GMilhas Pessoais</a></li>
                 @endif
                 @if($sistema->pontos_equipe_calculo_exibicao == 1)
-                    <li @if(Route::currentRouteName() == 'extrato.equipe') class="active" @endif><a href="{{ route('extrato.equipe') }}"><i class="fa fa-line-chart"></i> Pontos de Equipe</a></li>
+                    <li @if(Route::currentRouteName() == 'extrato.equipe') class="active" @endif><a href="{{ route('extrato.equipe') }}"><i class="fa fa-line-chart"></i> GMilhas de Equipe</a></li>
                 @endif
             @endif
     </ul>

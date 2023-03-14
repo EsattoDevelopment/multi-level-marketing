@@ -6,7 +6,7 @@
 
     <section class="content-header">
         <h1>
-            Extrato de Pontos Pessoais<br>
+            Extrato de GMilhas Pessoais<br>
         </h1>
 
         <div style="width: 100%;">

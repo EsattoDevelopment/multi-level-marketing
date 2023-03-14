@@ -148,7 +148,7 @@
 
                             @if($sistema->pontos_pessoais_calculo_exibicao == 1)
                                 <hr>
-                                <strong><i class="fa fa-user margin-r-5"></i> <a href="{{ route('extrato.pessoais') }}">Pontos pessoais</a></strong>
+                                <strong><i class="fa fa-user margin-r-5"></i> <a href="{{ route('extrato.pessoais') }}">GMilhas pessoais</a></strong>
                                 <p class="text-right" style="font-size: 1.5em;">
                                     @if($usuario->extratoPessoais())
                                         {{ mascaraMoeda($sistema->moeda, $usuario->extratoPessoais()->saldo, 0) }}
@@ -159,7 +159,7 @@
                             @endif
                             @if($sistema->pontos_equipe_calculo_exibicao == 1)
                                 <hr>
-                                <strong><i class="fa fa-sitemap margin-r-5"></i> <a href="{{ route('extrato.equipe') }}">Pontos de equipe</a></strong>
+                                <strong><i class="fa fa-sitemap margin-r-5"></i> <a href="{{ route('extrato.equipe') }}">GMilhas de equipe</a></strong>
 
                                 <p class="text-right" style="font-size: 1.5em;">
                                     @if($usuario->pontosEquipe())

@@ -540,8 +540,8 @@
                                 </label>
                             </div>
                             <div class="form-group col-xs-12 col-lg-6">
-                                <label for="">Cálculo e exibição dos pontos pessoais</label> <br>
-                                <small>No momento só está tratando da exibição, continua claculando os pontos</small>
+                                <label for="">Cálculo e exibição das GMilhas pessoais</label> <br>
+                                <small>No momento só está tratando da exibição, continua claculando as GMilhas</small>
                                 <br>
                                 <label style="padding-right: 25px">
                                     <input type="radio" value="1" name="pontos_pessoais_calculo_exibicao" class="flat-red" {{ old('pontos_pessoais_calculo_exibicao', $dados->pontos_pessoais_calculo_exibicao)  == 1 ? 'checked' : '' }}>
@@ -553,7 +553,7 @@
                                 </label>
                             </div>
                             <div class="form-group col-xs-12 col-lg-6">
-                                <label for="">Cálculo e exibição dos pontos de equipe</label> <br>
+                                <label for="">Cálculo e exibição dos GMilhas de equipe</label> <br>
                                 <small>No momento só está tratando da exibição, continua claculando os pontos</small>
                                 <br>
                                 <label style="padding-right: 25px">

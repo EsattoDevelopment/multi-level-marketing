@@ -76,16 +76,16 @@ class TituloUpdateService
                     }
 
                     $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Diretos Ativos: '.$user->diretosAprovados()->count();
-                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Pessoais atual: '.$pontosPessoais;
-                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Equipe atual: '.$pontosEquipe;
+                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Pessoais atual: '.$pontosPessoais;
+                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Equipe atual: '.$pontosEquipe;
 
                     if ($user->titulo->tituloSuperior != null) {
                         $titulosuperior = $user->titulo->tituloSuperior;
 
                         $linha .= "<br>&nbsp;&nbsp;<b>Título Superior:</b> {$titulosuperior->name}";
                         $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Mim Diretos: '.$titulosuperior->min_diretos_aprovados;
-                        $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Pessoais: '.$titulosuperior->pontos_pessoais_update;
-                        $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Equipe: '.$titulosuperior->pontos_equipe_update;
+                        $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Pessoais: '.$titulosuperior->pontos_pessoais_update;
+                        $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Equipe: '.$titulosuperior->pontos_equipe_update;
 
                         $sobeTitulo = false;
                         $titulosUpdateOk = true;
@@ -176,16 +176,16 @@ class TituloUpdateService
                 }
 
                 $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Diretos Ativos: '.$user->diretosAprovados()->count();
-                $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Pessoais atual: '.$pontosPessoais;
-                $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Equipe atual: '.$pontosEquipe;
+                $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Pessoais atual: '.$pontosPessoais;
+                $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Equipe atual: '.$pontosEquipe;
 
                 if ($user->titulo->tituloSuperior != null) {
                     $titulosuperior = $user->titulo->tituloSuperior;
 
                     $linha .= "<br>&nbsp;&nbsp;<b>Título Superior:</b> {$titulosuperior->name}";
                     $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Mim Diretos: '.$titulosuperior->min_diretos_aprovados;
-                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Pessoais: '.$titulosuperior->pontos_pessoais_update;
-                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;Pontos Equipe: '.$titulosuperior->pontos_equipe_update;
+                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Pessoais: '.$titulosuperior->pontos_pessoais_update;
+                    $linha .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;GMilhas Equipe: '.$titulosuperior->pontos_equipe_update;
 
                     //$sobeTitulo = false;
                     $titulosUpdateOk = true;

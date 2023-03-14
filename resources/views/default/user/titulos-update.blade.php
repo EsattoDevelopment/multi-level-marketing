@@ -71,8 +71,8 @@
                                     <td>{{ $dd['titulo_update_name']}}</td>
                                     <td>
                                         <b>Min. Diretos Aprovados:</b> {{$dd['diretos_aprovados_update']}} <b>Atual:</b> {{$dd['diretos_aprovados']}}<br>
-                                        <b>Min. Pontos Pessoais:</b> {{$dd['ponto_pessoal_update']}} <b>Atual:</b> {{$dd['ponto_pessoal_atual']}}<br>
-                                        <b>Min. Pontos Equipe:</b> {{$dd['ponto_equipe_update']}} <b>Atual:</b> {{$dd['ponto_equipe_atual']}}<br>
+                                        <b>Min. GMilhas Pessoais:</b> {{$dd['ponto_pessoal_update']}} <b>Atual:</b> {{$dd['ponto_pessoal_atual']}}<br>
+                                        <b>Min. GMilhas Equipe:</b> {{$dd['ponto_equipe_update']}} <b>Atual:</b> {{$dd['ponto_equipe_atual']}}<br>
                                         @if(@count($dd['titulos_update']) > 0)
                                             @foreach($dd['titulos_update'] as $chave => $valor)
                                                 <b>{{$chave}} (Min:</b> {{$valor['minimo']}} <b>Atual:</b> {{$valor['atual']}}<b>)</b><br>

@@ -36,7 +36,7 @@ class PagaBinarios
      */
     public function handle(PedidoFoiPago $event)
     {
-        Log::info('Entrou pagamento pontos');
+        Log::info('Entrou pagamento GMilhas');
         if ($event->sistema->rede_binaria) {
             try {
                 if ($event->getUsuario()->id > 2) {

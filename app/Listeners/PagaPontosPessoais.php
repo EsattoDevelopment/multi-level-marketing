@@ -33,7 +33,7 @@ class PagaPontosPessoais
     public function handle(PedidoFoiPago $event)
     {
         if (in_array($event->getPedido()->tipo_pedido, [1, 2, 3, 5])) {
-            \Log::info('Pagando pontos pessoais');
+            \Log::info('Pagando GMilhas pessoais');
 
             $usuario = $event->getUsuario();
             $itemPedido = $event->getPedido()->itens->first();
