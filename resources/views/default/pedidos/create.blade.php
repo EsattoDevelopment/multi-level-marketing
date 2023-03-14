@@ -1,22 +1,16 @@
 @extends('default.layout.main')
 
 @section('content')
-
     @include('default.errors.errors')
-
     <section class="content-header">
-        <h1>
-            Portfólio {{ env('COMPANY_NAME', 'Nome empresa') }}
-        </h1>
-        <p>Escolha a CREDENCIAL mais adequada ao seu perfil.</p>
+        <h1>Portfólio {{ env('COMPANY_NAME', 'Nome empresa') }}</h1>
+        <p>Adquira CREDENCIAIS para desenvolver seu próprio negócio!</p>
         <h2>Saldo: {{ Auth::user()->ultimoMovimento() ? mascaraMoeda($sistema->moeda, Auth::user()->ultimoMovimento()->saldo, 2, true) : 0 }}</h2>
         <ol class="breadcrumb hidden-xs">
             <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
             <li class="active">Portfólio {{ env('COMPANY_NAME', 'Nome empresa') }}</li>
         </ol>
     </section>
-
-    <!-- Main content -->
     <section class="content">
         <div id="formulario" class="box-body">
             @foreach($itens->chunk(2) as $itenss)
@@ -34,21 +28,18 @@
                                 <br>
                                 <br>
                                 {!! $item->descricao !!}
-
                                 <hr style="margin: 5px 0;">
-
                                 {{--@if(Auth::user()->ultimoMovimento() ? Auth::user()->ultimoMovimento()->saldo : 0 >= $item->valor)--}}
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-item-{{ $item->id }}" {!! ($item->cor_item ? 'style="background-color: '.$item->cor_item.'; border-color: '.$item->cor_item.'; color: #FFF;"' : '') !!}>
                                     Contratar
                                 </button>
-                                {{--            @else
-                                                <span class="label label-default bg-black">Saldo Insuficiente</span><br><br>
-                                                    <a href="{{ route('deposito.depositar') }}" class="btn btn-success btn-sm text-black text-bold"><i class="fa fa-plus"></i> Adicionar crédito</a>
-                                            @endif--}}
+                                {{--@else
+                                    <span class="label label-default bg-black">Saldo Insuficiente</span><br><br>
+                                        <a href="{{ route('deposito.depositar') }}" class="btn btn-success btn-sm text-black text-bold"><i class="fa fa-plus"></i> Adicionar crédito</a>
+                                @endif--}}
                                 <br><br>
                             </div>
                         </div>
-
                         <div class="modal fade" id="modal-item-{{ $item->id }}" data-id="{{ $item->id }}" style="display: none;">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -66,7 +57,6 @@
                                             @endif
                                                 <strong>Parabéns</strong> <br>
                                             <p>Você está adquirindo: <strong>{{ $item->name }}</strong> no valor de <strong>{{ mascaraMoeda($sistema->moeda, $item->valor, 2, true) }}</strong>, assina-le o campo abaixo para concordar e clique no botão "CONFIRMAR" para continuar.</p>
-
                                             <input type="checkbox" name="aceite" @click="aceite = !aceite" v-model="aceite_{{ $item->id }}"> <strong>Li as informações e estou de acordo</strong>
                                             @if($item->habilita_recontratacao_automatica)
                                                 <div class="form-group">
@@ -102,13 +92,10 @@
                                             <input type="hidden" name="qtd_itens" value="1">
                                             <input type="hidden" name="modo_recontratacao_automatica_original" value="{{ $item->modo_recontratacao_automatica }}">
                                             <button type="submit" :disabled="!aceite_{{ $item->id }}" class="btn btn-primary">Confirmar</button>
-
                                         </div>
                                     </form>
                                 </div>
-                                <!-- /.modal-content -->
                             </div>
-                            <!-- /.modal-dialog -->
                         </div>
                     @endforeach
                 </div>
